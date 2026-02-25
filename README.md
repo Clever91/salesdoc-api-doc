@@ -124,7 +124,6 @@
 | 9.32 | [`getInventory`](06-get-extra.md#932-getinventory--инвентаризация) | Инвентаризация                   |
 | 9.33 | [`getShipper`](06-get-extra.md#933-getshipper--поставщики) | Поставщики                       |
 | 9.34 | [`getPaymentConfirmation`](06-get-extra.md#934-getpaymentconfirmation--подтверждение-оплат) | Подтверждение оплат              |
-| 9.35 | `getAgentLastTime` | Последнее местоположение агентов |
 | 9.36 | [`getBonus`](06-get-extra.md#936-getbonus--бонусы) | Бонусы                           |
 | 9.37 | [`getPRCategory`](06-get-extra.md#937-getprcategory--категории-фотоотчётов) | Категории фотоотчётов            |
 | 9.38 | [`getPhotoReport`](06-get-extra.md#938-getphotoreport--фотоотчёты) | Фотоотчёты                       |
@@ -159,9 +158,7 @@
 | 10.9  | [`setProductGroup`](07-set-references.md#109-setproductgroup--создатьобновить-группы-товаров) | Создать/обновить группы товаров     |
 | 10.10 | [`setPaymentType`](07-set-references.md#1010-setpaymenttype--создатьобновить-типы-оплат) | Создать/обновить типы оплат         |
 | 10.11 | [`setPriceType`](07-set-references.md#1011-setpricetype--создатьобновить-типы-цен) | Создать/обновить типы цен           |
-| 10.12 | `setPriceType2` | Создать типы цен (для всех валют)   |
 | 10.13 | [`setPrice`](07-set-references.md#1013-setprice--установить-цены-товаров) | Установить цены                     |
-| 10.14 | `setPrice2` | Установить цены (для всех типов)    |
 | 10.15 | [`setAgent`](07-set-references.md#1015-setagent--создатьобновить-агентов) | Создать/обновить агентов            |
 | 10.16 | [`setExpeditor`](07-set-references.md#1016-setexpeditor--создатьобновить-экспедиторов) | Создать/обновить экспедиторов       |
 | 10.17 | [`setClient`](07-set-references.md#1017-setclient--создатьобновить-клиентов) | Создать/обновить клиентов           |
