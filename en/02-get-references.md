@@ -29,7 +29,7 @@ All GET methods support pagination (`limit`, `page`), period and sort.
                 "CS_id": "d0_1",
                 "SD_id": "d0_1",
                 "code_1C": "000000001",
-                "name": "Сум",
+                "name": "UZS",
                 "short": "UZS",
                 "active": "Y"
             }
@@ -43,18 +43,18 @@ All GET methods support pagination (`limit`, `page`), period and sort.
 
 | Field | Type | Description |
 |------|-----|----------|
-| `CS_id` | string | Идентификатор (с префиксом) |
-| `SD_id` | string | Серверный ID |
-| `code_1C` | string | Код из 1С |
-| `name` | string | Название валюты |
-| `short` | string | Краткое обозначение |
-| `active` | string | Активность: `Y` — активна, `N` — неактивна |
+| `CS_id` | string | Identifier (with prefix) |
+| `SD_id` | string | Server ID |
+| `code_1C` | string | 1C code |
+| `name` | string | Currency name |
+| `short` | string | Short label |
+| `active` | string | Active: `Y` — active, `N` — inactive |
 
 ---
 
 ### 9.2. `getUnit` — Units of measure
 
-**Description:** Получение списка единиц измерения товаров.
+**Description:** Returns the list of product units of measure.
 
 **Request:**
 ```json
@@ -74,9 +74,9 @@ All GET methods support pagination (`limit`, `page`), period and sort.
             {
                 "CS_id": "d0_1",
                 "SD_id": "d0_1",
-                "code_1C": "шт",
-                "name": "Штука",
-                "short": "шт",
+                "code_1C": "pc",
+                "name": "Piece",
+                "short": "pc",
                 "active": "Y"
             }
         ]
@@ -89,24 +89,24 @@ All GET methods support pagination (`limit`, `page`), period and sort.
 
 | Field | Type | Description |
 |------|-----|----------|
-| `CS_id` | string | Идентификатор (с префиксом) |
-| `SD_id` | string | Серверный ID |
-| `code_1C` | string | Код из 1С |
-| `name` | string | Название единицы измерения |
-| `short` | string | Краткое обозначение |
-| `active` | string | Активность: `Y` — активна, `N` — неактивна |
+| `CS_id` | string | Identifier (with prefix) |
+| `SD_id` | string | Server ID |
+| `code_1C` | string | 1C code |
+| `name` | string | Unit of measure name |
+| `short` | string | Short label |
+| `active` | string | Active: `Y` — active, `N` — inactive |
 
 ---
 
 ### 9.3. `getClientCategory` — Client categories
 
-**Description:** Получение списка категорий клиентов.
+**Description:** Returns the list of client categories.
 
 **Filters:**
 
-| Фильтр | Значения | Описание |
-|--------|----------|----------|
-| `filter.include` | `sd`, `1c`, `all` | Фильтр по источнику создания |
+| Filter | Values | Description |
+|--------|--------|-------------|
+| `filter.include` | `sd`, `1c`, `all` | Filter by creation source |
 
 **Request:**
 ```json
@@ -129,8 +129,8 @@ All GET methods support pagination (`limit`, `page`), period and sort.
                 "CS_id": "d0_1",
                 "SD_id": "d0_1",
                 "code_1C": "000000001",
-                "name": "Оптовый",
-                "description": "Оптовый покупатель",
+                "name": "Wholesale",
+                "description": "Wholesale buyer",
                 "active": "Y",
                 "sort": 500
             }
@@ -144,31 +144,31 @@ All GET methods support pagination (`limit`, `page`), period and sort.
 
 | Field | Type | Description |
 |------|-----|----------|
-| `CS_id` | string | Идентификатор (с префиксом) |
-| `SD_id` | string | Серверный ID |
-| `code_1C` | string | Код из 1С |
-| `name` | string | Название категории |
-| `description` | string | Описание категории |
-| `active` | string | Активность: `Y` — активна, `N` — неактивна |
-| `sort` | integer | Порядок сортировки |
+| `CS_id` | string | Identifier (with prefix) |
+| `SD_id` | string | Server ID |
+| `code_1C` | string | 1C code |
+| `name` | string | Category name |
+| `description` | string | Category description |
+| `active` | string | Active: `Y` — active, `N` — inactive |
+| `sort` | integer | Sort order |
 
 ---
 
 ### 9.4. `getProduct` — Products
 
-**Description:** Получение списка товаров с полной информацией, включая категорию, подкатегорию, единицу измерения, бренд и группу.
+**Description:** Returns the list of products with full info: category, subcategory, unit of measure, brand and group.
 
 **Filters:**
 
-| Фильтр | Описание |
-|--------|----------|
-| `filter.products.SD_id` | Массив ID продуктов |
-| `filter.products.code_1C` | Массив кодов 1С |
-| `filter.trade.CS_id` | ID торгового направления |
-| `filter.trade.SD_id` | SD_id торгового направления |
-| `filter.trade.code_1C` | Код 1С торгового направления |
+| Filter | Description |
+|--------|-------------|
+| `filter.products.SD_id` | Array of product IDs |
+| `filter.products.code_1C` | Array of 1C codes |
+| `filter.trade.CS_id` | Trade direction ID |
+| `filter.trade.SD_id` | Trade direction SD_id |
+| `filter.trade.code_1C` | Trade direction 1C code |
 
-**Запрос (фильтр по списку товаров):**
+**Request (filter by product list):**
 ```json
 {
     "method": "getProduct",
@@ -185,9 +185,9 @@ All GET methods support pagination (`limit`, `page`), period and sort.
 }
 ```
 
-> Альтернатива для `filter.products`: можно указать **code_1C** (массив, например `["000001", "000002"]`) вместо SD_id.
+> Alternative for `filter.products`: you can use **code_1C** (array, e.g. `["000001", "000002"]`) instead of SD_id.
 
-**Запрос (фильтр по торговому направлению):**
+**Request (filter by trade direction):**
 ```json
 {
     "method": "getProduct",
@@ -204,7 +204,7 @@ All GET methods support pagination (`limit`, `page`), period and sort.
 }
 ```
 
-> Альтернативы для `filter.trade`: можно указать **SD_id** (например `"d0_5"`) или **code_1C** (например `"TD001"`) вместо CS_id.
+> Alternatives for `filter.trade`: you can use **SD_id** (e.g. `"d0_5"`) or **code_1C** (e.g. `"TD001"`) instead of CS_id.
 
 **Response:**
 ```json
@@ -216,7 +216,7 @@ All GET methods support pagination (`limit`, `page`), period and sort.
                 "CS_id": "d0_15",
                 "SD_id": "d0_15",
                 "code_1C": "000000015",
-                "name": "Кока-Кола 1.5л",
+                "name": "Coca-Cola 1.5L",
                 "active": "Y",
                 "sort": 100,
                 "volume": 0.5,
@@ -242,7 +242,7 @@ All GET methods support pagination (`limit`, `page`), period and sort.
                 "unit": {
                     "CS_id": "d0_2",
                     "SD_id": "d0_2",
-                    "code_1C": "шт"
+                    "code_1C": "pc"
                 },
                 "brand": {
                     "CS_id": "1",
@@ -270,52 +270,52 @@ All GET methods support pagination (`limit`, `page`), period and sort.
 
 | Field | Type | Description |
 |------|-----|----------|
-| `CS_id` | string | Идентификатор (с префиксом) |
-| `SD_id` | string | Серверный ID |
-| `code_1C` | string | Код из 1С |
-| `name` | string | Название товара |
-| `active` | string | Активность: `Y` — активен, `N` — неактивен |
-| `sort` | integer | Порядок сортировки |
-| `volume` | float | Объём товара |
-| `packQuantity` | integer | Количество штук в упаковке |
-| `barCode` | string | Штрих-код |
-| `weight` | float | Вес товара |
-| `imageID` | string | Имя файла изображения |
-| `imageUrl` | string | URL полного изображения |
-| `thumbUrl` | string | URL миниатюры |
-| `sapCode` | string\|null | SAP-код |
-| `ikpu` | string\|null | Код ИКПУ |
-| `part_number` | string\|null | Артикул |
-| **category** | object | Категория товара |
-| `category.CS_id` | string | Идентификатор категории |
-| `category.SD_id` | string | Серверный ID категории |
-| `category.code_1C` | string | Код категории в 1С |
-| **subCategory** | object | Подкатегория товара |
-| `subCategory.CS_id` | string | Идентификатор подкатегории |
-| `subCategory.SD_id` | string | Серверный ID подкатегории |
-| `subCategory.code_1C` | string | Код подкатегории в 1С |
-| **unit** | object | Единица измерения |
-| `unit.CS_id` | string | Идентификатор единицы |
-| `unit.SD_id` | string | Серверный ID единицы |
-| `unit.code_1C` | string | Код единицы в 1С |
-| **brand** | object | Бренд |
-| `brand.CS_id` | string | Идентификатор бренда |
-| `brand.SD_id` | string | Серверный ID бренда |
-| `brand.code_1C` | string\|null | Код бренда в 1С |
-| **trade** | object | Торговое направление |
-| `trade.CS_id` | string | Идентификатор торгового направления |
-| `trade.SD_id` | string | Серверный ID торгового направления |
-| `trade.code_1C` | string\|null | Код торгового направления в 1С |
-| **group** | object | Группа товаров |
-| `group.CS_id` | string | Идентификатор группы |
-| `group.SD_id` | string | Серверный ID группы |
-| `group.code_1C` | string | Код группы в 1С |
+| `CS_id` | string | Identifier (with prefix) |
+| `SD_id` | string | Server ID |
+| `code_1C` | string | 1C code |
+| `name` | string | Product name |
+| `active` | string | Active: `Y` — active, `N` — inactive |
+| `sort` | integer | Sort order |
+| `volume` | float | Product volume |
+| `packQuantity` | integer | Quantity per pack |
+| `barCode` | string | Barcode |
+| `weight` | float | Product weight |
+| `imageID` | string | Image file name |
+| `imageUrl` | string | Full image URL |
+| `thumbUrl` | string | Thumbnail URL |
+| `sapCode` | string\|null | SAP code |
+| `ikpu` | string\|null | IKPU code |
+| `part_number` | string\|null | Part number |
+| **category** | object | Product category |
+| `category.CS_id` | string | Category identifier |
+| `category.SD_id` | string | Category server ID |
+| `category.code_1C` | string | Category 1C code |
+| **subCategory** | object | Product subcategory |
+| `subCategory.CS_id` | string | Subcategory identifier |
+| `subCategory.SD_id` | string | Subcategory server ID |
+| `subCategory.code_1C` | string | Subcategory 1C code |
+| **unit** | object | Unit of measure |
+| `unit.CS_id` | string | Unit identifier |
+| `unit.SD_id` | string | Unit server ID |
+| `unit.code_1C` | string | Unit 1C code |
+| **brand** | object | Brand |
+| `brand.CS_id` | string | Brand identifier |
+| `brand.SD_id` | string | Brand server ID |
+| `brand.code_1C` | string\|null | Brand 1C code |
+| **trade** | object | Trade direction |
+| `trade.CS_id` | string | Trade direction identifier |
+| `trade.SD_id` | string | Trade direction server ID |
+| `trade.code_1C` | string\|null | Trade direction 1C code |
+| **group** | object | Product group |
+| `group.CS_id` | string | Group identifier |
+| `group.SD_id` | string | Group server ID |
+| `group.code_1C` | string | Group 1C code |
 
 ---
 
 ### 9.5. `getProductCategory` — Product categories
 
-**Description:** Получение списка категорий товаров.
+**Description:** Returns the list of product categories.
 
 **Request:**
 ```json
@@ -336,12 +336,12 @@ All GET methods support pagination (`limit`, `page`), period and sort.
                 "CS_id": "d0_1",
                 "SD_id": "d0_1",
                 "code_1C": "000000001",
-                "name": "Напитки",
+                "name": "Beverages",
                 "active": "Y",
                 "unit": {
                     "CS_id": "d0_2",
                     "SD_id": "d0_2",
-                    "code_1C": "шт"
+                    "code_1C": "pc"
                 }
             }
         ]
@@ -354,21 +354,21 @@ All GET methods support pagination (`limit`, `page`), period and sort.
 
 | Field | Type | Description |
 |------|-----|----------|
-| `CS_id` | string | Идентификатор (с префиксом) |
-| `SD_id` | string | Серверный ID |
-| `code_1C` | string | Код из 1С |
-| `name` | string | Название категории |
-| `active` | string | Активность: `Y` — активна, `N` — неактивна |
-| **unit** | object | Единица измерения по умолчанию |
-| `unit.CS_id` | string | Идентификатор единицы |
-| `unit.SD_id` | string | Серверный ID единицы |
-| `unit.code_1C` | string | Код единицы в 1С |
+| `CS_id` | string | Identifier (with prefix) |
+| `SD_id` | string | Server ID |
+| `code_1C` | string | 1C code |
+| `name` | string | Category name |
+| `active` | string | Active: `Y` — active, `N` — inactive |
+| **unit** | object | Default unit of measure |
+| `unit.CS_id` | string | Unit identifier |
+| `unit.SD_id` | string | Unit server ID |
+| `unit.code_1C` | string | Unit 1C code |
 
 ---
 
 ### 9.6. `getProductSubCategory` — Product subcategories
 
-**Description:** Получение списка подкатегорий товаров.
+**Description:** Returns the list of product subcategories.
 
 **Request:**
 ```json
@@ -389,12 +389,12 @@ All GET methods support pagination (`limit`, `page`), period and sort.
                 "CS_id": "d0_1",
                 "SD_id": "d0_1",
                 "code_1C": "000000001",
-                "name": "Газированные",
+                "name": "Carbonated",
                 "active": "Y",
                 "unit": {
                     "CS_id": "d0_2",
                     "SD_id": "d0_2",
-                    "code_1C": "шт"
+                    "code_1C": "pc"
                 }
             }
         ]
@@ -407,21 +407,21 @@ All GET methods support pagination (`limit`, `page`), period and sort.
 
 | Field | Type | Description |
 |------|-----|----------|
-| `CS_id` | string | Идентификатор (с префиксом) |
-| `SD_id` | string | Серверный ID |
-| `code_1C` | string | Код из 1С |
-| `name` | string | Название подкатегории |
-| `active` | string | Активность: `Y` — активна, `N` — неактивна |
-| **unit** | object | Единица измерения по умолчанию |
-| `unit.CS_id` | string | Идентификатор единицы |
-| `unit.SD_id` | string | Серверный ID единицы |
-| `unit.code_1C` | string | Код единицы в 1С |
+| `CS_id` | string | Identifier (with prefix) |
+| `SD_id` | string | Server ID |
+| `code_1C` | string | 1C code |
+| `name` | string | Subcategory name |
+| `active` | string | Active: `Y` — active, `N` — inactive |
+| **unit** | object | Default unit of measure |
+| `unit.CS_id` | string | Unit identifier |
+| `unit.SD_id` | string | Unit server ID |
+| `unit.code_1C` | string | Unit 1C code |
 
 ---
 
 ### 9.7. `getProductGroup` — Product groups
 
-**Description:** Получение списка групп товаров.
+**Description:** Returns the list of product groups.
 
 **Request:**
 ```json
@@ -442,7 +442,7 @@ All GET methods support pagination (`limit`, `page`), period and sort.
                 "CS_id": "d0_1",
                 "SD_id": "d0_1",
                 "code_1C": "GRP001",
-                "name": "Группа А",
+                "name": "Group A",
                 "active": "Y"
             }
         ]
@@ -455,17 +455,17 @@ All GET methods support pagination (`limit`, `page`), period and sort.
 
 | Field | Type | Description |
 |------|-----|----------|
-| `CS_id` | string | Идентификатор (с префиксом) |
-| `SD_id` | string | Серверный ID |
-| `code_1C` | string | Код из 1С |
-| `name` | string | Название группы |
-| `active` | string | Активность: `Y` — активна, `N` — неактивна |
+| `CS_id` | string | Identifier (with prefix) |
+| `SD_id` | string | Server ID |
+| `code_1C` | string | 1C code |
+| `name` | string | Group name |
+| `active` | string | Active: `Y` — active, `N` — inactive |
 
 ---
 
 ### 9.8. `getPriceType` — Price types
 
-**Description:** Получение списка типов цен с привязанными валютами и типами оплат.
+**Description:** Returns the list of price types with linked currencies and payment types.
 
 **Request:**
 ```json
@@ -486,7 +486,7 @@ All GET methods support pagination (`limit`, `page`), period and sort.
                 "CS_id": "d0_1",
                 "SD_id": "d0_1",
                 "code_1C": "000000001",
-                "name": "Розничная цена (Сум)",
+                "name": "Retail price (UZS)",
                 "active": "Y",
                 "valyutaType": {
                     "CS_id": "d0_1",
@@ -509,34 +509,34 @@ All GET methods support pagination (`limit`, `page`), period and sort.
 
 | Field | Type | Description |
 |------|-----|----------|
-| `CS_id` | string | Идентификатор (с префиксом) |
-| `SD_id` | string | Серверный ID |
-| `code_1C` | string | Код из 1С |
-| `name` | string | Название типа цены |
-| `active` | string | Активность: `Y` — активен, `N` — неактивен |
-| **valyutaType** | object | Тип валюты |
-| `valyutaType.CS_id` | string | Идентификатор валюты |
-| `valyutaType.SD_id` | string | Серверный ID валюты |
-| `valyutaType.code_1C` | string | Код валюты в 1С |
-| **paymentType** | object | Тип оплаты |
-| `paymentType.CS_id` | string | Идентификатор типа оплаты |
-| `paymentType.SD_id` | string | Серверный ID типа оплаты |
-| `paymentType.code_1C` | string | Код типа оплаты в 1С |
+| `CS_id` | string | Identifier (with prefix) |
+| `SD_id` | string | Server ID |
+| `code_1C` | string | 1C code |
+| `name` | string | Price type name |
+| `active` | string | Active: `Y` — active, `N` — inactive |
+| **valyutaType** | object | Currency type |
+| `valyutaType.CS_id` | string | Currency identifier |
+| `valyutaType.SD_id` | string | Currency server ID |
+| `valyutaType.code_1C` | string | Currency 1C code |
+| **paymentType** | object | Payment type |
+| `paymentType.CS_id` | string | Payment type identifier |
+| `paymentType.SD_id` | string | Payment type server ID |
+| `paymentType.code_1C` | string | Payment type 1C code |
 
 ---
 
 ### 9.9. `getPrice` — Prices
 
-**Description:** Получение цен всех товаров по указанному типу цены.
+**Description:** Returns prices of all products for the given price type.
 
-**Параметры:**
+**Parameters:**
 
-| Параметр | Тип | Обязательное | Описание |
-|----------|-----|:---:|----------|
-| `params.priceType.SD_id` | string | ✅* | ID типа цены |
-| `params.priceType.code_1C` | string | ✅* | Код 1С типа цены |
+| Parameter | Type | Required | Description |
+|-----------|------|:--------:|-------------|
+| `params.priceType.SD_id` | string | ✅* | Price type ID |
+| `params.priceType.code_1C` | string | ✅* | Price type 1C code |
 
-> *Должен быть указан хотя бы один из идентификаторов.
+> *At least one of the identifiers must be specified.
 
 **Request:**
 ```json
@@ -576,34 +576,34 @@ All GET methods support pagination (`limit`, `page`), period and sort.
 
 | Field | Type | Description |
 |------|-----|----------|
-| **product** | object | Объект товара |
-| `product.CS_id` | string | Идентификатор товара |
-| `product.SD_id` | string | Серверный ID товара |
-| `product.code_1C` | string | Код товара в 1С |
-| `price` | float | Цена товара |
+| **product** | object | Product object |
+| `product.CS_id` | string | Product identifier |
+| `product.SD_id` | string | Product server ID |
+| `product.code_1C` | string | Product 1C code |
+| `price` | float | Product price |
 
 ---
 
 ### 9.10. `getClient` — Clients
 
-**Description:** Получение списка клиентов с полной информацией: категория, тип, канал, территория, экспедитор, агенты с днями посещения.
+**Description:** Returns the list of clients with full info: category, type, channel, territory, expeditor, agents with visit days.
 
 **Filters:**
 
-| Фильтр | Описание |
-|--------|----------|
-| `filter.period.update.from/to` | Период по дате обновления |
-| `filter.period.create.from/to` | Период по дате создания |
-| `sortBy.name` | Сортировка: `updatedAt` или `createdAt` |
+| Filter | Description |
+|--------|-------------|
+| `filter.period.update.from/to` | Period by update date |
+| `filter.period.create.from/to` | Period by creation date |
+| `sortBy.name` | Sort: `updatedAt` or `createdAt` |
 | `sortBy.asc` | `true` — ASC, `false` — DESC |
 
-**Условная фильтрация:**
+**Conditional filtering:**
 
-В блоке `filter` можно указать условия по `CS_id`, `SD_id`, `code_1C` и `active` для выборки конкретных клиентов.
+In the `filter` block you can specify conditions by `CS_id`, `SD_id`, `code_1C` and `active` to select specific clients.
 
-**Примеры использования фильтров:**
+**Filter examples:**
 
-**Фильтр по дате обновления (`filter.period.update`):**
+**Filter by update date (`filter.period.update`):**
 ```json
 {
     "method": "getClient",
@@ -627,7 +627,7 @@ All GET methods support pagination (`limit`, `page`), period and sort.
 }
 ```
 
-**Фильтр по дате создания (`filter.period.create`):**
+**Filter by creation date (`filter.period.create`):**
 ```json
 {
     "method": "getClient",
@@ -650,7 +650,7 @@ All GET methods support pagination (`limit`, `page`), period and sort.
 }
 ```
 
-**Сортировка (`sortBy`):**
+**Sorting (`sortBy`):**
 ```json
 {
     "method": "getClient",
@@ -664,9 +664,9 @@ All GET methods support pagination (`limit`, `page`), period and sort.
     }
 }
 ```
-> `name` — поле сортировки: `updatedAt` или `createdAt`. `asc` — `true` для ASC, `false` для DESC.
+> `name` — sort field: `updatedAt` or `createdAt`. `asc` — `true` for ASC, `false` for DESC.
 
-**Условная фильтрация (по конкретному клиенту):**
+**Conditional filter (by specific client):**
 ```json
 {
     "method": "getClient",
@@ -679,9 +679,9 @@ All GET methods support pagination (`limit`, `page`), period and sort.
 }
 ```
 
-> Альтернативы для фильтра по клиенту: можно указать **SD_id** (например `"d0_1"`) или **code_1C** (например `"000000100"`) вместо CS_id.
+> Alternatives for client filter: you can use **SD_id** (e.g. `"d0_1"`) or **code_1C** (e.g. `"000000100"`) instead of CS_id.
 
-**Фильтр по активности:**
+**Filter by activity:**
 ```json
 {
     "method": "getClient",
@@ -693,9 +693,9 @@ All GET methods support pagination (`limit`, `page`), period and sort.
     }
 }
 ```
-> `active` — `Y` для активных, `N` для неактивных клиентов.
+> `active` — `Y` for active, `N` for inactive clients.
 
-**Комбинирование фильтров:**
+**Combining filters:**
 ```json
 {
     "method": "getClient",
@@ -730,16 +730,16 @@ All GET methods support pagination (`limit`, `page`), period and sort.
                 "CS_id": "F1-d0_100",
                 "SD_id": "d0_100",
                 "code_1C": "000000100",
-                "name": "Магазин \"Звезда\"",
-                "firmName": "ООО Звезда",
-                "address": "ул. Амира Темура, 5",
-                "waymark": "Напротив банка",
+                "name": "Star Shop",
+                "firmName": "Star LLC",
+                "address": "5 Amir Temur St",
+                "waymark": "Opposite the bank",
                 "tel": "+998901234567",
                 "lon": 69.2401,
                 "lat": 41.2995,
                 "allowKredit": 1,
                 "allowConsig": 0,
-                "comment": "Ключевой клиент",
+                "comment": "Key client",
                 "photo": null,
                 "active": "Y",
                 "inn": "123456789",
@@ -748,7 +748,7 @@ All GET methods support pagination (`limit`, `page`), period and sort.
                 "createdAt": "2024-01-10 08:00:00",
                 "nspCode": null,
                 "bankDetails": {
-                    "bank": "Асака банк",
+                    "bank": "Asaka Bank",
                     "account": "20208000900123456789",
                     "mfo": "00444"
                 },
@@ -795,60 +795,60 @@ All GET methods support pagination (`limit`, `page`), period and sort.
 
 | Field | Type | Description |
 |------|-----|----------|
-| `CS_id` | string | Внешний идентификатор клиента (с префиксом филиала) |
-| `SD_id` | string | Серверный ID клиента |
-| `code_1C` | string | Код клиента в 1С |
-| `name` | string | Название клиента |
-| `firmName` | string | Юридическое название |
-| `address` | string | Адрес |
-| `waymark` | string | Ориентир |
-| `tel` | string | Телефон |
-| `lon` | float | Долгота (GPS) |
-| `lat` | float | Широта (GPS) |
-| `allowKredit` | integer | Разрешён кредит: `1` — да, `0` — нет |
-| `allowConsig` | integer | Разрешена консигнация: `1` — да, `0` — нет |
-| `comment` | string | Комментарий |
-| `photo` | string\|null | Фото клиента |
-| `active` | string | Активность: `Y` — активен, `N` — неактивен |
-| `inn` | string | ИНН клиента |
-| `contract` | string\|null | Номер договора |
-| `updatedAt` | string | Дата последнего обновления |
-| `createdAt` | string | Дата создания |
-| `nspCode` | string\|null | NSP-код |
-| **bankDetails** | object | Банковские реквизиты |
-| `bankDetails.bank` | string | Название банка |
-| `bankDetails.account` | string | Номер счёта |
-| `bankDetails.mfo` | string | МФО банка |
-| **category** | object | Категория клиента |
-| `category.CS_id` | string | Идентификатор категории |
-| `category.SD_id` | string | Серверный ID категории |
-| `category.code_1C` | string | Код категории в 1С |
-| **type** | object | Тип клиента |
-| `type.CS_id` | string | Идентификатор типа |
-| `type.SD_id` | string | Серверный ID типа |
-| `type.code_1C` | string | Код типа в 1С |
-| **channel** | object | Канал сбыта |
-| `channel.CS_id` | string | Идентификатор канала |
-| `channel.SD_id` | string | Серверный ID канала |
-| `channel.code_1C` | string | Код канала в 1С |
-| **city** | object | Город |
-| `city.CS_id` | string | Идентификатор города |
-| `city.SD_id` | string | Серверный ID города |
-| `city.code_1C` | string | Код города в 1С |
-| **expeditor** | object | Экспедитор |
-| `expeditor.CS_id` | string | Идентификатор экспедитора |
-| `expeditor.SD_id` | string | Серверный ID экспедитора |
-| `expeditor.code_1C` | string | Код экспедитора в 1С |
-| **agents** | array | Массив прикреплённых агентов |
-| `agents[].id` | string | ID агента |
-| `agents[].code` | string | Код агента в 1С |
-| `agents[].days` | array | Дни посещения (1=Пн, 2=Вт, ..., 7=Вс) |
+| `CS_id` | string | Client external identifier (with branch prefix) |
+| `SD_id` | string | Client server ID |
+| `code_1C` | string | Client 1C code |
+| `name` | string | Client name |
+| `firmName` | string | Legal name |
+| `address` | string | Address |
+| `waymark` | string | Landmark |
+| `tel` | string | Phone |
+| `lon` | float | Longitude (GPS) |
+| `lat` | float | Latitude (GPS) |
+| `allowKredit` | integer | Credit allowed: `1` — yes, `0` — no |
+| `allowConsig` | integer | Consignment allowed: `1` — yes, `0` — no |
+| `comment` | string | Comment |
+| `photo` | string\|null | Client photo |
+| `active` | string | Active: `Y` — active, `N` — inactive |
+| `inn` | string | Client INN |
+| `contract` | string\|null | Contract number |
+| `updatedAt` | string | Last update date |
+| `createdAt` | string | Creation date |
+| `nspCode` | string\|null | NSP code |
+| **bankDetails** | object | Bank details |
+| `bankDetails.bank` | string | Bank name |
+| `bankDetails.account` | string | Account number |
+| `bankDetails.mfo` | string | Bank MFO |
+| **category** | object | Client category |
+| `category.CS_id` | string | Category identifier |
+| `category.SD_id` | string | Category server ID |
+| `category.code_1C` | string | Category 1C code |
+| **type** | object | Client type |
+| `type.CS_id` | string | Type identifier |
+| `type.SD_id` | string | Type server ID |
+| `type.code_1C` | string | Type 1C code |
+| **channel** | object | Sales channel |
+| `channel.CS_id` | string | Channel identifier |
+| `channel.SD_id` | string | Channel server ID |
+| `channel.code_1C` | string | Channel 1C code |
+| **city** | object | City |
+| `city.CS_id` | string | City identifier |
+| `city.SD_id` | string | City server ID |
+| `city.code_1C` | string | City 1C code |
+| **expeditor** | object | Expeditor |
+| `expeditor.CS_id` | string | Expeditor identifier |
+| `expeditor.SD_id` | string | Expeditor server ID |
+| `expeditor.code_1C` | string | Expeditor 1C code |
+| **agents** | array | Attached agents |
+| `agents[].id` | string | Agent ID |
+| `agents[].code` | string | Agent 1C code |
+| `agents[].days` | array | Visit days (1=Mon, 2=Tue, ..., 7=Sun) |
 
 ---
 
 ### 9.11. `getAgent` — Agents
 
-**Description:** Получение списка агентов с привязанными пользователями.
+**Description:** Returns the list of agents with linked users.
 
 **Request:**
 ```json
@@ -869,7 +869,7 @@ All GET methods support pagination (`limit`, `page`), period and sort.
                 "CS_id": "F1-d0_3",
                 "SD_id": "d0_3",
                 "code_1C": "000000003",
-                "name": "Иванов Иван",
+                "name": "Ivan Ivanov",
                 "active": "Y",
                 "user": [
                     {
@@ -890,22 +890,22 @@ All GET methods support pagination (`limit`, `page`), period and sort.
 
 | Field | Type | Description |
 |------|-----|----------|
-| `CS_id` | string | Внешний идентификатор (с префиксом филиала) |
-| `SD_id` | string | Серверный ID |
-| `code_1C` | string | Код агента в 1С |
-| `name` | string | Имя агента |
-| `active` | string | Активность: `Y` — активен, `N` — неактивен |
-| **user** | array | Массив привязанных пользователей |
-| `user[].CS_id` | string | Идентификатор пользователя |
-| `user[].SD_id` | string | Серверный ID пользователя |
-| `user[].code_1C` | string\|null | Код пользователя в 1С |
-| `user[].login` | string | Логин пользователя |
+| `CS_id` | string | External identifier (with branch prefix) |
+| `SD_id` | string | Server ID |
+| `code_1C` | string | Agent 1C code |
+| `name` | string | Agent name |
+| `active` | string | Active: `Y` — active, `N` — inactive |
+| **user** | array | Linked users |
+| `user[].CS_id` | string | User identifier |
+| `user[].SD_id` | string | User server ID |
+| `user[].code_1C` | string\|null | User 1C code |
+| `user[].login` | string | User login |
 
 ---
 
 ### 9.12. `getExpeditor` — Expeditors
 
-**Description:** Получение списка экспедиторов.
+**Description:** Returns the list of expeditors.
 
 **Request:**
 ```json
@@ -926,9 +926,9 @@ All GET methods support pagination (`limit`, `page`), period and sort.
                 "CS_id": "F1-d0_5",
                 "SD_id": "d0_5",
                 "code_1C": "000000005",
-                "name": "Петров Пётр",
+                "name": "Peter Petrov",
                 "tel": "+998901112233",
-                "address": "ул. Навои, 10",
+                "address": "10 Navoi St",
                 "active": "Y",
                 "user": [
                     {
@@ -949,24 +949,24 @@ All GET methods support pagination (`limit`, `page`), period and sort.
 
 | Field | Type | Description |
 |------|-----|----------|
-| `CS_id` | string | Внешний идентификатор (с префиксом филиала) |
-| `SD_id` | string | Серверный ID |
-| `code_1C` | string | Код экспедитора в 1С |
-| `name` | string | Имя экспедитора |
-| `tel` | string | Телефон |
-| `address` | string | Адрес |
-| `active` | string | Активность: `Y` — активен, `N` — неактивен |
-| **user** | array | Массив привязанных пользователей |
-| `user[].CS_id` | string | Идентификатор пользователя |
-| `user[].SD_id` | string | Серверный ID пользователя |
-| `user[].code_1C` | string\|null | Код пользователя в 1С |
-| `user[].login` | string | Логин пользователя |
+| `CS_id` | string | External identifier (with branch prefix) |
+| `SD_id` | string | Server ID |
+| `code_1C` | string | Expeditor 1C code |
+| `name` | string | Expeditor name |
+| `tel` | string | Phone |
+| `address` | string | Address |
+| `active` | string | Active: `Y` — active, `N` — inactive |
+| **user** | array | Linked users |
+| `user[].CS_id` | string | User identifier |
+| `user[].SD_id` | string | User server ID |
+| `user[].code_1C` | string\|null | User 1C code |
+| `user[].login` | string | User login |
 
 ---
 
 ### 9.13. `getSupervisor` — Supervisors
 
-**Description:** Получение списка супервайзеров с прикрепленными агентами.
+**Description:** Returns the list of supervisors with attached agents.
 
 **Request:**
 ```json
@@ -986,14 +986,14 @@ All GET methods support pagination (`limit`, `page`), period and sort.
                 "CS_id": "F1-d0_30",
                 "SD_id": "d0_30",
                 "code_1C": null,
-                "name": "Сидоров Алексей",
+                "name": "Alexey Sidorov",
                 "active": "Y",
                 "agents": [
                     {
                         "CS_id": "F1-d0_3",
                         "SD_id": "d0_3",
                         "code_1C": "000000003",
-                        "name": "Иванов Иван"
+                        "name": "Ivan Ivanov"
                     }
                 ]
             }
@@ -1006,22 +1006,22 @@ All GET methods support pagination (`limit`, `page`), period and sort.
 
 | Field | Type | Description |
 |------|-----|----------|
-| `CS_id` | string | Внешний идентификатор (с префиксом филиала) |
-| `SD_id` | string | Серверный ID |
-| `code_1C` | string\|null | Код в 1С |
-| `name` | string | Имя супервайзера |
-| `active` | string | Активность: `Y` — активен, `N` — неактивен |
-| **agents** | array | Массив прикреплённых агентов |
-| `agents[].CS_id` | string | Идентификатор агента |
-| `agents[].SD_id` | string | Серверный ID агента |
-| `agents[].code_1C` | string | Код агента в 1С |
-| `agents[].name` | string | Имя агента |
+| `CS_id` | string | External identifier (with branch prefix) |
+| `SD_id` | string | Server ID |
+| `code_1C` | string\|null | 1C code |
+| `name` | string | Supervisor name |
+| `active` | string | Active: `Y` — active, `N` — inactive |
+| **agents** | array | Attached agents |
+| `agents[].CS_id` | string | Agent identifier |
+| `agents[].SD_id` | string | Agent server ID |
+| `agents[].code_1C` | string | Agent 1C code |
+| `agents[].name` | string | Agent name |
 
 ---
 
 ### 9.14. `getPaymentType` — Payment types
 
-**Description:** Получение списка типов оплат (валют расчёта).
+**Description:** Returns the list of payment types (settlement currencies).
 
 **Request:**
 ```json
@@ -1041,8 +1041,8 @@ All GET methods support pagination (`limit`, `page`), period and sort.
                 "CS_id": "d0_1",
                 "SD_id": "d0_1",
                 "code_1C": "000000001",
-                "name": "Наличные (сум)",
-                "short": "нал",
+                "name": "Cash (UZS)",
+                "short": "cash",
                 "active": "Y"
             }
         ]
@@ -1055,44 +1055,44 @@ All GET methods support pagination (`limit`, `page`), period and sort.
 
 | Field | Type | Description |
 |------|-----|----------|
-| `CS_id` | string | Идентификатор (с префиксом) |
-| `SD_id` | string | Серверный ID |
-| `code_1C` | string | Код из 1С |
-| `name` | string | Название типа оплаты |
-| `short` | string | Краткое обозначение |
-| `active` | string | Активность: `Y` — активен, `N` — неактивен |
+| `CS_id` | string | Identifier (with prefix) |
+| `SD_id` | string | Server ID |
+| `code_1C` | string | 1C code |
+| `name` | string | Payment type name |
+| `short` | string | Short label |
+| `active` | string | Active: `Y` — active, `N` — inactive |
 
 ---
 
 ### 9.15. `getPayment` — Payments
 
-**Description:** Получение списка финансовых операций (оплаты, балансы, долги).
+**Description:** Returns the list of financial operations (payments, balances, debts).
 
 **Filters:**
 
-| Фильтр | Описание |
-|--------|----------|
-| `filter.period.date.from/to` | Период по дате транзакции |
-| `filter.period.dateUpdate.from/to` | Период по дате обновления |
-| `filter.trade` | Фильтр по торговому направлению (`CS_id` / `SD_id`) |
-| `filter.paymentType` | Фильтр по типу оплаты (`CS_id` / `SD_id` / `code_1C`) |
-| `filter.transactionType` | Тип транзакции (см. таблицу ниже) |
-| `filter.CS_id` / `filter.SD_id` / `filter.code_1C` | Фильтр по конкретной оплате |
+| Filter | Description |
+|--------|-------------|
+| `filter.period.date.from/to` | Period by transaction date |
+| `filter.period.dateUpdate.from/to` | Period by update date |
+| `filter.trade` | Filter by trade direction (`CS_id` / `SD_id`) |
+| `filter.paymentType` | Filter by payment type (`CS_id` / `SD_id` / `code_1C`) |
+| `filter.transactionType` | Transaction type (see table below) |
+| `filter.CS_id` / `filter.SD_id` / `filter.code_1C` | Filter by specific payment |
 
-**Типы транзакций:**
+**Transaction types:**
 
-| Код | Описание |
-|-----|----------|
-| 1 | Заказ |
-| 2 | Долг |
-| 3 | Оплата |
-| 4 | Конверсия |
-| 6 | Начальный остаток |
-| 7 | Выплата клиенту |
-| 8 | Списание долга |
-| 9 | Возврат с полки |
+| Code | Description |
+|------|-------------|
+| 1 | Order |
+| 2 | Debt |
+| 3 | Payment |
+| 4 | Conversion |
+| 6 | Opening balance |
+| 7 | Payout to client |
+| 8 | Debt write-off |
+| 9 | Shelf return |
 
-**Запрос (фильтр по типу транзакции и периоду по дате):**
+**Request (filter by transaction type and date period):**
 ```json
 {
     "method": "getPayment",
@@ -1112,7 +1112,7 @@ All GET methods support pagination (`limit`, `page`), period and sort.
 }
 ```
 
-**Запрос (фильтр по периоду обновления):**
+**Request (filter by update period):**
 ```json
 {
     "method": "getPayment",
@@ -1131,7 +1131,7 @@ All GET methods support pagination (`limit`, `page`), period and sort.
 }
 ```
 
-**Запрос (фильтр по торговому направлению):**
+**Request (filter by trade direction):**
 ```json
 {
     "method": "getPayment",
@@ -1147,9 +1147,9 @@ All GET methods support pagination (`limit`, `page`), period and sort.
 }
 ```
 
-> Альтернативы для `filter.trade`: можно указать **SD_id** (например `"d0_1"`) или **code_1C** (например `"TD001"`) вместо CS_id.
+> Alternatives for `filter.trade`: you can use **SD_id** (e.g. `"d0_1"`) or **code_1C** (e.g. `"TD001"`) instead of CS_id.
 
-**Запрос (фильтр по типу оплаты):**
+**Request (filter by payment type):**
 ```json
 {
     "method": "getPayment",
@@ -1165,9 +1165,9 @@ All GET methods support pagination (`limit`, `page`), period and sort.
 }
 ```
 
-> Альтернативы для `filter.paymentType`: можно указать **CS_id** (например `"F1-d0_1"`) или **SD_id** (например `"d0_1"`) вместо code_1C.
+> Alternatives for `filter.paymentType`: you can use **CS_id** (e.g. `"F1-d0_1"`) or **SD_id** (e.g. `"d0_1"`) instead of code_1C.
 
-**Запрос (комбинирование нескольких фильтров):**
+**Request (combining multiple filters):**
 ```json
 {
     "method": "getPayment",
@@ -1206,7 +1206,7 @@ All GET methods support pagination (`limit`, `page`), period and sort.
                 "paymentDate": "2025-03-15 14:30:00",
                 "expirationDate": null,
                 "amount": 5000000.00,
-                "comment": "Оплата за товар",
+                "comment": "Payment for goods",
                 "transactionType": 3,
                 "paymentType": {
                     "CS_id": "d0_1",
@@ -1251,44 +1251,44 @@ All GET methods support pagination (`limit`, `page`), period and sort.
 
 | Field | Type | Description |
 |------|-----|----------|
-| `CS_id` | string | Внешний идентификатор (с префиксом филиала) |
-| `SD_id` | string | Серверный ID |
-| `code_1C` | string | Код в 1С |
-| `paymentDate` | string | Дата и время оплаты |
-| `expirationDate` | string\|null | Дата истечения |
-| `amount` | float | Сумма оплаты |
-| `comment` | string | Комментарий |
-| `transactionType` | integer | Тип транзакции (1–9, см. таблицу типов) |
-| **paymentType** | object | Тип оплаты |
-| `paymentType.CS_id` | string | Идентификатор типа оплаты |
-| `paymentType.SD_id` | string | Серверный ID типа оплаты |
-| `paymentType.code_1C` | string | Код типа оплаты в 1С |
-| **client** | object | Клиент |
-| `client.CS_id` | string | Идентификатор клиента |
-| `client.SD_id` | string | Серверный ID клиента |
-| `client.code_1C` | string | Код клиента в 1С |
-| **agent** | object | Агент |
-| `agent.CS_id` | string | Идентификатор агента |
-| `agent.SD_id` | string | Серверный ID агента |
-| `agent.code_1C` | string | Код агента в 1С |
-| **cashbox** | object | Касса |
-| `cashbox.CS_id` | string | Идентификатор кассы |
-| `cashbox.SD_id` | string | Серверный ID кассы |
-| `cashbox.code_1C` | string\|null | Код кассы в 1С |
-| **trade** | object | Торговое направление |
-| `trade.CS_id` | string | Идентификатор торгового направления |
-| `trade.SD_id` | string | Серверный ID торгового направления |
-| `trade.code_1C` | string\|null | Код торгового направления в 1С |
-| **orders** | array | Привязанные заказы |
-| `orders[].CS_id` | string | Идентификатор заказа |
-| `orders[].SD_id` | string | Серверный ID заказа |
-| `orders[].amount` | float | Сумма оплаты по заказу |
+| `CS_id` | string | External identifier (with branch prefix) |
+| `SD_id` | string | Server ID |
+| `code_1C` | string | 1C code |
+| `paymentDate` | string | Payment date and time |
+| `expirationDate` | string\|null | Expiration date |
+| `amount` | float | Payment amount |
+| `comment` | string | Comment |
+| `transactionType` | integer | Transaction type (1–9, see type table) |
+| **paymentType** | object | Payment type |
+| `paymentType.CS_id` | string | Payment type identifier |
+| `paymentType.SD_id` | string | Payment type server ID |
+| `paymentType.code_1C` | string | Payment type 1C code |
+| **client** | object | Client |
+| `client.CS_id` | string | Client identifier |
+| `client.SD_id` | string | Client server ID |
+| `client.code_1C` | string | Client 1C code |
+| **agent** | object | Agent |
+| `agent.CS_id` | string | Agent identifier |
+| `agent.SD_id` | string | Agent server ID |
+| `agent.code_1C` | string | Agent 1C code |
+| **cashbox** | object | Cashbox |
+| `cashbox.CS_id` | string | Cashbox identifier |
+| `cashbox.SD_id` | string | Cashbox server ID |
+| `cashbox.code_1C` | string\|null | Cashbox 1C code |
+| **trade** | object | Trade direction |
+| `trade.CS_id` | string | Trade direction identifier |
+| `trade.SD_id` | string | Trade direction server ID |
+| `trade.code_1C` | string\|null | Trade direction 1C code |
+| **orders** | array | Linked orders |
+| `orders[].CS_id` | string | Order identifier |
+| `orders[].SD_id` | string | Order server ID |
+| `orders[].amount` | float | Order payment amount |
 
 ---
 
 ### 9.16. `getTerritory` — Territories
 
-**Description:** Получение регионов и городов.
+**Description:** Returns regions and cities.
 
 **Request:**
 ```json
@@ -1308,7 +1308,7 @@ All GET methods support pagination (`limit`, `page`), period and sort.
                 "CS_id": "F1-d0_13",
                 "SD_id": "d0_13",
                 "code_1C": "000000013",
-                "name": "Ташкент",
+                "name": "Tashkent",
                 "active": "Y",
                 "sort": 500
             }
@@ -1318,7 +1318,7 @@ All GET methods support pagination (`limit`, `page`), period and sort.
                 "CS_id": "F1-d0_1",
                 "SD_id": "d0_1",
                 "code_1C": "000000001",
-                "name": "Чиланзар",
+                "name": "Chilanzar",
                 "active": "Y",
                 "sort": 100,
                 "region": {
@@ -1337,27 +1337,27 @@ All GET methods support pagination (`limit`, `page`), period and sort.
 
 | Field | Type | Description |
 |------|-----|----------|
-| **region** | array | Массив регионов |
-| `region[].CS_id` | string | Идентификатор региона |
-| `region[].SD_id` | string | Серверный ID региона |
-| `region[].code_1C` | string | Код региона в 1С |
-| `region[].name` | string | Название региона |
-| `region[].active` | string | Активность: `Y` — активен, `N` — неактивен |
-| `region[].sort` | integer | Порядок сортировки |
-| **city** | array | Массив городов |
-| `city[].CS_id` | string | Идентификатор города |
-| `city[].SD_id` | string | Серверный ID города |
-| `city[].code_1C` | string | Код города в 1С |
-| `city[].name` | string | Название города |
-| `city[].active` | string | Активность: `Y` — активен, `N` — неактивен |
-| `city[].sort` | integer | Порядок сортировки |
-| `city[].region` | object | Родительский регион (`CS_id`, `SD_id`, `code_1C`) |
+| **region** | array | Regions |
+| `region[].CS_id` | string | Region identifier |
+| `region[].SD_id` | string | Region server ID |
+| `region[].code_1C` | string | Region 1C code |
+| `region[].name` | string | Region name |
+| `region[].active` | string | Active: `Y` — active, `N` — inactive |
+| `region[].sort` | integer | Sort order |
+| **city** | array | Cities |
+| `city[].CS_id` | string | City identifier |
+| `city[].SD_id` | string | City server ID |
+| `city[].code_1C` | string | City 1C code |
+| `city[].name` | string | City name |
+| `city[].active` | string | Active: `Y` — active, `N` — inactive |
+| `city[].sort` | integer | Sort order |
+| `city[].region` | object | Parent region (`CS_id`, `SD_id`, `code_1C`) |
 
 ---
 
 ### 9.17. `getBrand` — Brands
 
-**Description:** Получение списка брендов.
+**Description:** Returns the list of brands.
 
 **Request:**
 ```json
@@ -1390,17 +1390,17 @@ All GET methods support pagination (`limit`, `page`), period and sort.
 
 | Field | Type | Description |
 |------|-----|----------|
-| `CS_id` | string | Идентификатор |
-| `SD_id` | string | Серверный ID |
-| `name` | string | Название бренда |
-| `sort` | integer | Порядок сортировки |
-| `active` | string | Активность: `Y` — активен, `N` — неактивен |
+| `CS_id` | string | Identifier |
+| `SD_id` | string | Server ID |
+| `name` | string | Brand name |
+| `sort` | integer | Sort order |
+| `active` | string | Active: `Y` — active, `N` — inactive |
 
 ---
 
 ### 9.18. `getTradeDirection` — Trade directions
 
-**Description:** Получение списка торговых направлений.
+**Description:** Returns the list of trade directions.
 
 **Request:**
 ```json
@@ -1419,8 +1419,8 @@ All GET methods support pagination (`limit`, `page`), period and sort.
             {
                 "CS_id": "1",
                 "SD_id": "1",
-                "name": "Основное направление",
-                "desc": "Описание",
+                "name": "Main direction",
+                "desc": "Description",
                 "active": "Y"
             }
         ]
@@ -1435,15 +1435,15 @@ All GET methods support pagination (`limit`, `page`), period and sort.
 |------|-----|----------|
 | `CS_id` | string | Идентификатор |
 | `SD_id` | string | Серверный ID |
-| `name` | string | Название направления |
-| `desc` | string | Описание |
-| `active` | string | Активность: `Y` — активно, `N` — неактивно |
+| `name` | string | Direction name |
+| `desc` | string | Description |
+| `active` | string | Active: `Y` — active, `N` — inactive |
 
 ---
 
 ### 9.19. `getClientChannel` — Sales channels
 
-**Description:** Получение списка каналов сбыта клиентов.
+**Description:** Returns the list of client sales channels.
 
 **Request:**
 ```json
@@ -1462,7 +1462,7 @@ All GET methods support pagination (`limit`, `page`), period and sort.
             "CS_id": "1",
             "SD_id": "1",
             "code_1C": "CH001",
-            "name": "Розница"
+            "name": "Retail"
         }
     ]
 }
@@ -1474,14 +1474,14 @@ All GET methods support pagination (`limit`, `page`), period and sort.
 |------|-----|----------|
 | `CS_id` | string | Идентификатор |
 | `SD_id` | string | Серверный ID |
-| `code_1C` | string | Код из 1С |
-| `name` | string | Название канала сбыта |
+| `code_1C` | string | 1C code |
+| `name` | string | Sales channel name |
 
 ---
 
 ### 9.20. `getClientType` — Client types
 
-**Description:** Получение списка типов клиентов.
+**Description:** Returns the list of client types.
 
 **Request:**
 ```json
@@ -1512,12 +1512,12 @@ All GET methods support pagination (`limit`, `page`), period and sort.
 
 | Field | Type | Description |
 |------|-----|----------|
-| `CS_id` | string | Идентификатор |
-| `SD_id` | string | Серверный ID |
-| `code_1C` | string | Код из 1С |
-| `name` | string | Название типа клиента |
-| `color` | string | Цвет (HEX-формат, например `#FF0000`) |
-| `active` | string | Активность: `Y` — активен, `N` — неактивен |
+| `CS_id` | string | Identifier |
+| `SD_id` | string | Server ID |
+| `code_1C` | string | 1C code |
+| `name` | string | Client type name |
+| `color` | string | Color (HEX format, e.g. `#FF0000`) |
+| `active` | string | Active: `Y` — active, `N` — inactive |
 
 ---
 

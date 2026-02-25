@@ -6,32 +6,32 @@
 
 ### 9.26. `getOrder` — Orders
 
-**Description:** Получение списка заказов с деталями (товары, цены, количество, бонусы).
+**Description:** Returns the list of orders with details (products, prices, quantity, bonuses).
 
 **Filters:**
 
 | Filter | Description |
-|--------|----------|
-| `filter.agent` | `all` — все агенты, иначе только активные |
-| `filter.include` | `sd`, `1c`, `all` — фильтр по источнику |
-| `filter.period.date.from/to` | По дате заказа |
-| `filter.period.dateLoad.from/to` | По дате документа |
-| `filter.period.dateCreate.from/to` | По дате создания (с точным временем) |
-| `filter.period.orderCreated.from/to` | По дате создания записи |
-| `filter.period.dateUpdate.from/to` | По дате обновления (из истории) |
-| `filter.status` | Массив статусов (по умолчанию `[1]`) |
-| `filter.store` | По складу (`CS_id` / `SD_id` / `code_1C`) |
-| `filter.trade` | По торговому направлению (`CS_id` / `SD_id`) |
-| `filter.expeditors` | Массив экспедиторов |
-| `filter.clientCategories` | Массив категорий клиентов |
-| `filter.sort.category` | `asc` / `desc` — сортировка по категориям |
-| `params.promotions` | `true` — включить данные об акциях |
-| `filter.CS_id` / `filter.SD_id` / `filter.code_1C` | Фильтр по конкретному заказу |
-| Фильтр по клиенту | `client.CS_id` / `client.SD_id` / `client.code_1C` |
+|--------|-------------|
+| `filter.agent` | `all` — all agents, otherwise only active |
+| `filter.include` | `sd`, `1c`, `all` — filter by source |
+| `filter.period.date.from/to` | By order date |
+| `filter.period.dateLoad.from/to` | By document date |
+| `filter.period.dateCreate.from/to` | By creation date (with exact time) |
+| `filter.period.orderCreated.from/to` | By record creation date |
+| `filter.period.dateUpdate.from/to` | By update date (from history) |
+| `filter.status` | Array of statuses (default `[1]`) |
+| `filter.store` | By warehouse (`CS_id` / `SD_id` / `code_1C`) |
+| `filter.trade` | By trade direction (`CS_id` / `SD_id`) |
+| `filter.expeditors` | Array of expeditors |
+| `filter.clientCategories` | Array of client categories |
+| `filter.sort.category` | `asc` / `desc` — sort by categories |
+| `params.promotions` | `true` — include promotion data |
+| `filter.CS_id` / `filter.SD_id` / `filter.code_1C` | Filter by specific order |
+| Filter by client | `client.CS_id` / `client.SD_id` / `client.code_1C` |
 
-**Примеры использования фильтров:**
+**Filter examples:**
 
-**1. Фильтр по агентам (`filter.agent`):**
+**1. Filter by agents (`filter.agent`):**
 ```json
 {
     "method": "getOrder",
@@ -43,9 +43,9 @@
     }
 }
 ```
-> Если `agent` = `all`, возвращаются заказы всех агентов. Если не указан — только активные агенты.
+> If `agent` = `all`, orders of all agents are returned. If not specified — only active agents.
 
-**2. Фильтр по источнику (`filter.include`):**
+**2. Filter by source (`filter.include`):**
 ```json
 {
     "method": "getOrder",
@@ -57,9 +57,9 @@
     }
 }
 ```
-> Значения: `sd` — только из SalesDoc, `1c` — только из 1С, `all` — все записи.
+> Values: `sd` — from SalesDoc only, `1c` — from 1C only, `all` — all records.
 
-**3. Фильтр по дате заказа (`filter.period.date`):**
+**3. Filter by order date (`filter.period.date`):**
 ```json
 {
     "method": "getOrder",

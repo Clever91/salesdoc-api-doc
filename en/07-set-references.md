@@ -12,7 +12,7 @@ All SET methods create or update records. Data is sent in the `data` block. The 
         "completed": 3,
         "error": 0,
         "data": {
-            "ключ": [
+            "key": [
                 {
                     "CS_id": "...",
                     "SD_id": "...",
@@ -26,19 +26,19 @@ All SET methods create or update records. Data is sent in the `data` block. The 
 
 ### Record identification in all SET methods
 
-Во всех SET-методах для поиска существующей записи (или вложенных объектов: тип оплаты, валюта, категория и т.д.) можно указывать **CS_id**, **SD_id** или **code_1C**. Система ищет запись в таком порядке:
+In all SET methods you can use **CS_id**, **SD_id** or **code_1C** to find an existing record (or nested objects: payment type, currency, category, etc.). The system looks up in this order:
 
-1. **CS_id** — уникальный идентификатор в нашей системе (приоритет поиска).
-2. **SD_id** — внутренний серверный ID (если CS_id не указан или не найден).
-3. **code_1C** — внешний код (XML_ID из 1С); **не является уникальным** в нашей системе.
+1. **CS_id** — unique identifier in our system (search priority).
+2. **SD_id** — internal server ID (if CS_id is not set or not found).
+3. **code_1C** — external code (XML_ID from 1C); **not unique** in our system.
 
-Если ни одна запись по указанным идентификаторам не найдена, создаётся новая запись. Для вложенных объектов (например, `paymentType`, `valyutaType`, `category`) действует тот же порядок: CS_id → SD_id → code_1C.
+If no record is found by the given identifiers, a new record is created. For nested objects (e.g. `paymentType`, `valyutaType`, `category`) the same order applies: CS_id → SD_id → code_1C.
 
 ---
 
 ### 10.1. `setValyutaType` — Create/update currency types
 
-**Description:** Создание или обновление типов валют.
+**Description:** Create or update currency types.
 
 **Request:**
 ```json
@@ -51,7 +51,7 @@ All SET methods create or update records. Data is sent in the `data` block. The 
                 "CS_id": "",
                 "SD_id": "",
                 "code_1C": "000000001",
-                "name": "Сум",
+                "name": "UZS",
                 "short": "UZS",
                 "active": true
             }
@@ -60,14 +60,14 @@ All SET methods create or update records. Data is sent in the `data` block. The 
 }
 ```
 
-**Поля элемента:**
+**Element fields:**
 
 | Field | Type | Required | Description |
 |------|-----|:---:|----------|
-| `CS_id` / `SD_id` / `code_1C` | string | ✅ (один из) | Идентификатор записи |
-| `name` | string | ✅ | Название |
-| `short` | string | ❌ | Краткое обозначение |
-| `active` | bool/string | ❌ | Активность |
+| `CS_id` / `SD_id` / `code_1C` | string | ✅ (one of) | Record identifier |
+| `name` | string | ✅ | Name |
+| `short` | string | ❌ | Short label |
+| `active` | bool/string | ❌ | Active |
 
 ---
 
@@ -81,9 +81,9 @@ All SET methods create or update records. Data is sent in the `data` block. The 
     "data": {
         "unit": [
             {
-                "code_1C": "шт",
-                "name": "Штука",
-                "short": "шт",
+                "code_1C": "pc",
+                "name": "Piece",
+                "short": "pc",
                 "active": true
             }
         ]
@@ -91,14 +91,14 @@ All SET methods create or update records. Data is sent in the `data` block. The 
 }
 ```
 
-**Поля элемента:**
+**Element fields:**
 
 | Field | Type | Required | Description |
 |------|-----|:---:|----------|
-| `CS_id` / `SD_id` / `code_1C` | string | ✅ (один из) | Идентификатор записи |
-| `name` | string | ✅ | Название |
-| `short` | string | ❌ | Краткое обозначение |
-| `active` | bool/string | ❌ | Активность |
+| `CS_id` / `SD_id` / `code_1C` | string | ✅ (one of) | Record identifier |
+| `name` | string | ✅ | Name |
+| `short` | string | ❌ | Short label |
+| `active` | bool/string | ❌ | Active |
 
 ---
 
@@ -113,8 +113,8 @@ All SET methods create or update records. Data is sent in the `data` block. The 
         "clientCategory": [
             {
                 "code_1C": "000000001",
-                "name": "Оптовый",
-                "description": "Оптовый покупатель",
+                "name": "Wholesale",
+                "description": "Wholesale buyer",
                 "active": true
             }
         ]
@@ -122,14 +122,14 @@ All SET methods create or update records. Data is sent in the `data` block. The 
 }
 ```
 
-**Поля элемента:**
+**Element fields:**
 
 | Field | Type | Required | Description |
 |------|-----|:---:|----------|
-| `CS_id` / `SD_id` / `code_1C` | string | ✅ (один из) | Идентификатор записи |
-| `name` | string | ✅ | Название категории |
-| `description` | string | ❌ | Описание |
-| `active` | bool/string | ❌ | Активность |
+| `CS_id` / `SD_id` / `code_1C` | string | ✅ (one of) | Record identifier |
+| `name` | string | ✅ | Category name |
+| `description` | string | ❌ | Description |
+| `active` | bool/string | ❌ | Active |
 
 ---
 
@@ -144,19 +144,19 @@ All SET methods create or update records. Data is sent in the `data` block. The 
         "clientChannel": [
             {
                 "code_1C": "CH001",
-                "name": "Розница"
+                "name": "Retail"
             }
         ]
     }
 }
 ```
 
-**Поля элемента:**
+**Element fields:**
 
 | Field | Type | Required | Description |
 |------|-----|:---:|----------|
-| `CS_id` / `SD_id` / `code_1C` | string | ✅ (один из) | Идентификатор записи |
-| `name` | string | ✅ | Название канала сбыта |
+| `CS_id` / `SD_id` / `code_1C` | string | ✅ (one of) | Record identifier |
+| `name` | string | ✅ | Sales channel name |
 
 ---
 
@@ -179,22 +179,22 @@ All SET methods create or update records. Data is sent in the `data` block. The 
 }
 ```
 
-**Поля элемента:**
+**Element fields:**
 
 | Field | Type | Required | Description |
 |------|-----|:---:|----------|
-| `CS_id` / `SD_id` / `code_1C` | string | ✅ (один из) | Идентификатор записи |
-| `name` | string | ✅ | Название типа клиента |
-| `color` | string | ❌ | Цвет (например, `#FF0000`) |
-| `active` | bool/string | ❌ | Активность |
+| `CS_id` / `SD_id` / `code_1C` | string | ✅ (one of) | Record identifier |
+| `name` | string | ✅ | Client type name |
+| `color` | string | ❌ | Color (e.g. `#FF0000`) |
+| `active` | bool/string | ❌ | Active |
 
-> ⚠️ **Внимание:** В этом методе данные передаются напрямую в `data` как массив (не вложенный объект).
+> **Note:** In this method data is passed directly in `data` as an array (not a nested object).
 
 ---
 
 ### 10.6. `setProduct` — Create/update products
 
-**Description:** Создание или обновление товаров. При создании можно автоматически создать категорию товара.
+**Description:** Create or update products. When creating, product category can be created automatically.
 
 **Request:**
 ```json
@@ -205,7 +205,7 @@ All SET methods create or update records. Data is sent in the `data` block. The 
         "product": [
             {
                 "code_1C": "000000015",
-                "name": "Кока-Кола 1.5л",
+                "name": "Coca-Cola 1.5L",
                 "active": true,
                 "sort": 100,
                 "volume": 0.5,
@@ -215,7 +215,7 @@ All SET methods create or update records. Data is sent in the `data` block. The 
                 "part_number": null,
                 "category": {
                     "code_1C": "000000003",
-                    "name": "Напитки"
+                    "name": "Beverages"
                 },
                 "unit": {
                     "code_1C": "CODE_000001"
@@ -235,29 +235,29 @@ All SET methods create or update records. Data is sent in the `data` block. The 
 }
 ```
 
-> Для вложенных объектов (`unit`, `category`, `subCategory`, `group`, `brand`) можно указывать **CS_id**, **SD_id** или **code_1C**. Примеры для `unit`:
-> - по code_1C: `"unit": { "code_1C": "CODE_000001" }`
-> - по SD_id: `"unit": { "SD_id": "d0_2" }`
-> - по CS_id: `"unit": { "CS_id": "F1-d0_2" }`
+> For nested objects (`unit`, `category`, `subCategory`, `group`, `brand`) you can use **CS_id**, **SD_id** or **code_1C**. Examples for `unit`:
+> - by code_1C: `"unit": { "code_1C": "CODE_000001" }`
+> - by SD_id: `"unit": { "SD_id": "d0_2" }`
+> - by CS_id: `"unit": { "CS_id": "F1-d0_2" }`
 
-**Поля элемента:**
+**Element fields:**
 
 | Field | Type | Required | Description |
 |------|-----|:---:|----------|
-| `code_1C` / `SD_id` | string | ✅ (один из) | Идентификатор |
-| `name` | string | ✅ | Название товара |
-| `active` | bool | ❌ | Активность (по умолчанию `N` для новых) |
-| `sort` | int | ❌ | Порядок сортировки |
-| `volume` | float | ❌ | Объём |
-| `packQuantity` | float | ❌ | Количество в упаковке |
-| `barCode` | string | ❌ | Штрих-код |
-| `weight` | float | ❌ | Вес |
-| `part_number` | string | ❌ | Артикул |
-| `category` | object | ❌ | Категория (если не найдена — создаётся или присваивается «Другие») |
-| `unit` | object | ✅ | Единица измерения (обязательна; можно указать `CS_id` / `SD_id` / `code_1C`) |
-| `subCategory` | object | ❌ | Подкатегория |
-| `group` | object | ❌ | Группа товара |
-| `brand` | object | ❌ | Бренд |
+| `code_1C` / `SD_id` | string | ✅ (one of) | Identifier |
+| `name` | string | ✅ | Product name |
+| `active` | bool | ❌ | Active (default `N` for new) |
+| `sort` | int | ❌ | Sort order |
+| `volume` | float | ❌ | Volume |
+| `packQuantity` | float | ❌ | Quantity per pack |
+| `barCode` | string | ❌ | Barcode |
+| `weight` | float | ❌ | Weight |
+| `part_number` | string | ❌ | Part number |
+| `category` | object | ❌ | Category (if not found — created or set to "Other") |
+| `unit` | object | ✅ | Unit of measure (required; use `CS_id` / `SD_id` / `code_1C`) |
+| `subCategory` | object | ❌ | Subcategory |
+| `group` | object | ❌ | Product group |
+| `brand` | object | ❌ | Brand |
 
 ---
 
@@ -272,7 +272,7 @@ All SET methods create or update records. Data is sent in the `data` block. The 
         "productCategory": [
             {
                 "code_1C": "000000003",
-                "name": "Напитки",
+                "name": "Beverages",
                 "active": true,
                 "sort": 100,
                 "unit": {
@@ -284,15 +284,15 @@ All SET methods create or update records. Data is sent in the `data` block. The 
 }
 ```
 
-**Поля элемента:**
+**Element fields:**
 
 | Field | Type | Required | Description |
 |------|-----|:---:|----------|
-| `CS_id` / `SD_id` / `code_1C` | string | ✅ (один из) | Идентификатор записи |
-| `name` | string | ✅ | Название категории |
-| `active` | bool/string | ❌ | Активность |
-| `sort` | int | ❌ | Порядок сортировки |
-| `unit` | object | ❌ | Единица измерения (`code_1C` / `SD_id`) |
+| `CS_id` / `SD_id` / `code_1C` | string | ✅ (one of) | Record identifier |
+| `name` | string | ✅ | Category name |
+| `active` | bool/string | ❌ | Active |
+| `sort` | int | ❌ | Sort order |
+| `unit` | object | ❌ | Unit of measure (`code_1C` / `SD_id`) |
 
 ---
 
@@ -307,7 +307,7 @@ All SET methods create or update records. Data is sent in the `data` block. The 
         "subCategory": [
             {
                 "code_1C": "000000001",
-                "name": "Газированные",
+                "name": "Carbonated",
                 "active": true,
                 "sort": 100,
                 "unit": {
@@ -319,15 +319,15 @@ All SET methods create or update records. Data is sent in the `data` block. The 
 }
 ```
 
-**Поля элемента:**
+**Element fields:**
 
 | Field | Type | Required | Description |
 |------|-----|:---:|----------|
-| `CS_id` / `SD_id` / `code_1C` | string | ✅ (один из) | Идентификатор записи |
-| `name` | string | ✅ | Название подкатегории |
-| `active` | bool/string | ❌ | Активность |
-| `sort` | int | ❌ | Порядок сортировки |
-| `unit` | object | ❌ | Единица измерения (`code_1C` / `SD_id`) |
+| `CS_id` / `SD_id` / `code_1C` | string | ✅ (one of) | Record identifier |
+| `name` | string | ✅ | Subcategory name |
+| `active` | bool/string | ❌ | Active |
+| `sort` | int | ❌ | Sort order |
+| `unit` | object | ❌ | Unit of measure (`code_1C` / `SD_id`) |
 
 ---
 
@@ -342,7 +342,7 @@ All SET methods create or update records. Data is sent in the `data` block. The 
         "productGroup": [
             {
                 "code_1C": "GRP001",
-                "name": "Группа А",
+                "name": "Group A",
                 "active": true
             }
         ]
@@ -350,13 +350,13 @@ All SET methods create or update records. Data is sent in the `data` block. The 
 }
 ```
 
-**Поля элемента:**
+**Element fields:**
 
 | Field | Type | Required | Description |
 |------|-----|:---:|----------|
-| `CS_id` / `SD_id` / `code_1C` | string | ✅ (один из) | Идентификатор записи |
-| `name` | string | ✅ | Название группы |
-| `active` | bool/string | ❌ | Активность |
+| `CS_id` / `SD_id` / `code_1C` | string | ✅ (one of) | Record identifier |
+| `name` | string | ✅ | Group name |
+| `active` | bool/string | ❌ | Active |
 
 ---
 
@@ -371,8 +371,8 @@ All SET methods create or update records. Data is sent in the `data` block. The 
         "paymentType": [
             {
                 "code_1C": "000000001",
-                "name": "Наличные (сум)",
-                "short": "нал",
+                "name": "Cash (UZS)",
+                "short": "cash",
                 "active": true
             }
         ]
@@ -380,20 +380,20 @@ All SET methods create or update records. Data is sent in the `data` block. The 
 }
 ```
 
-**Поля элемента:**
+**Element fields:**
 
 | Field | Type | Required | Description |
 |------|-----|:---:|----------|
-| `CS_id` / `SD_id` / `code_1C` | string | ✅ (один из) | Идентификатор записи |
-| `name` | string | ✅ | Название типа оплаты |
-| `short` | string | ❌ | Краткое обозначение |
-| `active` | bool/string | ❌ | Активность |
+| `CS_id` / `SD_id` / `code_1C` | string | ✅ (one of) | Record identifier |
+| `name` | string | ✅ | Payment type name |
+| `short` | string | ❌ | Short label |
+| `active` | bool/string | ❌ | Active |
 
 ---
 
 ### 10.11. `setPriceType` — Create/update price types
 
-**Description:** Создание типов цен с привязкой к валюте и типу оплаты. Метод также может создавать валюты.
+**Description:** Create price types linked to currency and payment type. The method can also create currencies.
 
 **Request:**
 ```json
@@ -404,7 +404,7 @@ All SET methods create or update records. Data is sent in the `data` block. The 
         "valyutaType": [
             {
                 "code_1C": "UZS",
-                "name": "Сум",
+                "name": "UZS",
                 "short": "UZS",
                 "active": true
             }
@@ -412,7 +412,7 @@ All SET methods create or update records. Data is sent in the `data` block. The 
         "priceType": [
             {
                 "code_1C": "000000001",
-                "name": "Розничная цена",
+                "name": "Retail price",
                 "active": true,
                 "forClient": true,
                 "paymentType": {
@@ -427,32 +427,32 @@ All SET methods create or update records. Data is sent in the `data` block. The 
 }
 ```
 
-> Для вложенных объектов (`paymentType`, `valyutaType` и т.п.) также можно использовать **CS_id**, **SD_id** или **code_1C**. Порядок поиска: сначала CS_id (уникален в системе), затем SD_id, затем code_1C (не уникален в системе).
+> For nested objects (`paymentType`, `valyutaType`, etc.) you can also use **CS_id**, **SD_id** or **code_1C**. Search order: CS_id first (unique in system), then SD_id, then code_1C (not unique in system).
 
-**Поля элемента (valyutaType):**
-
-| Field | Type | Required | Description |
-|------|-----|:---:|----------|
-| `CS_id` / `SD_id` / `code_1C` | string | ✅ (один из) | Идентификатор записи |
-| `name` | string | ✅ | Название валюты |
-| `short` | string | ❌ | Краткое обозначение |
-| `active` | bool/string | ❌ | Активность |
-
-**Поля элемента (priceType):**
+**Element fields (valyutaType):**
 
 | Field | Type | Required | Description |
 |------|-----|:---:|----------|
-| `CS_id` / `SD_id` / `code_1C` | string | ✅ (один из) | Идентификатор записи |
-| `name` | string | ✅ | Название типа цены |
-| `active` | bool | ❌ | Активность |
-| `forClient` | bool | ❌ | Доступен для клиента |
-| `paymentType` | object | ✅ | Тип оплаты (валюта расчёта) |
-| `valyutaType` | object | ✅ | Тип валюты |
+| `CS_id` / `SD_id` / `code_1C` | string | ✅ (one of) | Record identifier |
+| `name` | string | ✅ | Currency name |
+| `short` | string | ❌ | Short label |
+| `active` | bool/string | ❌ | Active |
+
+**Element fields (priceType):**
+
+| Field | Type | Required | Description |
+|------|-----|:---:|----------|
+| `CS_id` / `SD_id` / `code_1C` | string | ✅ (one of) | Record identifier |
+| `name` | string | ✅ | Price type name |
+| `active` | bool | ❌ | Active |
+| `forClient` | bool | ❌ | Available for client |
+| `paymentType` | object | ✅ | Payment type (settlement currency) |
+| `valyutaType` | object | ✅ | Currency type |
 
 
 ### 10.13. `setPrice` — Set prices
 
-**Description:** Установка или обновление цен товаров для конкретного типа цены.
+**Description:** Set or update product prices for a given price type.
 
 **Request:**
 ```json
@@ -474,21 +474,21 @@ All SET methods create or update records. Data is sent in the `data` block. The 
 }
 ```
 
-**Поля элемента:**
+**Element fields:**
 
 | Field | Type | Required | Description |
 |------|-----|:---:|----------|
-| `code_1C` / `SD_id` | string | ✅ | ID товара |
-| `document_1C` | string | ❌ | Код документа 1С |
-| `priceType` | object | ✅ | Тип цены + новая цена |
-| `priceType.code_1C` / `priceType.SD_id` | string | ✅ | ID типа цены |
-| `priceType.price` | float | ✅ | Цена |
+| `code_1C` / `SD_id` | string | ✅ | Product ID |
+| `document_1C` | string | ❌ | 1C document code |
+| `priceType` | object | ✅ | Price type + new price |
+| `priceType.code_1C` / `priceType.SD_id` | string | ✅ | Price type ID |
+| `priceType.price` | float | ✅ | Price |
 
 ---
 
 ### 10.15. `setAgent` — Create/update agents
 
-**Description:** Создание или обновление агентов. При создании нового агента автоматически создаётся пользователь (ROLE=4).
+**Description:** Create or update agents. When creating a new agent a user is created automatically (ROLE=4).
 
 **Request:**
 ```json
@@ -499,7 +499,7 @@ All SET methods create or update records. Data is sent in the `data` block. The 
         "agent": [
             {
                 "code_1C": "000000003",
-                "name": "Иванов Иван",
+                "name": "Ivan Ivanov",
                 "active": true
             }
         ]
@@ -507,19 +507,19 @@ All SET methods create or update records. Data is sent in the `data` block. The 
 }
 ```
 
-**Поля элемента:**
+**Element fields:**
 
 | Field | Type | Required | Description |
 |------|-----|:---:|----------|
-| `CS_id` / `SD_id` / `code_1C` | string | ✅ (один из) | Идентификатор записи |
-| `name` | string | ✅ | ФИО агента |
-| `active` | bool/string | ❌ | Активность |
+| `CS_id` / `SD_id` / `code_1C` | string | ✅ (one of) | Record identifier |
+| `name` | string | ✅ | Agent full name |
+| `active` | bool/string | ❌ | Active |
 
 ---
 
 ### 10.16. `setExpeditor` — Create/update expeditors
 
-**Description:** Создание или обновление экспедиторов. При создании нового — автоматически создаётся пользователь (ROLE=10).
+**Description:** Create or update expeditors. When creating a new one a user is created automatically (ROLE=10).
 
 **Request:**
 ```json
@@ -530,9 +530,9 @@ All SET methods create or update records. Data is sent in the `data` block. The 
         "expeditor": [
             {
                 "code_1C": "000000005",
-                "name": "Петров Пётр",
+                "name": "Peter Petrov",
                 "active": true,
-                "address": "ул. Навои, 10",
+                "address": "10 Navoi St",
                 "tel": "+998901112233",
                 "email": "petrov@mail.com",
                 "date_birth": "1990-05-15"
@@ -542,23 +542,23 @@ All SET methods create or update records. Data is sent in the `data` block. The 
 }
 ```
 
-**Поля элемента:**
+**Element fields:**
 
 | Field | Type | Required | Description |
 |------|-----|:---:|----------|
-| `CS_id` / `SD_id` / `code_1C` | string | ✅ (один из) | Идентификатор записи |
-| `name` | string | ✅ | ФИО экспедитора |
-| `active` | bool/string | ❌ | Активность |
-| `address` | string | ❌ | Адрес |
-| `tel` | string | ❌ | Телефон |
+| `CS_id` / `SD_id` / `code_1C` | string | ✅ (one of) | Record identifier |
+| `name` | string | ✅ | Expeditor full name |
+| `active` | bool/string | ❌ | Active |
+| `address` | string | ❌ | Address |
+| `tel` | string | ❌ | Phone |
 | `email` | string | ❌ | Email |
-| `date_birth` | string | ❌ | Дата рождения |
+| `date_birth` | string | ❌ | Date of birth |
 
 ---
 
 ### 10.17. `setClient` — Create/update clients
 
-**Description:** Создание или обновление клиентов. Включает привязку агентов и дней посещения.
+**Description:** Create or update clients. Includes linking agents and visit days.
 
 **Request:**
 ```json
@@ -569,12 +569,12 @@ All SET methods create or update records. Data is sent in the `data` block. The 
         "client": [
             {
                 "code_1C": "000000100",
-                "shortName": "Магазин Звезда",
-                "firmName": "ООО Звезда",
-                "address": "ул. Амира Темура, 5",
-                "orentir": "Напротив банка",
+                "shortName": "Star Shop",
+                "firmName": "Star LLC",
+                "address": "5 Amir Temur St",
+                "orentir": "Opposite the bank",
                 "tel": "+998901234567",
-                "comment": "Ключевой клиент",
+                "comment": "Key client",
                 "inn": "123456789",
                 "pinfl": null,
                 "nspCode": null,
@@ -597,7 +597,7 @@ All SET methods create or update records. Data is sent in the `data` block. The 
                     { "code_1C": "000000001" }
                 ],
                 "bankDetails": {
-                    "bankName": "Асака банк",
+                    "bankName": "Asaka Bank",
                     "accountNumber": "20208000900123456789",
                     "bankCode": "00444"
                 },
@@ -614,37 +614,37 @@ All SET methods create or update records. Data is sent in the `data` block. The 
 }
 ```
 
-**Поля элемента:**
+**Element fields:**
 
 | Field | Type | Required | Description |
 |------|-----|:---:|----------|
-| `code_1C` / `SD_id` | string | ✅ | Идентификатор |
-| `shortName` | string | ✅ | Краткое имя |
-| `firmName` | string | ❌ | Название фирмы |
-| `address` | string | ❌ | Адрес |
-| `orentir` | string | ❌ | Ориентир |
-| `tel` | string | ❌ | Телефон |
-| `comment` | string | ❌ | Комментарий |
-| `inn` | string | ❌ | ИНН |
-| `pinfl` | string | ❌ | ПИНФЛ |
-| `nspCode` | string | ❌ | Код НСП |
-| `active` | bool | ❌ | Активность |
-| `lat` / `lon` | float | ❌ | GPS-координаты |
-| `clientCategory` | object | ✅ | Категория клиента (обязательно) |
-| `clientType` | object | ❌ | Тип клиента |
-| `clientChannel` | object | ❌ | Канал сбыта |
-| `territory` | object | ❌ | Территория (город) |
-| `priceTypeList` | array | ❌ | Список типов цен для клиента |
-| `bankDetails` | object | ❌ | Банковские реквизиты |
-| `agent` | array/object | ❌ | Агент(ы) с днями посещения |
-| `agent.visitDays` | array | ❌ | Дни посещения [1=Пн, ..., 7=Вс] |
-| `deleteVisits` | string | ❌ | `"true"` — удалить старые визиты перед обновлением |
+| `code_1C` / `SD_id` | string | ✅ | Identifier |
+| `shortName` | string | ✅ | Short name |
+| `firmName` | string | ❌ | Company name |
+| `address` | string | ❌ | Address |
+| `orentir` | string | ❌ | Landmark |
+| `tel` | string | ❌ | Phone |
+| `comment` | string | ❌ | Comment |
+| `inn` | string | ❌ | INN |
+| `pinfl` | string | ❌ | PINFL |
+| `nspCode` | string | ❌ | NSP code |
+| `active` | bool | ❌ | Active |
+| `lat` / `lon` | float | ❌ | GPS coordinates |
+| `clientCategory` | object | ✅ | Client category (required) |
+| `clientType` | object | ❌ | Client type |
+| `clientChannel` | object | ❌ | Sales channel |
+| `territory` | object | ❌ | Territory (city) |
+| `priceTypeList` | array | ❌ | List of price types for client |
+| `bankDetails` | object | ❌ | Bank details |
+| `agent` | array/object | ❌ | Agent(s) with visit days |
+| `agent.visitDays` | array | ❌ | Visit days [1=Mon, ..., 7=Sun] |
+| `deleteVisits` | string | ❌ | `"true"` — delete old visits before update |
 
 ---
 
 ### 10.18. `setClientPhone` — Update client phones
 
-**Description:** Установка дополнительных номеров телефона клиента (максимум 2). Все старые номера удаляются.
+**Description:** Set additional client phone numbers (max 2). All old numbers are removed.
 
 **Request:**
 ```json
@@ -662,12 +662,12 @@ All SET methods create or update records. Data is sent in the `data` block. The 
 }
 ```
 
-**Поля элемента:**
+**Element fields:**
 
 | Field | Type | Required | Description |
 |------|-----|:---:|----------|
-| `CS_id` / `SD_id` / `code_1C` | string | ✅ (один из) | Идентификатор клиента |
-| `phone_numbers` | array | ✅ | Массив телефонов (макс. 2 элемента) |
+| `CS_id` / `SD_id` / `code_1C` | string | ✅ (one of) | Client identifier |
+| `phone_numbers` | array | ✅ | Array of phones (max 2 items) |
 
 ---
 
@@ -682,7 +682,7 @@ All SET methods create or update records. Data is sent in the `data` block. The 
         "city": [
             {
                 "code_1C": "000000001",
-                "name": "Чиланзар",
+                "name": "Chilanzar",
                 "active": true,
                 "lat": 41.2995,
                 "lng": 69.2401
@@ -692,14 +692,14 @@ All SET methods create or update records. Data is sent in the `data` block. The 
 }
 ```
 
-**Поля элемента:**
+**Element fields:**
 
 | Field | Type | Required | Description |
 |------|-----|:---:|----------|
-| `CS_id` / `SD_id` / `code_1C` | string | ✅ (один из) | Идентификатор записи |
-| `name` | string | ✅ | Название территории (города) |
-| `active` | bool/string | ❌ | Активность |
-| `lat` / `lng` | float | ❌ | GPS-координаты |
+| `CS_id` / `SD_id` / `code_1C` | string | ✅ (one of) | Record identifier |
+| `name` | string | ✅ | Territory (city) name |
+| `active` | bool/string | ❌ | Active |
+| `lat` / `lng` | float | ❌ | GPS coordinates |
 
 ---
 
@@ -724,20 +724,20 @@ All SET methods create or update records. Data is sent in the `data` block. The 
 }
 ```
 
-**Поля элемента:**
+**Element fields:**
 
 | Field | Type | Required | Description |
 |------|-----|:---:|----------|
-| `CS_id` / `SD_id` / `code_1C` | string | ✅ (один из) | Идентификатор записи |
-| `name` | string | ✅ | Название бренда |
-| `sort` | int | ❌ | Порядок сортировки |
-| `active` | bool/string | ❌ | Активность |
+| `CS_id` / `SD_id` / `code_1C` | string | ✅ (one of) | Record identifier |
+| `name` | string | ✅ | Brand name |
+| `sort` | int | ❌ | Sort order |
+| `active` | bool/string | ❌ | Active |
 
 ---
 
 ### 10.21. `setVisit` — Create/update visits
 
-**Description:** Создание или обновление визитов агентов к клиентам. Включает проверку GPS-координат.
+**Description:** Create or update agent visits to clients. Includes GPS check.
 
 **Request:**
 ```json
@@ -764,19 +764,19 @@ All SET methods create or update records. Data is sent in the `data` block. The 
 }
 ```
 
-**Поля элемента:**
+**Element fields:**
 
 | Field | Type | Required | Description |
 |------|-----|:---:|----------|
-| `client` | object | ✅ | Клиент (`CS_id` / `SD_id` / `code_1C`) |
-| `agent` | object | ✅ | Агент (`CS_id` / `SD_id` / `code_1C`) |
-| `date` | string | ✅ | Дата и время визита |
-| `visited` | int | ❌ | Фактический визит: `1` — да, `0` — нет |
-| `planned` | int | ❌ | Плановый визит: `1` — да, `0` — нет |
-| `has_photo_report` | int | ❌ | Наличие фотоотчёта |
-| `has_order` | int | ❌ | Наличие заказа |
-| `start_datetime` / `end_datetime` | string | ❌ | Время начала/окончания |
-| `lat` / `lng` | float | ❌ | GPS-координаты |
+| `client` | object | ✅ | Client (`CS_id` / `SD_id` / `code_1C`) |
+| `agent` | object | ✅ | Agent (`CS_id` / `SD_id` / `code_1C`) |
+| `date` | string | ✅ | Visit date and time |
+| `visited` | int | ❌ | Actual visit: `1` — yes, `0` — no |
+| `planned` | int | ❌ | Planned visit: `1` — yes, `0` — no |
+| `has_photo_report` | int | ❌ | Photo report present |
+| `has_order` | int | ❌ | Order present |
+| `start_datetime` / `end_datetime` | string | ❌ | Start/end time |
+| `lat` / `lng` | float | ❌ | GPS coordinates |
 
 ---
 

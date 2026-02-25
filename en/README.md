@@ -1,6 +1,6 @@
 # SalesDoc API V2 — Full documentation
 
-**Русский:** [Полная документация](../ru/README.md)
+**Russian:** [Full documentation](../ru/README.md)
 
 > **Version:** 2.0  
 > **Base URL:** `https://{domain}/api/v2`  

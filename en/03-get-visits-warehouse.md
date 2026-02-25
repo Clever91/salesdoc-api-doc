@@ -6,13 +6,13 @@
 
 ### 9.21. `getVisit` — Visits
 
-**Description:** Получение данных о визитах агентов к клиентам. Включает информацию о плановых и фактических визитах, GPS-статус, наличие заказов и фотоотчётов.
+**Description:** Returns agent visit data for clients. Includes planned and actual visits, GPS status, orders and photo reports.
 
 **Filters:**
 
-| Фильтр | Описание |
-|--------|----------|
-| `filter.period.date.from/to` | Период по дате визита |
+| Filter | Description |
+|--------|-------------|
+| `filter.period.date.from/to` | Period by visit date |
 
 **Request:**
 ```json
@@ -40,10 +40,10 @@
         "visit": [
             {
                 "agent_id": "d0_3",
-                "agent_name": "Иванов Иван",
+                "agent_name": "Ivan Ivanov",
                 "client_id": "d0_100",
-                "client_name": "Магазин \"Звезда\"",
-                "category_name": "Оптовый",
+                "client_name": "Star Shop",
+                "category_name": "Wholesale",
                 "date": "2025-06-15",
                 "start_date": "2025-06-15 10:00:00",
                 "end_date": "2025-06-15 10:30:00",
@@ -65,27 +65,27 @@
 
 | Field | Type | Description |
 |------|-----|----------|
-| `agent_id` | string | ID агента |
-| `agent_name` | string | Имя агента |
-| `client_id` | string | ID клиента |
-| `client_name` | string | Название клиента |
-| `category_name` | string | Категория клиента |
-| `date` | string | Дата визита |
-| `start_date` | string | Время начала визита (check-in) |
-| `end_date` | string | Время окончания визита (check-out) |
-| `planned` | int | Плановый визит: `1` — да, `0` — нет |
-| `visited` | int | Фактический визит: `1` — да, `0` — нет |
-| `reject` | string | Причина отказа (если есть, через запятую) |
-| `has_photo_report` | int | Наличие фотоотчёта: `1` — да, `0` — нет |
-| `gps_visit` | int | GPS-подтверждение: `1` — подтверждён, `0` — нет |
-| `has_order` | int | Наличие заказа: `1` — да, `0` — нет |
-| `order_summa` | float | Сумма заказов за визит |
+| `agent_id` | string | Agent ID |
+| `agent_name` | string | Agent name |
+| `client_id` | string | Client ID |
+| `client_name` | string | Client name |
+| `category_name` | string | Client category |
+| `date` | string | Visit date |
+| `start_date` | string | Visit start time (check-in) |
+| `end_date` | string | Visit end time (check-out) |
+| `planned` | int | Planned visit: `1` — yes, `0` — no |
+| `visited` | int | Actual visit: `1` — yes, `0` — no |
+| `reject` | string | Rejection reason (if any, comma-separated) |
+| `has_photo_report` | int | Photo report present: `1` — yes, `0` — no |
+| `gps_visit` | int | GPS confirmed: `1` — yes, `0` — no |
+| `has_order` | int | Order present: `1` — yes, `0` — no |
+| `order_summa` | float | Order total for the visit |
 
 ---
 
 ### 9.22. `getWarehouse` — Warehouses
 
-**Description:** Получение списка складов (тип: обычный склад).
+**Description:** Returns the list of warehouses (type: regular warehouse).
 
 **Request:**
 ```json
@@ -105,7 +105,7 @@
                 "CS_id": "F1-d0_1",
                 "SD_id": "d0_1",
                 "code_1C": "WH001",
-                "name": "Основной склад",
+                "name": "Main warehouse",
                 "active": "Y"
             }
         ]
@@ -118,17 +118,17 @@
 
 | Field | Type | Description |
 |------|-----|----------|
-| `CS_id` | string | Внешний идентификатор (с префиксом филиала) |
-| `SD_id` | string | Серверный ID |
-| `code_1C` | string | Код склада в 1С |
-| `name` | string | Название склада |
-| `active` | string | Активность: `Y` — активен, `N` — неактивен |
+| `CS_id` | string | External ID (with filial prefix) |
+| `SD_id` | string | Server ID |
+| `code_1C` | string | Warehouse code in 1C |
+| `name` | string | Warehouse name |
+| `active` | string | Active: `Y` — active, `N` — inactive |
 
 ---
 
 ### 9.23. `getDefectWarehouse` — Return warehouses
 
-**Description:** Получение списка складов для возврата (дефектных товаров).
+**Description:** Returns the list of return warehouses (defective goods).
 
 **Request:**
 ```json
@@ -148,7 +148,7 @@
                 "CS_id": "F1-d0_10",
                 "SD_id": "d0_10",
                 "code_1C": "WHD001",
-                "name": "Склад возврата",
+                "name": "Return warehouse",
                 "active": "Y"
             }
         ]
@@ -163,24 +163,24 @@
 |------|-----|----------|
 | `CS_id` | string | Внешний идентификатор (с префиксом филиала) |
 | `SD_id` | string | Серверный ID |
-| `code_1C` | string | Код склада возврата в 1С |
-| `name` | string | Название склада возврата |
+| `code_1C` | string | Return warehouse code in 1C |
+| `name` | string | Return warehouse name |
 | `active` | string | Активность: `Y` — активен, `N` — неактивен |
 
 ---
 
 ### 9.24. `getStock` — Stock
 
-**Description:** Получение текущих складских остатков, сгруппированных по складам.
+**Description:** Returns current stock levels grouped by warehouse.
 
 **Filters:**
 
-| Фильтр | Описание |
-|--------|----------|
-| `params.store.SD_id` | Фильтр по ID склада |
-| `params.category.SD_id` | Фильтр по ID категории товара |
+| Filter | Description |
+|--------|-------------|
+| `params.store.SD_id` | Filter by warehouse ID |
+| `params.category.SD_id` | Filter by product category ID |
 
-**Запрос (фильтр по складу):**
+**Request (filter by warehouse):**
 ```json
 {
     "method": "getStock",
@@ -191,9 +191,9 @@
 }
 ```
 
-> Альтернативы для `params.store`: можно указать **CS_id** (например `"F1-d0_1"`) или **code_1C** (например `"WH001"`) вместо SD_id.
+> Alternatives for `params.store`: you can use **CS_id** (e.g. `"F1-d0_1"`) or **code_1C** (e.g. `"WH001"`) instead of SD_id.
 
-**Запрос (фильтр по категории товара):**
+**Request (filter by product category):**
 ```json
 {
     "method": "getStock",
@@ -204,9 +204,9 @@
 }
 ```
 
-> Альтернативы для `params.category`: можно указать **CS_id** (например `"d0_3"`) или **code_1C** (например `"000000003"`) вместо SD_id.
+> Alternatives for `params.category`: you can use **CS_id** (e.g. `"d0_3"`) or **code_1C** (e.g. `"000000003"`) instead of SD_id.
 
-**Запрос (комбинирование фильтров: склад + категория):**
+**Request (combined filters: warehouse + category):**
 ```json
 {
     "method": "getStock",
@@ -218,7 +218,7 @@
 }
 ```
 
-> Для `store` и `category` в каждом объекте можно использовать **CS_id**, **SD_id** или **code_1C**.
+> For `store` and `category` you can use **CS_id**, **SD_id** or **code_1C** in each object.
 
 **Response:**
 ```json
@@ -230,13 +230,13 @@
                 "CS_id": "F1-d0_1",
                 "SD_id": "d0_1",
                 "code_1C": "WH001",
-                "name": "Основной склад",
+                "name": "Main warehouse",
                 "active": "Y",
                 "products": [
                     {
                         "CS_id": "d0_15",
                         "SD_id": "d0_15",
-                        "name": "Кока-Кола 1.5л",
+                        "name": "Coca-Cola 1.5L",
                         "code_1C": "000000015",
                         "active": "Y",
                         "quantity": 100.0
@@ -253,37 +253,37 @@
 
 | Field | Type | Description |
 |------|-----|----------|
-| **warehouse** | array | Массив складов |
-| `warehouse[].CS_id` | string | Внешний идентификатор склада |
-| `warehouse[].SD_id` | string | Серверный ID склада |
-| `warehouse[].code_1C` | string | Код склада в 1С |
-| `warehouse[].name` | string | Название склада |
-| `warehouse[].active` | string | Активность: `Y` — активен, `N` — неактивен |
-| **warehouse[].products** | array | Массив товаров на складе |
-| `products[].CS_id` | string | Идентификатор товара |
-| `products[].SD_id` | string | Серверный ID товара |
-| `products[].name` | string | Название товара |
-| `products[].code_1C` | string | Код товара в 1С |
-| `products[].active` | string | Активность товара |
-| `products[].quantity` | float | Остаток товара на складе |
+| **warehouse** | array | Array of warehouses |
+| `warehouse[].CS_id` | string | Warehouse external ID |
+| `warehouse[].SD_id` | string | Warehouse server ID |
+| `warehouse[].code_1C` | string | Warehouse code in 1C |
+| `warehouse[].name` | string | Warehouse name |
+| `warehouse[].active` | string | Active: `Y` — active, `N` — inactive |
+| **warehouse[].products** | array | Array of products in warehouse |
+| `products[].CS_id` | string | Product ID |
+| `products[].SD_id` | string | Product server ID |
+| `products[].name` | string | Product name |
+| `products[].code_1C` | string | Product code in 1C |
+| `products[].active` | string | Product active flag |
+| `products[].quantity` | float | Product quantity in warehouse |
 
 ---
 
 ### 9.25. `getStockForDate` — Stock by date
 
-**Description:** Получение складских остатков на указанную дату. Рассчитывается на основе журнала складских операций.
+**Description:** Returns stock levels for a given date. Calculated from the store operations log.
 
-> ⚠️ **Ограничения:**
-> - Если включён параметр — лимит 1 запрос за 5 минут
-> - Если не включён — метод доступен **только** с 20:00 до 08:00
-> - Дата должна быть в формате ISO-8601
+> **Limitations:**
+> - If parameter is enabled — limit 1 request per 5 minutes
+> - If not enabled — method is available **only** from 20:00 to 08:00
+> - Date must be in ISO-8601 format
 
-**Обязательные параметры:**
+**Required parameters:**
 
-| Параметр | Тип | Описание |
-|----------|-----|----------|
-| `params.date` | string | Дата (ISO-8601) |
-| `params.store` | object | Склад (`CS_id` / `SD_id` / `code_1C`) |
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `params.date` | string | Date (ISO-8601) |
+| `params.store` | object | Warehouse (`CS_id` / `SD_id` / `code_1C`) |
 
 **Request:**
 ```json
@@ -297,7 +297,7 @@
 }
 ```
 
-> Альтернативы для `params.store`: можно указать **CS_id** (например `"F1-d0_1"`) или **SD_id** (например `"d0_1"`) вместо code_1C.
+> Alternatives for `params.store`: you can use **CS_id** (e.g. `"F1-d0_1"`) or **SD_id** (e.g. `"d0_1"`) instead of code_1C.
 
 **Response:**
 ```json
@@ -326,13 +326,13 @@
 
 | Field | Type | Description |
 |------|-----|----------|
-| `date` | string | Запрошенная дата |
-| **store** | object | Склад |
-| `store.code_1C` | string | Код склада в 1С |
-| **stock** | array | Массив остатков товаров |
-| `stock[].SD_id` | string | Серверный ID товара |
-| `stock[].code_1C` | string | Код товара в 1С |
-| `stock[].amount` | float | Количество товара на дату |
+| `date` | string | Requested date |
+| **store** | object | Warehouse |
+| `store.code_1C` | string | Warehouse code in 1C |
+| **stock** | array | Array of product stock |
+| `stock[].SD_id` | string | Product server ID |
+| `stock[].code_1C` | string | Product code in 1C |
+| `stock[].amount` | float | Product quantity on date |
 
 ---
 

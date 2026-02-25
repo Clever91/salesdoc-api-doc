@@ -6,13 +6,13 @@
 
 ### 9.32. `getInventory` — Inventory
 
-**Description:** Получение данных инвентаризации оборудования у клиентов.
+**Description:** Returns equipment inventory data at clients.
 
 **Filters:**
 
 | Filter | Description |
 |--------|----------|
-| `filter.period.date.from/to` | По дате начала инвентаризации |
+| `filter.period.date.from/to` | By inventory start date |
 
 **Request:**
 ```json
@@ -41,7 +41,7 @@
             {
                 "SD_id": "d0_1",
                 "code_1C": "INV001",
-                "name": "Холодильник Samsung",
+                "name": "Samsung refrigerator",
                 "model": "RT35K5440S8",
                 "serial_no": "SN123456",
                 "inventory_no": "INV-001",

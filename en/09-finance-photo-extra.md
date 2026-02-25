@@ -8,7 +8,7 @@
 
 ### 13.1. `setPayment` — Create payment
 
-**Description:** Создание оплаты клиента. Можно привязать к конкретному заказу.
+**Description:** Create a client payment. Can be linked to a specific order.
 
 **Request:**
 ```json
@@ -22,7 +22,7 @@
                 "amount": 5000000,
                 "paymentDate": "2025-06-15 14:30:00",
                 "expirationDate": null,
-                "comment": "Оплата за товар",
+                "comment": "Payment for goods",
                 "client": { "code_1C": "000000100" },
                 "agent": { "code_1C": "000000003" },
                 "paymentType": { "code_1C": "000000001" },
@@ -38,22 +38,22 @@
 
 | Field | Type | Required | Description |
 |------|-----|:---:|----------|
-| `code_1C` / `SD_id` | string | ✅ | Идентификатор |
-| `amount` | float | ✅ | Сумма (>0) |
-| `paymentDate` | string | ✅ | Дата оплаты |
-| `expirationDate` | string | ❌ | Дата истечения |
-| `comment` | string | ❌ | Комментарий |
-| `client` | object | ✅ | Клиент |
-| `agent` | object | ❌ | Агент |
-| `paymentType` | object | ✅ | Тип оплаты |
-| `trade` | object | ❌ | Торговое направление |
-| `order` | object | ❌ | Заказ для привязки (закрытие долга) |
+| `code_1C` / `SD_id` | string | ✅ | Identifier |
+| `amount` | float | ✅ | Amount (>0) |
+| `paymentDate` | string | ✅ | Payment date |
+| `expirationDate` | string | ❌ | Expiration date |
+| `comment` | string | ❌ | Comment |
+| `client` | object | ✅ | Client |
+| `agent` | object | ❌ | Agent |
+| `paymentType` | object | ✅ | Payment type |
+| `trade` | object | ❌ | Trade direction |
+| `order` | object | ❌ | Order to link (close debt) |
 
 ---
 
 ### 13.2. `setBalance` — Set opening balance
 
-**Description:** Создание или обновление начального баланса клиента (транзакция типа «Начальный остаток»). Для идентификации записи можно использовать CS_id / SD_id / code_1C.
+**Description:** Create or update a client's opening balance (transaction type "Opening balance"). You can use CS_id / SD_id / code_1C to identify the record.
 
 **Request:**
 ```json
@@ -66,7 +66,7 @@
                 "code_1C": "BAL000001",
                 "amount": 1000000,
                 "paymentDate": "2025-01-01 00:00:00",
-                "comment": "Начальный баланс",
+                "comment": "Opening balance",
                 "client": { "code_1C": "000000100" },
                 "agent": { "code_1C": "000000003" },
                 "paymentType": { "code_1C": "000000001" }
@@ -80,23 +80,23 @@
 
 | Field | Type | Required | Description |
 |------|-----|:---:|----------|
-| `CS_id` / `SD_id` / `code_1C` | string | ❌ (один из для обновления) | Идентификатор записи баланса |
-| `amount` | float | ✅ | Сумма |
-| `paymentDate` | string | ✅ | Дата (Y-m-d H:i:s) |
-| `comment` | string | ❌ | Комментарий |
-| `client` | object | ✅ | Клиент. CS_id / SD_id / code_1C |
-| `agent` | object | ❌ | Агент. CS_id / SD_id / code_1C |
-| `paymentType` | object | ✅ | Тип оплаты (валюта). CS_id / SD_id / code_1C |
+| `CS_id` / `SD_id` / `code_1C` | string | ❌ (one for update) | Balance record identifier |
+| `amount` | float | ✅ | Amount |
+| `paymentDate` | string | ✅ | Date (Y-m-d H:i:s) |
+| `comment` | string | ❌ | Comment |
+| `client` | object | ✅ | Client. CS_id / SD_id / code_1C |
+| `agent` | object | ❌ | Agent. CS_id / SD_id / code_1C |
+| `paymentType` | object | ✅ | Payment type (currency). CS_id / SD_id / code_1C |
 
-**Response:** Стандартный ответ SET-метода: `completed`, `error`, `data.balance` — массив объектов с `CS_id`, `SD_id`, `code_1C` по каждой успешно обработанной записи.
+**Response:** Standard SET response: `completed`, `error`, `data.balance` — array of objects with `CS_id`, `SD_id`, `code_1C` for each successfully processed record.
 
 ---
 
 ### 13.3. `setCurrentBalance` — Set current balance
 
-**Description:** Синхронизация текущего баланса клиента. Рассчитывает разницу между переданным и существующим балансом и создаёт корректирующую транзакцию. Если разница равна 0, запись не создаётся.
+**Description:** Sync the client's current balance. Calculates the difference between the sent and existing balance and creates a correcting transaction. If the difference is 0, no record is created.
 
-> ⚠️ **Rate limit:** Максимум 3 запроса за 5 минут.
+> **Rate limit:** Maximum 3 requests per 5 minutes.
 
 **Request:**
 ```json
@@ -119,17 +119,17 @@
 
 | Field | Type | Required | Description |
 |------|-----|:---:|----------|
-| `CS_id` / `SD_id` / `code_1C` | string | ✅ (один из) | Идентификатор клиента |
-| `balance` | float | ✅ | Целевой текущий баланс (число) |
-| `paymentType` | object | ✅ | Тип оплаты (валюта). CS_id / SD_id / code_1C |
+| `CS_id` / `SD_id` / `code_1C` | string | ✅ (one of) | Client identifier |
+| `balance` | float | ✅ | Target current balance (number) |
+| `paymentType` | object | ✅ | Payment type (currency). CS_id / SD_id / code_1C |
 
-**Response:** `completed`, `error`, `data.currentBalance` — массив объектов с `CS_id`, `SD_id`, `code_1C` по каждому обработанному клиенту.
+**Response:** `completed`, `error`, `data.currentBalance` — array of objects with `CS_id`, `SD_id`, `code_1C` for each processed client.
 
 ---
 
 ### 13.4. `setConsumption` — Create expense
 
-**Description:** Создание записи о расходе или приходе из кассы (потребление). Категория расхода задаётся полем `name`; при отсутствии создаётся новая подкатегория «Потребление от интеграции».
+**Description:** Create an expense or income record from the cashbox (consumption). Expense category is set by `name`; if missing, a new subcategory "Integration consumption" is created.
 
 **Request:**
 ```json
@@ -139,10 +139,10 @@
     "data": {
         "consumption": [
             {
-                "name": "Расход на транспорт",
+                "name": "Transport expense",
                 "summa": 500000,
                 "date": "2025-06-15 16:00:00",
-                "comment": "Доставка",
+                "comment": "Delivery",
                 "type": "debt",
                 "paymentType": { "code_1C": "000000001" },
                 "cashbox": { "SD_id": "d0_1" }
@@ -156,26 +156,26 @@
 
 | Field | Type | Required | Description |
 |------|-----|:---:|----------|
-| `CS_id` / `SD_id` / `code_1C` | string | ❌ (один из для обновления) | Идентификатор записи потребления |
-| `name` | string | ✅ | Название расхода/прихода (категория) |
-| `summa` | float | ✅ | Сумма (положительное число) |
-| `date` | string | ❌ | Дата (Y-m-d H:i:s), по умолчанию текущая |
-| `comment` | string | ❌ | Комментарий |
-| `type` | string | ❌ | `"income"` — приход, иначе расход (debt) |
-| `paymentType` | object | ✅ | Тип оплаты (валюта). CS_id / SD_id / code_1C |
-| `cashbox` | object | ✅ | Касса. CS_id / SD_id / code_1C |
+| `CS_id` / `SD_id` / `code_1C` | string | ❌ (one for update) | Consumption record identifier |
+| `name` | string | ✅ | Expense/income name (category) |
+| `summa` | float | ✅ | Amount (positive number) |
+| `date` | string | ❌ | Date (Y-m-d H:i:s), default current |
+| `comment` | string | ❌ | Comment |
+| `type` | string | ❌ | `"income"` — income, otherwise expense (debt) |
+| `paymentType` | object | ✅ | Payment type (currency). CS_id / SD_id / code_1C |
+| `cashbox` | object | ✅ | Cashbox. CS_id / SD_id / code_1C |
 
-**Response:** `completed`, `error`, `data.consumption` — массив с `CS_id`, `SD_id`, `code_1C` по каждой созданной записи.
+**Response:** `completed`, `error`, `data.consumption` — array with `CS_id`, `SD_id`, `code_1C` for each created record.
 
 ---
 
-## 14. Фото
+## 14. Photos
 
 ### 14.1. `setPhoto` — Upload product photo
 
-**Description:** Загрузка или обновление фотографии товара. Поддерживает передачу изображения в формате base64.
+**Description:** Upload or update a product photo. Supports image as base64.
 
-**Запрос (с base64 данными):**
+**Request (with base64 data):**
 ```json
 {
     "method": "setPhoto",
@@ -187,7 +187,7 @@
 }
 ```
 
-**Запрос (с ID изображения):**
+**Request (with image ID):**
 ```json
 {
     "method": "setPhoto",
@@ -203,15 +203,15 @@
 
 | Field | Type | Required | Description |
 |------|-----|:---:|----------|
-| `product` | object | ✅ | Товар. CS_id / SD_id / code_1C |
-| `imageData` | string | ✅* | Изображение в base64 |
-| `imageId` | string | ✅* | Идентификатор уже загруженного файла (для обновления/привязки) |
+| `product` | object | ✅ | Product. CS_id / SD_id / code_1C |
+| `imageData` | string | ✅* | Image in base64 |
+| `imageId` | string | ✅* | ID of already uploaded file (for update/link) |
 
-> *Нужно указать одно из полей: `imageData` или `imageId`.
+> *Specify one of: `imageData` or `imageId`.
 
-**Ограничения:**
-- Максимальный размер: 100KB
-- Поддерживаемые форматы: JPEG, PNG, GIF
+**Limits:**
+- Max size: 100KB
+- Supported formats: JPEG, PNG, GIF
 
 **Response:**
 ```json
@@ -231,7 +231,7 @@
 
 ### 14.2. `getPhoto` — Get product photo
 
-**Description:** Получение изображения товара по ID. Возвращает бинарные данные изображения.
+**Description:** Get product image by ID. Returns binary image data.
 
 **Request:**
 ```json
@@ -248,17 +248,17 @@
 
 | Field | Type | Required | Description |
 |------|-----|:---:|----------|
-| `imageID` | string | ✅ | Идентификатор изображения (имя файла, например из ответа setPhoto) |
+| `imageID` | string | ✅ | Image identifier (file name, e.g. from setPhoto response) |
 
-**Response:** Бинарные данные изображения с заголовком `Content-Type: image/jpeg` (или другой MIME-тип). Пагинации нет.
+**Response:** Binary image data with header `Content-Type: image/jpeg` (or other MIME type). No pagination.
 
 ---
 
-## 15. Дополнительные методы
+## 15. Extra methods
 
 ### 15.1. `getFilials` — List filials
 
-**Description:** Получение списка всех доступных филиалов (название, домен, префикс, filial_id для запросов с филиалом).
+**Description:** Returns the list of all available filials (name, domain, prefix, filial_id for requests with filial).
 
 **Request:**
 ```json
@@ -275,7 +275,7 @@
     "result": {
         "filials": [
             {
-                "name": "Главный офис",
+                "name": "Main office",
                 "domain": "app.salesdoc.io",
                 "prefix": "F1",
                 "filial_id": "1"
@@ -285,24 +285,24 @@
 }
 ```
 
-**Поля ответа (filials[]):**
+**Response fields (filials[]):**
 
-| Поле | Тип | Описание |
-|------|-----|----------|
-| `name` | string | Название филиала |
-| `domain` | string | Домен филиала |
-| `prefix` | string | Префикс (для CS_id) |
-| `filial_id` | string | Код филиала (передавать в `filial.filial_id`) |
+| Field | Type | Description |
+|-------|------|-------------|
+| `name` | string | Filial name |
+| `domain` | string | Filial domain |
+| `prefix` | string | Prefix (for CS_id) |
+| `filial_id` | string | Filial code (pass in `filial.filial_id`) |
 
 ---
 
 ### 15.2. `getStoreLog` — Store operations log
 
-**Description:** Получение журнала складских операций за период. Все идентификаторы только в формате SD_id.
+**Description:** Returns the store operations log for a period. All identifiers in SD_id format only.
 
-> ⚠️ **Ограничения:** Rate limit 5 запросов за 5 секунд. Метод доступен **только с 20:00 до 07:00** по времени сервера.
+> **Limits:** Rate limit 5 requests per 5 seconds. Method available **only from 20:00 to 07:00** server time.
 
-**Параметры:** `params.storeId` (SD_id склада), `params.from`, `params.to` (даты ISO-8601). Опционально: `params.documents` (массив типов: Purchase, Order, OrderDefect, OrderReplace, Exchange, Excretion, StoreCorrector, BonusOrder), `params.products` (массив SD_id товаров).
+**Parameters:** `params.storeId` (warehouse SD_id), `params.from`, `params.to` (ISO-8601 dates). Optional: `params.documents` (array of types: Purchase, Order, OrderDefect, OrderReplace, Exchange, Excretion, StoreCorrector, BonusOrder), `params.products` (array of product SD_id).
 
 **Request:**
 ```json
@@ -318,13 +318,13 @@
 }
 ```
 
-**Response:** Массив записей в `result`: `product_id`, `document`, `document_id`, `date`, `quantity` (положительное — приход, отрицательное — расход). Подробнее см. раздел 9.40 в [06-get-extra.md](06-get-extra.md#940-getstorelog--журнал-складских-операций).
+**Response:** Array of records in `result`: `product_id`, `document`, `document_id`, `date`, `quantity` (positive — receipt, negative — issue). See section 9.40 in [06-get-extra.md](06-get-extra.md#940-getstorelog--store-operations-log).
 
 ---
 
 ### 15.3. `getClientPending` — Client requests
 
-**Description:** Получение списка заявок на создание/обновление клиентов, ожидающих модерации. Поддерживаются пагинация (`params.limit`, `params.page`).
+**Description:** Returns the list of client create/update requests pending moderation. Supports pagination (`params.limit`, `params.page`).
 
 **Request:**
 ```json
@@ -338,13 +338,13 @@
 }
 ```
 
-**Response:** `result.clientPending` — массив заявок (поля: CS_id, SD_id, code_1C, name, firmName, address, tel, category, type, channel, city, createdBy, createdAt и др.). В ответе есть `pagination`. Подробная структура — в [06-get-extra.md](06-get-extra.md#941-getclientpending--заявки-на-клиентов-ожидающие).
+**Response:** `result.clientPending` — array of requests (fields: CS_id, SD_id, code_1C, name, firmName, address, tel, category, type, channel, city, createdBy, createdAt, etc.). Response includes `pagination`. Full structure in [06-get-extra.md](06-get-extra.md#941-getclientpending--client-requests-pending).
 
 ---
 
 ### 15.4. `deleteClientPending` — Delete client request
 
-**Description:** Удаление одной или нескольких заявок на клиента из списка ожидающих. В теле передаётся массив `clientPending` (не внутри `data`).
+**Description:** Delete one or more client requests from the pending list. The body contains the `clientPending` array (not inside `data`).
 
 **Request:**
 ```json
@@ -358,11 +358,11 @@
 }
 ```
 
-**Поля элемента в clientPending:**
+**Fields for each element in clientPending:**
 
 | Field | Type | Required | Description |
-|------|-----|:---:|----------|
-| `CS_id` / `SD_id` / `code_1C` | string | ✅ (один из) | Идентификатор заявки на клиента |
+|-------|------|:--------:|-------------|
+| `CS_id` / `SD_id` / `code_1C` | string | ✅ (one of) | Client request identifier |
 
 **Response:**
 ```json
@@ -381,36 +381,36 @@
 
 ---
 
-## 16. Лимиты и ограничения
+## 16. Limits and restrictions
 
-### Лимиты по умолчанию
+### Default limits
 
-| Параметр | Значение | Описание |
-|----------|:--------:|----------|
-| Лимит ответа | 1000 | Максимальное количество записей в одном ответе |
-| Лимит запроса | 250 | Максимальное количество записей в одном SET-запросе |
+| Parameter | Value | Description |
+|-----------|:-----:|-------------|
+| Response limit | 1000 | Max records in one response |
+| Request limit | 250 | Max records in one SET request |
 
-> Лимиты могут быть изменены через серверные параметры.
+> Limits can be changed via server parameters.
 
-### Rate Limiting (Ограничение частоты)
+### Rate limiting
 
-Некоторые методы имеют ограничения по частоте вызовов:
+Some methods have call frequency limits:
 
-| Метод | Интервал | Макс. запросов |
-|-------|:--------:|:--------------:|
-| `setStock` | 5 сек | 5 |
-| `setCurrentBalance` | 5 мин | 3 |
+| Method | Interval | Max requests |
+|--------|:--------:|:------------:|
+| `setStock` | 5 sec | 5 |
+| `setCurrentBalance` | 5 min | 3 |
 
-При превышении лимита запрос будет отклонён.
+When the limit is exceeded the request is rejected.
 
-### Требования к данным
+### Data requirements
 
-- **JSON формат:** Запрос должен быть валидным JSON (кодировка UTF-8)
-- **BOM:** Автоматически удаляется UTF-8 BOM если присутствует
-- **Обязательные поля:** `method` — всегда обязательно
-- **Пустой запрос:** Возвращает ошибку 400
-- **Невалидный JSON:** Возвращает ошибку 400
-- **Значение active:** Принимает: `true`, `false`, `"Y"`, `"N"`, `"Истина"`, `1`, `0`
+- **JSON format:** Request must be valid JSON (UTF-8 encoding)
+- **BOM:** UTF-8 BOM is automatically removed if present
+- **Required fields:** `method` — always required
+- **Empty request:** Returns error 400
+- **Invalid JSON:** Returns error 400
+- **active value:** Accepts: `true`, `false`, `"Y"`, `"N"`, `"True"`, `1`, `0`
 
 ---
 

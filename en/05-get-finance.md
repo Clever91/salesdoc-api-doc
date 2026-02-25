@@ -6,7 +6,7 @@
 
 ### 9.29. `getBalance` — Client balances
 
-**Description:** Получение текущего баланса клиентов с разбивкой по валютам.
+**Description:** Returns current client balances with breakdown by currency.
 
 **Request:**
 ```json
@@ -26,7 +26,7 @@
                 "CS_id": "F1-d0_100",
                 "SD_id": "d0_100",
                 "code_1C": "000000100",
-                "name": "Магазин Звезда",
+                "name": "Star Shop",
                 "active": true,
                 "balance": -2500000.00,
                 "by-currency": [
@@ -46,35 +46,35 @@
 
 | Field | Type | Description |
 |------|-----|----------|
-| `CS_id` | string | Внешний идентификатор клиента (с префиксом филиала) |
-| `SD_id` | string | Серверный ID клиента |
-| `code_1C` | string | Код клиента в 1С |
-| `name` | string | Название клиента |
-| `active` | boolean | Активность клиента |
-| `balance` | float | Общий баланс клиента (отрицательный = задолженность) |
-| **by-currency** | array | Разбивка баланса по валютам |
-| `by-currency[].currency_id` | string | ID валюты (типа оплаты) |
-| `by-currency[].amount` | float | Сумма баланса в данной валюте |
+| `CS_id` | string | Client external identifier (with branch prefix) |
+| `SD_id` | string | Client server ID |
+| `code_1C` | string | Client 1C code |
+| `name` | string | Client name |
+| `active` | boolean | Client active flag |
+| `balance` | float | Total client balance (negative = debt) |
+| **by-currency** | array | Balance breakdown by currency |
+| `by-currency[].currency_id` | string | Currency (payment type) ID |
+| `by-currency[].amount` | float | Balance amount in that currency |
 
-> **Примечание:** Отрицательный баланс означает задолженность клиента.
+> **Note:** Negative balance means client debt.
 
 ---
 
 ### 9.30. `getConsumption` — Expense / Income
 
-**Description:** Получение списка кассовых операций (расход и приход).
+**Description:** Returns the list of cash operations (expense and income).
 
 **Filters:**
 
-| Фильтр | Описание |
-|--------|----------|
-| `filter.include` | `sd`, `1c`, `all` — по источнику |
-| `filter.type` | `income` — приход, `expense` — расход |
-| `filter.paymentType` | По типу оплаты (`CS_id` / `SD_id` / `code_1C`) |
+| Filter | Description |
+|--------|-------------|
+| `filter.include` | `sd`, `1c`, `all` — by source |
+| `filter.type` | `income` — income, `expense` — expense |
+| `filter.paymentType` | By payment type (`CS_id` / `SD_id` / `code_1C`) |
 
-**Примеры использования фильтров:**
+**Filter examples:**
 
-**Фильтр по типу операции и источнику:**
+**Filter by operation type and source:**
 ```json
 {
     "method": "getConsumption",
@@ -89,7 +89,7 @@
 }
 ```
 
-**Фильтр по источнику (`filter.include`):**
+**Filter by source (`filter.include`):**
 ```json
 {
     "method": "getConsumption",
@@ -101,9 +101,9 @@
     }
 }
 ```
-> Значения: `sd` — только из SalesDoc, `1c` — только из 1С, `all` — все записи.
+> Values: `sd` — from SalesDoc only, `1c` — from 1C only, `all` — all records.
 
-**Фильтр только по приходу (`filter.type`):**
+**Filter by income only (`filter.type`):**
 ```json
 {
     "method": "getConsumption",
@@ -116,7 +116,7 @@
 }
 ```
 
-**Фильтр по типу оплаты (`filter.paymentType`):**
+**Filter by payment type (`filter.paymentType`):**
 ```json
 {
     "method": "getConsumption",
@@ -131,9 +131,9 @@
 }
 ```
 
-> Альтернативы для `filter.paymentType`: можно указать **CS_id** (например `"F1-d0_1"`) или **SD_id** (например `"d0_1"`) вместо code_1C.
+> Alternatives for `filter.paymentType`: you can use **CS_id** (e.g. `"F1-d0_1"`) or **SD_id** (e.g. `"d0_1"`) instead of code_1C.
 
-**Комбинирование всех фильтров:**
+**Combining all filters:**
 ```json
 {
     "method": "getConsumption",
