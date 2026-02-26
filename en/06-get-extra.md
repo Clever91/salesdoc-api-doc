@@ -41,7 +41,7 @@
             {
                 "SD_id": "d0_1",
                 "code_1C": "INV001",
-                "name": "Samsung refrigerator",
+                "name": "Холодильник Samsung",
                 "model": "RT35K5440S8",
                 "serial_no": "SN123456",
                 "inventory_no": "INV-001",
@@ -49,16 +49,16 @@
                 "from_date": "2025-03-01",
                 "to_date": null,
                 "state": "good",
-                "comment": "В хорошем состоянии",
+                "comment": "In good condition",
                 "type": {
                     "SD_id": "1",
-                    "name": "Холодильник",
+                    "name": "Refrigerator",
                     "code_1C": "FRIDGE"
                 },
                 "agents": [
                     {
                         "SD_id": "d0_3",
-                        "name": "Иванов Иван",
+                        "name": "Ivan Ivanov",
                         "code_1C": "000000003"
                     }
                 ],
@@ -69,7 +69,7 @@
                 },
                 "city": {
                     "SD_id": "d0_1",
-                    "name": "Чиланзар",
+                    "name": "Chilanzar",
                     "code_1C": "000000001"
                 }
             }
@@ -85,16 +85,16 @@
 |------|-----|----------|
 | `SD_id` | string | Серверный ID |
 | `code_1C` | string | Код в 1С |
-| `name` | string | Название оборудования |
-| `model` | string | Модель |
-| `serial_no` | string | Серийный номер |
-| `inventory_no` | string | Инвентарный номер |
-| `production_date` | string | Дата производства |
-| `from_date` | string | Дата начала размещения |
-| `to_date` | string\|null | Дата окончания размещения |
-| `state` | string | Состояние (например `good`) |
-| `comment` | string | Комментарий |
-| **type** | object | Тип оборудования |
+| `name` | string | Equipment name |
+| `model` | string | Model |
+| `serial_no` | string | Serial number |
+| `inventory_no` | string | Inventory number |
+| `production_date` | string | Production date |
+| `from_date` | string | Placement start date |
+| `to_date` | string\|null | Placement end date |
+| `state` | string | State (e.g. `good`) |
+| `comment` | string | Comment |
+| **type** | object | Equipment type |
 | `type.SD_id` | string | Серверный ID типа |
 | `type.name` | string | Название типа |
 | `type.code_1C` | string | Код типа в 1С |

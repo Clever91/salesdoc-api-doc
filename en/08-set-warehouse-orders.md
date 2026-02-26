@@ -17,7 +17,7 @@
         "warehouse": [
             {
                 "code_1C": "WH001",
-                "name": "Основной склад",
+                "name": "Main warehouse",
                 "active": true
             }
         ]
@@ -29,9 +29,9 @@
 
 ### 11.2. `setStock` — Set warehouse stock (inventory)
 
-**Description:** Полная инвентаризация склада. Обновляет остатки всех переданных товаров. По умолчанию обнуляет остатки товаров, которые **не были** переданы в запросе.
+**Description:** Full warehouse inventory. Updates stock for all products sent in the request. By default zeroes stock for products that were **not** included in the request.
 
-> ⚠️ **Rate limit:** Максимум 5 запросов за 5 секунд.
+> ⚠️ **Rate limit:** Maximum 5 requests per 5 seconds.
 
 **Request:**
 ```json
@@ -83,7 +83,7 @@
 
 ### 11.3. `setPurchase` — Goods receipt
 
-**Description:** Создание или обновление документа прихода (закупки) товаров на склад. Для поиска существующего документа используется CS_id / SD_id / code_1C (см. порядок идентификации в 07-set-references).
+**Description:** Create or update a warehouse receipt (purchase) document. To find an existing document use CS_id / SD_id / code_1C (see identification order in 07-set-references).
 
 **Request:**
 ```json
@@ -94,7 +94,7 @@
         "purchase": [
             {
                 "date": "2025-06-15 10:00:00",
-                "comment": "Закупка от поставщика",
+                "comment": "Purchase from supplier",
                 "priceType": { "code_1C": "000000001" },
                 "store": { "code_1C": "WH001" },
                 "shipper": { "code_1C": "SHIP001" },
@@ -144,7 +144,7 @@
 
 ### 11.4. `setMovement` — Transfer
 
-**Description:** Создание документа перемещения товаров между двумя складами. Существующие перемещения редактировать нельзя. Обязательно указывается уникальный `code_1C` для документа.
+**Description:** Create a transfer document between two warehouses. Existing transfers cannot be edited. A unique `code_1C` for the document is required.
 
 **Request:**
 ```json
@@ -156,7 +156,7 @@
             {
                 "code_1C": "MOV000001",
                 "date": "2025-06-15 07:00:00",
-                "comment": "Перемещение на склад агента",
+                "comment": "Transfer to agent warehouse",
                 "storeFrom": { "code_1C": "WH001" },
                 "storeTo": { "code_1C": "WH002" },
                 "products": [
@@ -173,20 +173,20 @@
 
 | Field | Type | Required | Description |
 |------|-----|:---:|----------|
-| `code_1C` | string | ✅ | Уникальный код документа (из 1С). Не должен совпадать с существующим перемещением |
-| `date` | string | ✅ | Дата перемещения (`Y-m-d H:i:s`) |
-| `comment` | string | ❌ | Комментарий |
-| `storeFrom` | object | ✅ | Склад-источник. CS_id / SD_id / code_1C |
-| `storeTo` | object | ✅ | Склад-назначение. CS_id / SD_id / code_1C |
-| `products` | array | ✅ | Товары и количество (на складе-источнике проверяется наличие) |
+| `code_1C` | string | ✅ | Unique document code (from 1C). Must not match an existing transfer |
+| `date` | string | ✅ | Transfer date (`Y-m-d H:i:s`) |
+| `comment` | string | ❌ | Comment |
+| `storeFrom` | object | ✅ | Source warehouse. CS_id / SD_id / code_1C |
+| `storeTo` | object | ✅ | Destination warehouse. CS_id / SD_id / code_1C |
+| `products` | array | ✅ | Products and quantity (availability checked on source warehouse) |
 
-**Product fields in products:** `CS_id` / `SD_id` / `code_1C` — идентификатор товара; `quantity` — количество (float).
+**Product fields in products:** `CS_id` / `SD_id` / `code_1C` — product identifier; `quantity` — quantity (float).
 
 ---
 
 ### 11.5. `setVsExchange` — Exchange (Vansel)
 
-**Description:** Создание или обновление документа обмена товаров на складе (схема Vansel). Агент должен быть типа VanSelling; используется склад агента.
+**Description:** Create or update a warehouse exchange document (Vansel scheme). Agent must be VanSelling type; agent warehouse is used.
 
 **Request:**
 ```json
@@ -197,7 +197,7 @@
         "vsExchange": [
             {
                 "date": "2025-06-15 08:00:00",
-                "comment": "Обмен товара",
+                "comment": "Product exchange",
                 "priceType": { "code_1C": "000000001" },
                 "store": { "code_1C": "WH001" },
                 "agent": { "code_1C": "000000003" },
@@ -215,21 +215,21 @@
 
 | Field | Type | Required | Description |
 |------|-----|:---:|----------|
-| `CS_id` / `SD_id` / `code_1C` | string | ❌ (один из для обновления) | Идентификатор документа обмена |
-| `date` | string | ✅ | Дата (`Y-m-d H:i:s`) |
-| `comment` | string | ❌ | Комментарий |
-| `priceType` | object | ✅ | Тип цены (TYPE=2). CS_id / SD_id / code_1C |
-| `store` | object | ✅ | Склад-источник. CS_id / SD_id / code_1C |
-| `agent` | object | ✅ | Агент типа Vansel. CS_id / SD_id / code_1C |
-| `products` | array | ✅ | Товары и количество |
+| `CS_id` / `SD_id` / `code_1C` | string | ❌ (one of for update) | Exchange document identifier |
+| `date` | string | ✅ | Date (`Y-m-d H:i:s`) |
+| `comment` | string | ❌ | Comment |
+| `priceType` | object | ✅ | Price type (TYPE=2). CS_id / SD_id / code_1C |
+| `store` | object | ✅ | Source warehouse. CS_id / SD_id / code_1C |
+| `agent` | object | ✅ | Vansel agent. CS_id / SD_id / code_1C |
+| `products` | array | ✅ | Products and quantity |
 
-**Product fields in products:** идентификатор товара (CS_id / SD_id / code_1C), `quantity` (float, > 0). Цена может подставляться из прайса.
+**Product fields in products:** product identifier (CS_id / SD_id / code_1C), `quantity` (float, > 0). Price may be taken from price list.
 
 ---
 
 ### 11.6. `setMovingToFilial` — Move to filial
 
-**Description:** Перемещение товаров из склада текущего филиала на склад другого филиала. В запросе обязательно указываются `storeFrom` и `movingTo` (филиал и склад назначения) с **CS_id** (префикс филиала). Создаётся возврат поставщику в текущем филиале и приход в целевом филиале.
+**Description:** Transfer products from the current branch warehouse to another branch warehouse. The request must include `storeFrom` and `movingTo` (destination branch and warehouse) with **CS_id** (branch prefix). Creates a supplier return in the current branch and a receipt in the target branch.
 
 **Request:**
 ```json
@@ -241,7 +241,7 @@
         "moving": [
             {
                 "date": "2025-06-15 12:00:00",
-                "comment": "Перемещение в филиал F2",
+                "comment": "Transfer to branch F2",
                 "priceType": { "code_1C": "000000001" },
                 "storeFrom": { "CS_id": "F1-d0_1" },
                 "movingTo": {
@@ -262,20 +262,20 @@
 
 | Field | Type | Required | Description |
 |------|-----|:---:|----------|
-| `date` | string | ✅ | Дата перемещения |
-| `comment` | string | ❌ | Комментарий |
-| `priceType` | object | ✅ | Тип цены (закупочный). CS_id / SD_id / code_1C |
-| `storeFrom` | object | ✅ | Склад текущего филиала; **CS_id обязателен** (с префиксом филиала) |
-| `movingTo` | object | ✅ | Филиал и склад назначения |
-| `movingTo.filialId` | string | ✅ | Код филиала (xml_id) |
-| `movingTo.storeTo` | object | ✅ | Склад филиала назначения; **CS_id обязателен** |
-| `products` | array | ✅ | Товары: идентификатор, `quantity`, `price` |
+| `date` | string | ✅ | Transfer date |
+| `comment` | string | ❌ | Comment |
+| `priceType` | object | ✅ | Price type (purchase). CS_id / SD_id / code_1C |
+| `storeFrom` | object | ✅ | Current branch warehouse; **CS_id required** (with branch prefix) |
+| `movingTo` | object | ✅ | Destination branch and warehouse |
+| `movingTo.filialId` | string | ✅ | Branch code (xml_id) |
+| `movingTo.storeTo` | object | ✅ | Destination branch warehouse; **CS_id required** |
+| `products` | array | ✅ | Products: identifier, `quantity`, `price` |
 
 ---
 
 ### 11.7. `setSupplierReturn` — Supplier return
 
-**Description:** Создание или обновление документа возврата товара поставщику со склада. Проверяется наличие товара на складе.
+**Description:** Create or update a product return-to-supplier document. Product availability on warehouse is checked.
 
 **Request:**
 ```json
@@ -286,7 +286,7 @@
         "return": [
             {
                 "date": "2025-06-15 14:00:00",
-                "comment": "Возврат брака",
+                "comment": "Defect return",
                 "priceType": { "code_1C": "000000001" },
                 "store": { "code_1C": "WH001" },
                 "products": [
@@ -303,18 +303,18 @@
 
 | Field | Type | Required | Description |
 |------|-----|:---:|----------|
-| `CS_id` / `SD_id` / `code_1C` | string | ❌ (один из для обновления) | Идентификатор документа возврата |
-| `date` | string | ✅ | Дата (`Y-m-d H:i:s`) |
-| `comment` | string | ❌ | Комментарий |
-| `priceType` | object | ✅ | Тип цены. CS_id / SD_id / code_1C |
-| `store` | object | ✅ | Склад. CS_id / SD_id / code_1C |
-| `products` | array | ✅ | Товары: идентификатор (CS_id / SD_id / code_1C), `quantity` (> 0), `price` |
+| `CS_id` / `SD_id` / `code_1C` | string | ❌ (one of for update) | Return document identifier |
+| `date` | string | ✅ | Date (`Y-m-d H:i:s`) |
+| `comment` | string | ❌ | Comment |
+| `priceType` | object | ✅ | Price type. CS_id / SD_id / code_1C |
+| `store` | object | ✅ | Warehouse. CS_id / SD_id / code_1C |
+| `products` | array | ✅ | Products: identifier (CS_id / SD_id / code_1C), `quantity` (> 0), `price` |
 
 ---
 
 ### 11.8. `setExcretion` — Write-off
 
-**Description:** Создание или обновление списания товара со склада. Уменьшает остатки на складе. Наличие товара проверяется.
+**Description:** Create or update a warehouse write-off document. Decreases warehouse stock. Product availability is checked.
 
 **Request:**
 ```json
@@ -325,7 +325,7 @@
         "excretion": [
             {
                 "date": "2025-06-15 16:00:00",
-                "comment": "Списание по акту",
+                "comment": "Write-off by act",
                 "fromStore": { "code_1C": "WH001" },
                 "products": [
                     { "code_1C": "000000015", "quantity": 10 },
@@ -341,19 +341,19 @@
 
 | Field | Type | Required | Description |
 |------|-----|:---:|----------|
-| `CS_id` / `SD_id` / `code_1C` | string | ❌ (один из для обновления) | Идентификатор документа списания |
-| `date` | string | ✅ | Дата списания (формат `Y-m-d H:i:s` или ISO-8601) |
-| `comment` | string | ❌ | Комментарий |
-| `fromStore` | object | ✅ | Склад. CS_id / SD_id / code_1C |
-| `products` | array | ✅ | Товары и количество (положительное) |
+| `CS_id` / `SD_id` / `code_1C` | string | ❌ (one of for update) | Write-off document identifier |
+| `date` | string | ✅ | Write-off date (format `Y-m-d H:i:s` or ISO-8601) |
+| `comment` | string | ❌ | Comment |
+| `fromStore` | object | ✅ | Warehouse. CS_id / SD_id / code_1C |
+| `products` | array | ✅ | Products and quantity (positive) |
 
-**Product fields in products:** идентификатор товара (CS_id / SD_id / code_1C), `quantity` (float, > 0).
+**Product fields in products:** product identifier (CS_id / SD_id / code_1C), `quantity` (float, > 0).
 
 ---
 
 ### 11.9. `setCorrection` — Stock correction
 
-**Description:** Ручная корректировка складских остатков. Поддерживается **только создание** новых документов; редактирование существующих (по SD_id или по уже существующему code_1C) запрещено. Данные передаются массивом напрямую в `data`. Склад должен быть привязан к созданному складу. `quantity` в позиции может быть положительным (увеличение) или отрицательным (уменьшение); итоговый остаток не должен стать отрицательным.
+**Description:** Manual warehouse stock correction. **Only creation** of new documents is supported; editing existing ones (by SD_id or existing code_1C) is not allowed. Data is passed as an array directly in `data`. Warehouse must be linked to the created warehouse. `quantity` in a line can be positive (increase) or negative (decrease); final stock must not become negative.
 
 **Request:**
 ```json
@@ -392,7 +392,7 @@
 
 ### 12.1. `setOrder` — Create/update order
 
-**Description:** Создание или обновление заказа (заявки). Включает проверку остатков, бронирование, бонусные товары.
+**Description:** Create or update an order. Includes stock check, reservation, bonus products.
 
 **Request:**
 ```json
@@ -406,7 +406,7 @@
                 "status": 1,
                 "dateCreate": "2025-06-15 10:00:00",
                 "dateShipment": "2025-06-16",
-                "comment": "Срочный заказ",
+                "comment": "Urgent order",
                 "consignment": false,
                 "consigDate": null,
                 "client": { "code_1C": "000000100" },
