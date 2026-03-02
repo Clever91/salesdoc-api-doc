@@ -62,22 +62,22 @@
 }
 ```
 
-**Параметры склада:**
+**Warehouse parameters:**
 
 | Field | Type | Required | Description |
 |------|-----|:---:|----------|
-| `code_1C` / `SD_id` | string | ✅ | ID склада |
-| `date` | string | ❌ | Дата инвентаризации (по умолчанию текущая) |
-| `dont_zero_others` | bool | ❌ | `true` — не обнулять остатки товаров, не указанных в запросе |
-| `products` | array | ✅ | Список товаров с количеством |
+| `code_1C` / `SD_id` | string | ✅ | Warehouse ID |
+| `date` | string | ❌ | Inventory date (default: current) |
+| `dont_zero_others` | bool | ❌ | `true` — do not zero stock for products not in the request |
+| `products` | array | ✅ | List of products with quantity |
 
-**Параметры товара:**
+**Product parameters:**
 
 | Field | Type | Required | Description |
 |------|-----|:---:|----------|
-| `code_1C` / `SD_id` | string | ✅ | ID товара |
-| `quantity` | float | ✅ | Количество (≥ 0) |
-| `price` | float | ❌ | Себестоимость |
+| `code_1C` / `SD_id` | string | ✅ | Product ID |
+| `quantity` | float | ✅ | Quantity (≥ 0) |
+| `price` | float | ❌ | Cost price |
 
 ---
 
@@ -118,27 +118,27 @@
 }
 ```
 
-**Поля элемента:**
+**Element fields:**
 
 | Field | Type | Required | Description |
 |------|-----|:---:|----------|
-| `CS_id` / `SD_id` / `code_1C` | string | ❌ (один из для обновления) | Идентификатор прихода (если пусто — создаётся новый) |
-| `date` | string | ✅ | Дата прихода (`Y-m-d H:i:s`) |
-| `comment` | string | ❌ | Комментарий |
-| `priceType` | object | ✅ | Тип цены (закупочный, TYPE=1). CS_id / SD_id / code_1C |
-| `store` | object | ✅ | Склад. CS_id / SD_id / code_1C |
-| `shipper` | object | ❌ | Поставщик. CS_id / SD_id / code_1C (если не указан — основной поставщик) |
-| `products` | array | ✅ | Список товаров с количеством и ценой |
+| `CS_id` / `SD_id` / `code_1C` | string | ❌ (one of for update) | Receipt identifier (if empty — new is created) |
+| `date` | string | ✅ | Receipt date (`Y-m-d H:i:s`) |
+| `comment` | string | ❌ | Comment |
+| `priceType` | object | ✅ | Price type (purchase, TYPE=1). CS_id / SD_id / code_1C |
+| `store` | object | ✅ | Warehouse. CS_id / SD_id / code_1C |
+| `shipper` | object | ❌ | Supplier. CS_id / SD_id / code_1C (if not set — default supplier) |
+| `products` | array | ✅ | List of products with quantity and price |
 
 **Product fields in products:**
 
 | Field | Type | Required | Description |
 |------|-----|:---:|----------|
-| `CS_id` / `SD_id` / `code_1C` | string | ✅ (один из) | Идентификатор товара |
-| `quantity` | float | ✅ | Количество (≥ 0) |
-| `price` | float | ✅ | Цена (≥ 0) |
-| `mfg_date` | string | ❌ | Дата изготовления (Y-m-d) |
-| `exp_date` | string | ❌ | Срок годности (Y-m-d) |
+| `CS_id` / `SD_id` / `code_1C` | string | ✅ (one of) | Product identifier |
+| `quantity` | float | ✅ | Quantity (≥ 0) |
+| `price` | float | ✅ | Price (≥ 0) |
+| `mfg_date` | string | ❌ | Manufacturing date (Y-m-d) |
+| `exp_date` | string | ❌ | Expiry date (Y-m-d) |
 
 ---
 
@@ -169,7 +169,7 @@
 }
 ```
 
-**Поля элемента:**
+**Element fields:**
 
 | Field | Type | Required | Description |
 |------|-----|:---:|----------|
@@ -211,7 +211,7 @@
 }
 ```
 
-**Поля элемента:**
+**Element fields:**
 
 | Field | Type | Required | Description |
 |------|-----|:---:|----------|
@@ -258,7 +258,7 @@
 }
 ```
 
-**Поля элемента:**
+**Element fields:**
 
 | Field | Type | Required | Description |
 |------|-----|:---:|----------|
@@ -299,7 +299,7 @@
 }
 ```
 
-**Поля элемента:**
+**Element fields:**
 
 | Field | Type | Required | Description |
 |------|-----|:---:|----------|
@@ -337,7 +337,7 @@
 }
 ```
 
-**Поля элемента:**
+**Element fields:**
 
 | Field | Type | Required | Description |
 |------|-----|:---:|----------|
@@ -374,17 +374,17 @@
 }
 ```
 
-**Поля элемента (каждый элемент массива `data`):**
+**Element fields (each item in `data` array):**
 
 | Field | Type | Required | Description |
 |------|-----|:---:|----------|
-| `code_1C` | string | ❌ | Код документа в 1С (только для нового; если указан и уже есть — ошибка) |
-| `SD_id` | — | ❌ | Не передавать; редактирование по SD_id запрещено |
-| `date` | string | ❌ | Дата корректировки (по умолчанию текущая) |
-| `warehouse` | object | ✅ | Склад. CS_id / SD_id / code_1C |
-| `products` | array | ✅ | Товары и разница остатка (+ увеличение, − уменьшение) |
+| `code_1C` | string | ❌ | Document code in 1C (new only; if set and already exists — error) |
+| `SD_id` | — | ❌ | Do not send; editing by SD_id is not allowed |
+| `date` | string | ❌ | Correction date (default: current) |
+| `warehouse` | object | ✅ | Warehouse. CS_id / SD_id / code_1C |
+| `products` | array | ✅ | Products and stock delta (+ increase, − decrease) |
 
-**Product fields in products:** идентификатор товара (CS_id / SD_id / code_1C), `quantity` (float; может быть отрицательным). Проверяется, что новый остаток ≥ 0.
+**Product fields in products:** product identifier (CS_id / SD_id / code_1C), `quantity` (float; may be negative). New stock must be ≥ 0.
 
 ---
 
@@ -432,52 +432,52 @@
 }
 ```
 
-**Поля заказа:**
+**Order fields:**
 
 | Field | Type | Required | Description |
 |------|-----|:---:|----------|
-| `code_1C` / `SD_id` | string | ✅ | Идентификатор заказа |
-| `status` | int | ✅ | Статус (1-5) |
-| `dateCreate` | string | ❌ | Дата создания |
-| `dateShipment` | string | ❌ | Дата отгрузки |
-| `comment` | string | ❌ | Комментарий |
-| `consignment` | bool | ❌ | Консигнация |
-| `consigDate` | string | ❌ | Дата консигнации |
-| `client` | object | ✅ | Клиент |
-| `agent` | object | ✅ | Агент |
-| `expeditor` | object | ❌ | Экспедитор |
-| `priceType` | object | ✅ | Тип цены |
-| `warehouse` | object | ✅ | Склад |
-| `auto_attach_expeditor` | bool | ❌ | Автопривязка экспедитора |
-| `debtDateExp` | string | ❌ | Дата истечения долга |
-| `orderProducts` | array | ✅ | Товары заказа |
-| `bonusProducts` | array | ❌ | Бонусные товары |
+| `code_1C` / `SD_id` | string | ✅ | Order identifier |
+| `status` | int | ✅ | Status (1-5) |
+| `dateCreate` | string | ❌ | Creation date |
+| `dateShipment` | string | ❌ | Shipment date |
+| `comment` | string | ❌ | Comment |
+| `consignment` | bool | ❌ | Consignment |
+| `consigDate` | string | ❌ | Consignment date |
+| `client` | object | ✅ | Client |
+| `agent` | object | ✅ | Agent |
+| `expeditor` | object | ❌ | Expeditor |
+| `priceType` | object | ✅ | Price type |
+| `warehouse` | object | ✅ | Warehouse |
+| `auto_attach_expeditor` | bool | ❌ | Auto-attach expeditor |
+| `debtDateExp` | string | ❌ | Debt expiry date |
+| `orderProducts` | array | ✅ | Order products |
+| `bonusProducts` | array | ❌ | Bonus products |
 
-**Поля продукта заказа:**
+**Order product fields:**
 
-| Поле | Тип | Описание |
+| Field | Type | Description |
 |------|-----|----------|
-| `product` | object | Товар (`code_1C` / `SD_id`) |
-| `quantity` | float | Количество |
-| `price` | float | Цена (если не указано — берётся из прайса) |
-| `discount` | float | Скидка в процентах (0-100) |
-| `returned` | float | Количество возврата |
+| `product` | object | Product (`code_1C` / `SD_id`) |
+| `quantity` | float | Quantity |
+| `price` | float | Price (if not set — from price list) |
+| `discount` | float | Discount percent (0-100) |
+| `returned` | float | Return quantity |
 
-**Статусы заказов:**
+**Order statuses:**
 
-| Статус | Описание |
-|--------|----------|
-| 1 | Новый |
-| 2 | Отправлен |
-| 3 | Доставлен |
-| 4 | Закрыт |
-| 5 | Отменён |
+| Status | Description |
+|--------|-------------|
+| 1 | New |
+| 2 | Sent |
+| 3 | Delivered |
+| 4 | Closed |
+| 5 | Cancelled |
 
 ---
 
 ### 12.2. `setDeletedOrder` — Cancel order
 
-**Description:** Отмена заказа (установка статуса 5 — Отменён).
+**Description:** Cancel order (set status 5 — Cancelled).
 
 **Request:**
 ```json
@@ -498,7 +498,7 @@
 
 ### 12.3. `setStatus` — Change order status
 
-**Description:** Изменение статуса одного или нескольких заказов.
+**Description:** Change status of one or more orders.
 
 **Request:**
 ```json
@@ -521,15 +521,15 @@
 
 | Field | Type | Required | Description |
 |------|-----|:---:|----------|
-| `code_1C` / `SD_id` | string | ✅ | Идентификатор заказа |
-| `status` | int | ✅ | Новый статус |
-| `dateShipment` | string | ❌ | Дата отгрузки (формат: Y-m-d) |
+| `code_1C` / `SD_id` | string | ✅ | Order identifier |
+| `status` | int | ✅ | New status |
+| `dateShipment` | string | ❌ | Shipment date (format: Y-m-d) |
 
 ---
 
 ### 12.4. `setCode` — Set 1C code for documents
 
-**Description:** Установка XML_ID (кода 1С) для различных документов (заказы, возвраты, обмены и др.).
+**Description:** Set XML_ID (1C code) for various documents (orders, returns, exchanges, etc.).
 
 **Request:**
 ```json
@@ -548,22 +548,22 @@
 }
 ```
 
-**Поддерживаемые типы документов:**
-- `Order` — Заказ
-- `OrderDefect` — Возврат от клиента
-- `OrderReplace` — Обмен
-- `Purchase` — Приход (закупка)
-- `PurchaseRefund` — Возврат поставщику
-- `Exchange` — Перемещение между складами
-- `VsExchange` — Обмен (Vansel)
-- `Excretion` — Списание
-- Любая другая существующая модель с полем code_1C
+**Supported document types:**
+- `Order` — Order
+- `OrderDefect` — Client return
+- `OrderReplace` — Exchange
+- `Purchase` — Receipt (purchase)
+- `PurchaseRefund` — Supplier return
+- `Exchange` — Transfer between warehouses
+- `VsExchange` — Exchange (Vansel)
+- `Excretion` — Write-off
+- Any other existing model with code_1C field
 
 ---
 
 ### 12.5. `setOrderDefect` — Create return
 
-**Description:** Создание документа возврата товара от клиента (в веб-интерфейсе называется **«Возврат с полки»**). Документ фиксирует возврат товара от клиента на склад: клиент, агент, склад, тип цены и список возвращаемых товаров с количеством и ценой.
+**Description:** Create a client return document (in the web UI called **"Shelf return"**). The document records return of goods from client to warehouse: client, agent, warehouse, price type and list of returned products with quantity and price.
 
 **Request:**
 ```json
@@ -577,7 +577,7 @@
                 "status": 1,
                 "dateCreate": "2025-06-15 10:00:00",
                 "dateDefect": "2025-06-15",
-                "comment": "Брак",
+                "comment": "Defect",
                 "client": { "code_1C": "000000100" },
                 "agent": { "code_1C": "000000003" },
                 "expeditor": { "code_1C": "000000005" },
@@ -600,41 +600,41 @@
 
 | Field | Type | Required | Description |
 |------|-----|:---:|----------|
-| `code_1C` / `SD_id` | string | ✅ (один из) | Идентификатор документа возврата |
-| `status` | int | ✅ | Статус (1–5) |
-| `dateCreate` | string | ❌ | Дата создания (`Y-m-d H:i:s`) |
-| `dateDefect` | string | ❌ | Дата возврата (Y-m-d) |
-| `comment` | string | ❌ | Комментарий (причина возврата) |
-| `client` | object | ✅ | Клиент. CS_id / SD_id / code_1C |
-| `agent` | object | ✅ | Агент. CS_id / SD_id / code_1C |
-| `expeditor` | object | ❌ | Экспедитор. CS_id / SD_id / code_1C |
-| `priceType` | object | ✅ | Тип цены. CS_id / SD_id / code_1C |
-| `warehouse` | object | ✅ | Склад. CS_id / SD_id / code_1C |
-| `defectProducts` | array | ✅ | Список возвращаемых товаров |
+| `code_1C` / `SD_id` | string | ✅ (one of) | Return document identifier |
+| `status` | int | ✅ | Status (1–5) |
+| `dateCreate` | string | ❌ | Creation date (`Y-m-d H:i:s`) |
+| `dateDefect` | string | ❌ | Return date (Y-m-d) |
+| `comment` | string | ❌ | Comment (return reason) |
+| `client` | object | ✅ | Client. CS_id / SD_id / code_1C |
+| `agent` | object | ✅ | Agent. CS_id / SD_id / code_1C |
+| `expeditor` | object | ❌ | Expeditor. CS_id / SD_id / code_1C |
+| `priceType` | object | ✅ | Price type. CS_id / SD_id / code_1C |
+| `warehouse` | object | ✅ | Warehouse. CS_id / SD_id / code_1C |
+| `defectProducts` | array | ✅ | List of returned products |
 
 **Product fields in defectProducts:**
 
 | Field | Type | Required | Description |
 |------|-----|:---:|----------|
-| `product` | object | ✅ | Товар. CS_id / SD_id / code_1C |
-| `quantity` | float | ✅ | Количество возврата |
-| `price` | float | ❌ | Цена (если не указано — из прайса) |
+| `product` | object | ✅ | Product. CS_id / SD_id / code_1C |
+| `quantity` | float | ✅ | Return quantity |
+| `price` | float | ❌ | Price (if not set — from price list) |
 
 ---
 
 ### 12.6. `syncOrder` — Order sync
 
-**Description:** Присвоение кода 1С и при необходимости изменение статуса заказов, возвратов и обменов. Используется после того, как документ обработан в 1С: интегратор передаёт `SD_id` документа из SalesDoc и присвоенный в 1С код (`code_order` для заказа, `code_return` для возврата, `code_replace` для обмена). Опционально можно передать новый `status` (1–5).
+**Description:** Assign 1C code and optionally change status for orders, returns and exchanges. Used after the document is processed in 1C: the integrator sends the document's `SD_id` from SalesDoc and the code assigned in 1C (`code_order` for order, `code_return` for return, `code_replace` for exchange). Optionally pass new `status` (1–5).
 
-**Типичный сценарий для интегратора:**
+**Typical integrator scenario:**
 
-1. **Получить несинхронизированные документы** — в методах `getOrder`, `getOrderDefect`, `getOrderReplace` использовать фильтр **`filter.include`**:
-   - `"include": "sd"` — только документы, созданные в SalesDoc (как правило, ещё без кода 1С). Удобно, чтобы выбирать только те заказы/возвраты/обмены, которые нужно отправить в 1С и затем «подтвердить» через `syncOrder`.
-   - `"include": "1c"` — только документы, уже имеющие код 1С (синхронизированные).
-   - `"include": "all"` — все документы без фильтра по источнику.
-2. Передать выбранные документы в 1С, получить от 1С присвоенные коды.
-3. Вызвать **`syncOrder`**, передав для каждого документа `SD_id` и соответствующие коды (`code_order`, `code_return`, `code_replace`) и при необходимости `status`.
-4. После успешного вызова документ считается синхронизированным; при следующих запросах с `include: "1c"` он будет попадать в выборку.
+1. **Get unsynchronized documents** — in `getOrder`, `getOrderDefect`, `getOrderReplace` use filter **`filter.include`**:
+   - `"include": "sd"` — only documents created in SalesDoc (usually without 1C code yet). Use to select only orders/returns/exchanges to send to 1C and then "confirm" via `syncOrder`.
+   - `"include": "1c"` — only documents that already have a 1C code (synchronized).
+   - `"include": "all"` — all documents, no source filter.
+2. Send selected documents to 1C, get assigned codes from 1C.
+3. Call **`syncOrder`**, passing for each document `SD_id` and the corresponding codes (`code_order`, `code_return`, `code_replace`) and optionally `status`.
+4. After a successful call the document is considered synchronized; with subsequent requests using `include: "1c"` it will be included in the result.
 
 **Request:**
 ```json
@@ -661,15 +661,15 @@
 
 | Field | Type | Required | Description |
 |------|-----|:---:|----------|
-| `SD_id` | string | ✅ | ID заказа в SalesDoc |
-| `code_order` | string | ❌* | Код заказа в 1С |
-| `code_return` | string | ❌* | Код возврата в 1С |
-| `code_replace` | string | ❌ | Код обмена в 1С |
-| `status` | int | ❌ | Новый статус (1–5). Если 0 или не передан — статус не меняется |
+| `SD_id` | string | ✅ | Order ID in SalesDoc |
+| `code_order` | string | ❌* | Order code in 1C |
+| `code_return` | string | ❌* | Return code in 1C |
+| `code_replace` | string | ❌ | Exchange code in 1C |
+| `status` | int | ❌ | New status (1–5). If 0 or not sent — status is not changed |
 
-> *Должно быть указано хотя бы одно из полей: `code_order`, `code_return`, `code_replace` (для обмена — оба `code_return` и `code_replace`).
+> *At least one of `code_order`, `code_return`, `code_replace` must be specified (for exchange — both `code_return` and `code_replace`).
 
-**Response:** В отличие от других SET-методов, возвращается объект с массивами `completed` (успешно обработанные элементы из `data`) и `failed` (элементы с ошибкой и полем `error`). Пагинации нет.
+**Response:** Unlike other SET methods, returns an object with arrays `completed` (successfully processed items from `data`) and `failed` (items with error and `error` field). No pagination.
 
 ---
 

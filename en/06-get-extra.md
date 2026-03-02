@@ -41,7 +41,7 @@
             {
                 "SD_id": "d0_1",
                 "code_1C": "INV001",
-                "name": "Холодильник Samsung",
+                "name": "Samsung refrigerator",
                 "model": "RT35K5440S8",
                 "serial_no": "SN123456",
                 "inventory_no": "INV-001",
@@ -64,7 +64,7 @@
                 ],
                 "client": {
                     "SD_id": "d0_100",
-                    "name": "Магазин Звезда",
+                    "name": "Star Shop",
                     "code_1C": "000000100"
                 },
                 "city": {
@@ -83,8 +83,8 @@
 
 | Field | Type | Description |
 |------|-----|----------|
-| `SD_id` | string | Серверный ID |
-| `code_1C` | string | Код в 1С |
+| `SD_id` | string | Server ID |
+| `code_1C` | string | 1C code |
 | `name` | string | Equipment name |
 | `model` | string | Model |
 | `serial_no` | string | Serial number |
@@ -95,27 +95,27 @@
 | `state` | string | State (e.g. `good`) |
 | `comment` | string | Comment |
 | **type** | object | Equipment type |
-| `type.SD_id` | string | Серверный ID типа |
-| `type.name` | string | Название типа |
-| `type.code_1C` | string | Код типа в 1С |
-| **agents** | array | Массив агентов |
-| `agents[].SD_id` | string | ID агента |
-| `agents[].name` | string | Имя агента |
-| `agents[].code_1C` | string | Код агента в 1С |
-| **client** | object | Клиент |
-| `client.SD_id` | string | ID клиента |
-| `client.name` | string | Название клиента |
-| `client.code_1C` | string | Код клиента в 1С |
-| **city** | object | Город |
-| `city.SD_id` | string | ID города |
-| `city.name` | string | Название города |
-| `city.code_1C` | string | Код города в 1С |
+| `type.SD_id` | string | Type server ID |
+| `type.name` | string | Type name |
+| `type.code_1C` | string | Type 1C code |
+| **agents** | array | Agents |
+| `agents[].SD_id` | string | Agent ID |
+| `agents[].name` | string | Agent name |
+| `agents[].code_1C` | string | Agent 1C code |
+| **client** | object | Client |
+| `client.SD_id` | string | Client ID |
+| `client.name` | string | Client name |
+| `client.code_1C` | string | Client 1C code |
+| **city** | object | City |
+| `city.SD_id` | string | City ID |
+| `city.name` | string | City name |
+| `city.code_1C` | string | City 1C code |
 
 ---
 
 ### 9.33. `getShipper` — Suppliers
 
-**Description:** Получение списка поставщиков.
+**Description:** Returns the list of suppliers.
 
 **Request:**
 ```json
@@ -134,9 +134,9 @@
             {
                 "CS_id": "1",
                 "SD_id": "1",
-                "name": "ООО Поставщик",
+                "name": "Supplier LLC",
                 "phone_number": "+998901112233",
-                "address": "ул. Навои, 50",
+                "address": "50 Navoi St",
                 "active": true,
                 "code_1C": "SHIP001"
             }
@@ -150,19 +150,19 @@
 
 | Field | Type | Description |
 |------|-----|----------|
-| `CS_id` | string | Идентификатор |
-| `SD_id` | string | Серверный ID |
-| `name` | string | Название поставщика |
-| `phone_number` | string | Телефон |
-| `address` | string | Адрес |
-| `active` | boolean | Активность |
-| `code_1C` | string | Код в 1С |
+| `CS_id` | string | Identifier |
+| `SD_id` | string | Server ID |
+| `name` | string | Supplier name |
+| `phone_number` | string | Phone |
+| `address` | string | Address |
+| `active` | boolean | Active |
+| `code_1C` | string | 1C code |
 
 ---
 
 ### 9.34. `getPaymentConfirmation` — Payment confirmation
 
-**Description:** Получение списка оплат, отправленных экспедиторами на подтверждение.
+**Description:** Returns the list of payments sent by expeditors for confirmation.
 
 **Request:**
 ```json
@@ -185,7 +185,7 @@
                 "client": {
                     "CS_id": "F1-d0_100",
                     "SD_id": "d0_100",
-                    "name": "Магазин Звезда",
+                    "name": "Star Shop",
                     "code_1C": "000000100"
                 },
                 "order": {
@@ -199,7 +199,7 @@
                 },
                 "amount": 5000000.00,
                 "date": "2025-06-15 14:30:00",
-                "comment": "Оплата при доставке",
+                "comment": "Payment on delivery",
                 "confirmed": true
             }
         ]
@@ -212,31 +212,31 @@
 
 | Field | Type | Description |
 |------|-----|----------|
-| `CS_id` | string | Внешний идентификатор (с префиксом) |
-| `SD_id` | string | Серверный ID |
-| `code_1C` | string\|null | Код в 1С |
-| **client** | object | Клиент |
-| `client.CS_id` | string | Идентификатор клиента |
-| `client.SD_id` | string | Серверный ID клиента |
-| `client.name` | string | Название клиента |
-| `client.code_1C` | string | Код клиента в 1С |
-| **order** | object | Заказ |
-| `order.CS_id` | string | Идентификатор заказа |
-| `order.SD_id` | string | Серверный ID заказа |
-| **payment_type** | object | Тип оплаты |
-| `payment_type.CS_id` | string | Идентификатор типа оплаты |
-| `payment_type.SD_id` | string | Серверный ID типа оплаты |
-| `payment_type.code_1C` | string | Код типа оплаты в 1С |
-| `amount` | float | Сумма оплаты |
-| `date` | string | Дата и время |
-| `comment` | string | Комментарий |
-| `confirmed` | boolean | Подтверждена: `true` — да, `false` — нет |
+| `CS_id` | string | External identifier (with prefix) |
+| `SD_id` | string | Server ID |
+| `code_1C` | string\|null | 1C code |
+| **client** | object | Client |
+| `client.CS_id` | string | Client identifier |
+| `client.SD_id` | string | Client server ID |
+| `client.name` | string | Client name |
+| `client.code_1C` | string | Client 1C code |
+| **order** | object | Order |
+| `order.CS_id` | string | Order identifier |
+| `order.SD_id` | string | Order server ID |
+| **payment_type** | object | Payment type |
+| `payment_type.CS_id` | string | Payment type identifier |
+| `payment_type.SD_id` | string | Payment type server ID |
+| `payment_type.code_1C` | string | Payment type 1C code |
+| `amount` | float | Payment amount |
+| `date` | string | Date and time |
+| `comment` | string | Comment |
+| `confirmed` | boolean | Confirmed: `true` — yes, `false` — no |
 
 ---
 
 ### 9.36. `getBonus` — Bonuses
 
-**Description:** Получение списка бонусных программ.
+**Description:** Returns the list of bonus programs.
 
 **Request:**
 ```json
@@ -255,7 +255,7 @@
             {
                 "CS_id": "d0_1",
                 "SD_id": "d0_1",
-                "name": "Купи 10 — получи 1",
+                "name": "Buy 10 get 1",
                 "active": "Y"
             }
         ]
@@ -268,16 +268,16 @@
 
 | Field | Type | Description |
 |------|-----|----------|
-| `CS_id` | string | Идентификатор |
-| `SD_id` | string | Серверный ID |
-| `name` | string | Название бонусной программы |
-| `active` | string | Активность: `Y` — активна, `N` — неактивна |
+| `CS_id` | string | Identifier |
+| `SD_id` | string | Server ID |
+| `name` | string | Bonus program name |
+| `active` | string | Active: `Y` — active, `N` — inactive |
 
 ---
 
 ### 9.37. `getPRCategory` — Photo report categories
 
-**Description:** Получение категорий фотоотчётов.
+**Description:** Returns photo report categories.
 
 **Request:**
 ```json
@@ -296,13 +296,13 @@
             {
                 "CS_id": "1",
                 "SD_id": "1",
-                "name": "Выкладка товара",
+                "name": "Product display",
                 "active": "Y"
             },
             {
                 "CS_id": "2",
                 "SD_id": "2",
-                "name": "Вывеска",
+                "name": "Signboard",
                 "active": "Y"
             }
         ]
@@ -315,18 +315,18 @@
 
 | Field | Type | Description |
 |------|-----|----------|
-| `CS_id` | string | Идентификатор |
-| `SD_id` | string | Серверный ID |
-| `name` | string | Название категории |
-| `active` | string | Активность: `Y` — активна, `N` — неактивна |
+| `CS_id` | string | Identifier |
+| `SD_id` | string | Server ID |
+| `name` | string | Category name |
+| `active` | string | Active: `Y` — active, `N` — inactive |
 
 ---
 
 ### 9.38. `getPhotoReport` — Photo reports
 
-**Description:** Получение фотоотчётов агентов **за текущий день**.
+**Description:** Returns agent photo reports **for the current day**.
 
-> ⚠️ Этот метод возвращает только фотоотчёты за **сегодняшнюю дату**.
+> ⚠️ This method returns only photo reports for **today's date**.
 
 **Request:**
 ```json
@@ -362,20 +362,20 @@
 
 | Field | Type | Description |
 |------|-----|----------|
-| `CS_id` | string | Внешний идентификатор (с префиксом) |
-| `SD_id` | string | Серверный ID |
-| `agent_id` | string | ID агента |
-| `client_id` | string | ID клиента |
-| `cat_id` | string | ID категории фотоотчёта |
-| `role` | string | Роль (тип пользователя) |
-| `url` | string | URL фотографии |
-| `date` | string | Дата и время фотоотчёта |
+| `CS_id` | string | External identifier (with prefix) |
+| `SD_id` | string | Server ID |
+| `agent_id` | string | Agent ID |
+| `client_id` | string | Client ID |
+| `cat_id` | string | Photo report category ID |
+| `role` | string | Role (user type) |
+| `url` | string | Photo URL |
+| `date` | string | Photo report date and time |
 
 ---
 
 ### 9.39. `getFilials` — Filials
 
-**Description:** Получение списка активных филиалов.
+**Description:** Returns the list of active branches.
 
 **Request:**
 ```json
@@ -392,13 +392,13 @@
     "result": {
         "filials": [
             {
-                "name": "Ташкент",
+                "name": "Tashkent",
                 "domain": "tashkent.example.com",
                 "prefix": "F1",
                 "filial_id": "FIL001"
             },
             {
-                "name": "Самарканд",
+                "name": "Samarkand",
                 "domain": "samarkand.example.com",
                 "prefix": "F2",
                 "filial_id": "FIL002"
@@ -412,36 +412,36 @@
 
 | Field | Type | Description |
 |------|-----|----------|
-| `name` | string | Название филиала |
-| `domain` | string | Домен филиала |
-| `prefix` | string | Префикс филиала (для CS_id) |
-| `filial_id` | string | ID филиала |
+| `name` | string | Branch name |
+| `domain` | string | Branch domain |
+| `prefix` | string | Branch prefix (for CS_id) |
+| `filial_id` | string | Branch ID |
 
 ---
 
 ### 9.40. `getStoreLog` — Store operations log
 
-**Description:** Получение журнала складских операций за указанный период.
+**Description:** Returns warehouse operations log for the specified period.
 
-> ⚠️ **Ограничения:**
-> - Rate limit: 5 запросов за 5 секунд
-> - Метод доступен **только** с 20:00 до 07:00
-> - Все идентификаторы — только `SD_id`
+> ⚠️ **Limitations:**
+> - Rate limit: 5 requests per 5 seconds
+> - Method available **only** from 20:00 to 07:00
+> - All identifiers — `SD_id` only
 
-**Обязательные параметры:**
+**Required parameters:**
 
-| Параметр | Тип | Описание |
-|----------|-----|----------|
-| `params.storeId` | string | SD_id склада |
-| `params.from` | string | Дата начала (ISO-8601) |
-| `params.to` | string | Дата окончания (ISO-8601) |
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `params.storeId` | string | Warehouse SD_id |
+| `params.from` | string | Start date (ISO-8601) |
+| `params.to` | string | End date (ISO-8601) |
 
-**Дополнительные фильтры:**
+**Additional filters:**
 
-| Параметр | Тип | Описание |
-|----------|-----|----------|
-| `params.documents` | array | Фильтр по типам документов: `Purchase`, `Order`, `OrderReplace`, `OrderDefect`, `BonusOrder`, `StoreCorrector`, `Exchange`, `Excretion` |
-| `params.products` | array | Фильтр по ID продуктов |
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `params.documents` | array | Filter by document types: `Purchase`, `Order`, `OrderReplace`, `OrderDefect`, `BonusOrder`, `StoreCorrector`, `Exchange`, `Excretion` |
+| `params.products` | array | Filter by product IDs |
 
 **Request:**
 ```json
@@ -484,19 +484,19 @@
 
 | Field | Type | Description |
 |------|-----|----------|
-| `product_id` | string | SD_id товара |
-| `document` | string | Тип документа (`Purchase`, `Order`, `OrderReplace`, `OrderDefect`, `BonusOrder`, `StoreCorrector`, `Exchange`, `Excretion`) |
-| `document_id` | string | SD_id документа |
-| `date` | string | Дата и время операции |
-| `quantity` | float | Количество: положительное — приход, отрицательное — расход |
+| `product_id` | string | Product SD_id |
+| `document` | string | Document type (`Purchase`, `Order`, `OrderReplace`, `OrderDefect`, `BonusOrder`, `StoreCorrector`, `Exchange`, `Excretion`) |
+| `document_id` | string | Document SD_id |
+| `date` | string | Operation date and time |
+| `quantity` | float | Quantity: positive — receipt, negative — issue |
 
-> **Примечание:** Положительное quantity — приход, отрицательное — расход.
+> **Note:** Positive quantity — receipt, negative — issue.
 
 ---
 
 ### 9.41. `getClientPending` — Client requests (pending)
 
-**Description:** Получение заявок на создание клиентов, находящихся в состоянии ожидания модерации.
+**Description:** Returns client creation requests pending moderation.
 
 **Request:**
 ```json
@@ -520,16 +520,16 @@
                 "CS_id": "F1-d0_500",
                 "SD_id": "d0_500",
                 "code_1C": null,
-                "name": "Новый магазин",
-                "firmName": "ООО Новый",
-                "address": "ул. Чилонзор, 15",
-                "waymark": "Рядом с аптекой",
+                "name": "New Shop",
+                "firmName": "New LLC",
+                "address": "15 Chilanzar St",
+                "waymark": "Near the pharmacy",
                 "tel": "+998901234567",
                 "lon": 69.24,
                 "lat": 41.30,
                 "allowKredit": 0,
                 "allowConsig": 0,
-                "comment": "Заявка от агента",
+                "comment": "Request from agent",
                 "photo": null,
                 "active": "Y",
                 "inn": "987654321",
@@ -564,7 +564,7 @@
                     "CS_id": "F1-d0_3",
                     "SD_id": "d0_3",
                     "code_1C": "000000003",
-                    "name": "Иванов Иван"
+                    "name": "Ivan Ivanov"
                 }
             }
         ]
@@ -577,51 +577,51 @@
 
 | Field | Type | Description |
 |------|-----|----------|
-| `CS_id` | string | Внешний идентификатор (с префиксом) |
-| `SD_id` | string | Серверный ID |
-| `code_1C` | string\|null | Код в 1С |
-| `name` | string | Название клиента |
-| `firmName` | string | Юридическое название |
-| `address` | string | Адрес |
-| `waymark` | string | Ориентир |
-| `tel` | string | Телефон |
-| `lon` | float | Долгота (GPS) |
-| `lat` | float | Широта (GPS) |
-| `allowKredit` | integer | Разрешён кредит: `1` — да, `0` — нет |
-| `allowConsig` | integer | Разрешена консигнация: `1` — да, `0` — нет |
-| `comment` | string | Комментарий |
-| `photo` | string\|null | Фото |
-| `active` | string | Активность |
-| `inn` | string | ИНН |
-| `contract` | string\|null | Номер договора |
-| `createdAt` | string | Дата создания заявки |
-| **bankDetails** | object | Банковские реквизиты |
-| **category** | object | Категория клиента (`CS_id`, `SD_id`, `code_1C`) |
-| **type** | object | Тип клиента (`CS_id`, `SD_id`, `code_1C`) |
-| **channel** | object | Канал сбыта (`CS_id`, `SD_id`, `code_1C`) |
-| **city** | object | Город (`CS_id`, `SD_id`, `code_1C`) |
-| **createdBy** | object | Кем создана заявка |
-| `createdBy.CS_id` | string | Идентификатор создателя |
-| `createdBy.SD_id` | string | Серверный ID создателя |
-| `createdBy.code_1C` | string | Код в 1С |
-| `createdBy.name` | string | Имя создателя |
+| `CS_id` | string | External identifier (with prefix) |
+| `SD_id` | string | Server ID |
+| `code_1C` | string\|null | 1C code |
+| `name` | string | Client name |
+| `firmName` | string | Legal name |
+| `address` | string | Address |
+| `waymark` | string | Landmark |
+| `tel` | string | Phone |
+| `lon` | float | Longitude (GPS) |
+| `lat` | float | Latitude (GPS) |
+| `allowKredit` | integer | Credit allowed: `1` — yes, `0` — no |
+| `allowConsig` | integer | Consignment allowed: `1` — yes, `0` — no |
+| `comment` | string | Comment |
+| `photo` | string\|null | Photo |
+| `active` | string | Active |
+| `inn` | string | INN |
+| `contract` | string\|null | Contract number |
+| `createdAt` | string | Request creation date |
+| **bankDetails** | object | Bank details |
+| **category** | object | Client category (`CS_id`, `SD_id`, `code_1C`) |
+| **type** | object | Client type (`CS_id`, `SD_id`, `code_1C`) |
+| **channel** | object | Sales channel (`CS_id`, `SD_id`, `code_1C`) |
+| **city** | object | City (`CS_id`, `SD_id`, `code_1C`) |
+| **createdBy** | object | Request creator |
+| `createdBy.CS_id` | string | Creator identifier |
+| `createdBy.SD_id` | string | Creator server ID |
+| `createdBy.code_1C` | string | 1C code |
+| `createdBy.name` | string | Creator name |
 
 ---
 
 ### 9.42. `getCorrection` — Store corrections
 
-**Description:** Получение списка корректировок складских остатков.
+**Description:** Returns the list of warehouse stock corrections.
 
 **Filters:**
 
 | Filter | Description |
 |--------|----------|
-| `filter.period.date.from/to` | По дате корректировки |
-| `filter.store` | По складу (`CS_id` / `SD_id` / `code_1C`) |
+| `filter.period.date.from/to` | By correction date |
+| `filter.store` | By warehouse (`CS_id` / `SD_id` / `code_1C`) |
 
-**Примеры использования фильтров:**
+**Filter examples:**
 
-**Фильтр по дате корректировки:**
+**Filter by correction date:**
 ```json
 {
     "method": "getCorrection",
@@ -639,7 +639,7 @@
 }
 ```
 
-**Фильтр по складу (`filter.store`):**
+**Filter by warehouse (`filter.store`):**
 ```json
 {
     "method": "getCorrection",
@@ -652,9 +652,9 @@
 }
 ```
 
-> Альтернативы для `filter.store`: можно указать **CS_id** (например `"F1-d0_1"`) или **SD_id** (например `"d0_1"`) вместо code_1C.
+> Alternatives for `filter.store`: you can use **CS_id** (e.g. `"F1-d0_1"`) or **SD_id** (e.g. `"d0_1"`) instead of code_1C.
 
-**Комбинирование фильтров:**
+**Combining filters:**
 ```json
 {
     "method": "getCorrection",
@@ -673,7 +673,7 @@
 }
 ```
 
-> Альтернативы для `filter.store`: можно указать **CS_id** (например `"F1-d0_1"`) или **code_1C** (например `"WH001"`) вместо SD_id.
+> Alternatives for `filter.store`: you can use **CS_id** (e.g. `"F1-d0_1"`) or **code_1C** (e.g. `"WH001"`) instead of SD_id.
 
 **Response:**
 ```json
@@ -686,20 +686,20 @@
                 "SD_id": "d0_70",
                 "code_1C": "COR000001",
                 "date": "2025-06-15 08:00:00",
-                "comment": "Пересчёт",
+                "comment": "Recalculation",
                 "type": "correction",
                 "store": {
                     "CS_id": "F1-d0_1",
                     "SD_id": "d0_1",
                     "code_1C": "WH001",
-                    "name": "Основной склад"
+                    "name": "Main warehouse"
                 },
                 "items": [
                     {
                         "CS_id": "d0_15",
                         "SD_id": "d0_15",
                         "code_1C": "000000015",
-                        "product_name": "Кока-Кола 1.5л",
+                        "product_name": "Coca-Cola 1.5L",
                         "quantity": 5.0,
                         "price": 15000.00
                     }
@@ -711,53 +711,53 @@
 }
 ```
 
-**Типы корректировок:**
+**Correction types:**
 
-| Тип | Описание |
-|-----|----------|
-| `correction` | Корректировка |
-| `inventory` | Инвентаризация |
+| Type | Description |
+|------|-------------|
+| `correction` | Correction |
+| `inventory` | Inventory |
 
 **Response fields:**
 
 | Field | Type | Description |
 |------|-----|----------|
-| `CS_id` | string | Внешний идентификатор (с префиксом) |
-| `SD_id` | string | Серверный ID |
-| `code_1C` | string | Код в 1С |
-| `date` | string | Дата и время корректировки |
-| `comment` | string | Комментарий |
-| `type` | string | Тип: `correction` или `inventory` |
-| **store** | object | Склад |
-| `store.CS_id` | string | Идентификатор склада |
-| `store.SD_id` | string | Серверный ID склада |
-| `store.code_1C` | string | Код склада в 1С |
-| `store.name` | string | Название склада |
-| **items** | array | Массив товаров |
-| `items[].CS_id` | string | Идентификатор товара |
-| `items[].SD_id` | string | Серверный ID товара |
-| `items[].code_1C` | string | Код товара в 1С |
-| `items[].product_name` | string | Название товара |
-| `items[].quantity` | float | Количество |
-| `items[].price` | float | Цена |
+| `CS_id` | string | External identifier (with prefix) |
+| `SD_id` | string | Server ID |
+| `code_1C` | string | 1C code |
+| `date` | string | Correction date and time |
+| `comment` | string | Comment |
+| `type` | string | Type: `correction` or `inventory` |
+| **store** | object | Warehouse |
+| `store.CS_id` | string | Warehouse identifier |
+| `store.SD_id` | string | Warehouse server ID |
+| `store.code_1C` | string | Warehouse 1C code |
+| `store.name` | string | Warehouse name |
+| **items** | array | Products array |
+| `items[].CS_id` | string | Product identifier |
+| `items[].SD_id` | string | Product server ID |
+| `items[].code_1C` | string | Product 1C code |
+| `items[].product_name` | string | Product name |
+| `items[].quantity` | float | Quantity |
+| `items[].price` | float | Price |
 
 ---
 
 ### 9.43. `getPurchase` — Purchases
 
-**Description:** Получение списка документов закупки.
+**Description:** Returns the list of purchase documents.
 
 **Filters:**
 
 | Filter | Description |
 |--------|----------|
-| `filter.period.date.from/to` | По дате закупки |
-| `filter.period.dateUpdate.from/to` | По дате обновления |
-| `filter.store` | По складу (`CS_id` / `SD_id` / `code_1C`) |
+| `filter.period.date.from/to` | By purchase date |
+| `filter.period.dateUpdate.from/to` | By update date |
+| `filter.store` | By warehouse (`CS_id` / `SD_id` / `code_1C`) |
 
-**Примеры использования фильтров:**
+**Filter examples:**
 
-**Фильтр по дате закупки:**
+**Filter by purchase date:**
 ```json
 {
     "method": "getPurchase",
@@ -775,7 +775,7 @@
 }
 ```
 
-**Фильтр по дате обновления (`filter.period.dateUpdate`):**
+**Filter by update date (`filter.period.dateUpdate`):**
 ```json
 {
     "method": "getPurchase",
@@ -793,7 +793,7 @@
 }
 ```
 
-**Фильтр по складу (`filter.store`):**
+**Filter by warehouse (`filter.store`):**
 ```json
 {
     "method": "getPurchase",
@@ -806,9 +806,9 @@
 }
 ```
 
-> Альтернативы для `filter.store`: можно указать **CS_id** (например `"F1-d0_1"`) или **SD_id** (например `"d0_1"`) вместо code_1C.
+> Alternatives for `filter.store`: you can use **CS_id** (e.g. `"F1-d0_1"`) or **SD_id** (e.g. `"d0_1"`) instead of code_1C.
 
-**Комбинирование всех фильтров:**
+**Combining all filters:**
 ```json
 {
     "method": "getPurchase",
@@ -827,7 +827,7 @@
 }
 ```
 
-> Альтернативы для `filter.store`: можно указать **CS_id** (например `"F1-d0_1"`) или **code_1C** (например `"WH001"`) вместо SD_id.
+> Alternatives for `filter.store`: you can use **CS_id** (e.g. `"F1-d0_1"`) or **code_1C** (e.g. `"WH001"`) instead of SD_id.
 
 **Response:**
 ```json
@@ -839,7 +839,7 @@
                 "CS_id": "F1-d0_1",
                 "SD_id": "d0_1",
                 "code_1C": "WH001",
-                "name": "Основной склад",
+                "name": "Main warehouse",
                 "date": "2025-06-15 09:00:00",
                 "updated": "2025-06-15 09:00:00",
                 "purchase_id": "F1-d0_50",
@@ -851,7 +851,7 @@
                 "shipper": {
                     "CS_id": "F1-1",
                     "SD_id": "1",
-                    "name": "ООО Поставщик",
+                    "name": "Supplier LLC",
                     "code_1C": "SHIP001"
                 },
                 "detail": [
@@ -859,7 +859,7 @@
                         "CS_id": "d0_15",
                         "SD_id": "d0_15",
                         "code_1C": "000000015",
-                        "name": "Кока-Кола 1.5л",
+                        "name": "Coca-Cola 1.5L",
                         "quantity": 100.0,
                         "price": 12000.00,
                         "amount": 1200000.00
@@ -876,57 +876,57 @@
 
 | Field | Type | Description |
 |------|-----|----------|
-| `CS_id` | string | Внешний идентификатор склада (с префиксом) |
-| `SD_id` | string | Серверный ID склада |
-| `code_1C` | string | Код склада в 1С |
-| `name` | string | Название склада |
-| `date` | string | Дата закупки |
-| `updated` | string | Дата последнего обновления |
-| `purchase_id` | string | ID документа закупки |
-| **priceType** | object | Тип цены |
-| `priceType.CS_id` | string | Идентификатор типа цены |
-| `priceType.SD_id` | string | Серверный ID типа цены |
-| `priceType.code_1C` | string | Код типа цены в 1С |
-| **shipper** | object | Поставщик |
-| `shipper.CS_id` | string | Идентификатор поставщика |
-| `shipper.SD_id` | string | Серверный ID поставщика |
-| `shipper.name` | string | Название поставщика |
-| `shipper.code_1C` | string | Код поставщика в 1С |
-| **detail** | array | Массив товаров |
-| `detail[].CS_id` | string | Идентификатор товара |
-| `detail[].SD_id` | string | Серверный ID товара |
-| `detail[].code_1C` | string | Код товара в 1С |
-| `detail[].name` | string | Название товара |
-| `detail[].quantity` | float | Количество |
-| `detail[].price` | float | Цена за единицу |
-| `detail[].amount` | float | Общая сумма по позиции |
+| `CS_id` | string | Warehouse external identifier (with prefix) |
+| `SD_id` | string | Warehouse server ID |
+| `code_1C` | string | Warehouse 1C code |
+| `name` | string | Warehouse name |
+| `date` | string | Purchase date |
+| `updated` | string | Last update date |
+| `purchase_id` | string | Purchase document ID |
+| **priceType** | object | Price type |
+| `priceType.CS_id` | string | Price type identifier |
+| `priceType.SD_id` | string | Price type server ID |
+| `priceType.code_1C` | string | Price type 1C code |
+| **shipper** | object | Supplier |
+| `shipper.CS_id` | string | Supplier identifier |
+| `shipper.SD_id` | string | Supplier server ID |
+| `shipper.name` | string | Supplier name |
+| `shipper.code_1C` | string | Supplier 1C code |
+| **detail** | array | Products array |
+| `detail[].CS_id` | string | Product identifier |
+| `detail[].SD_id` | string | Product server ID |
+| `detail[].code_1C` | string | Product 1C code |
+| `detail[].name` | string | Product name |
+| `detail[].quantity` | float | Quantity |
+| `detail[].price` | float | Price per unit |
+| `detail[].amount` | float | Line total |
 
 ---
 
 ### 9.44. `getMovement` — Movements
 
-**Description:** Получение списка документов перемещения товаров между складами.
+**Description:** Returns the list of transfer documents between warehouses.
 
 **Filters:**
 
 | Filter | Description |
 |--------|----------|
-| `filter.period.date.from/to` | По дате перемещения |
-| `filter.include` | `sd`, `1c`, `all` — по источнику |
-| `filter.type` | Тип перемещения (см. таблицу ниже) |
+| `filter.period.date.from/to` | By transfer date |
+| `filter.include` | `sd`, `1c`, `all` — by source |
+| `filter.type` | Transfer type (see table below) |
 
-**Типы перемещений (`filter.type`):**
+**Transfer types (`filter.type`):**
 
-| Значение | Код | Описание |
-|----------|-----|----------|
-| *(не указан)* | 1 | Обычное перемещение между складами (по умолчанию) |
-| `vansel` | 2 | Перемещение типа «ван-сэл» |
+| Value | Code | Description |
+|-------|------|-------------|
+| *(not set)* | 1 | Regular transfer between warehouses (default) |
+| `vansel` | 2 | Van-sel type transfer |
 
-> Если `filter.type` не указан — возвращаются только обычные перемещения. Чтобы получить ван-сэл перемещения, укажите `"type": "vansel"`.
+> If `filter.type` is not set — only regular transfers are returned. To get van-sel transfers, set `"type": "vansel"`.
 
-**Примеры использования фильтров:**
+**Filter examples:**
 
-**Фильтр по дате и источнику:**
+**Filter by date and source:**
 ```json
 {
     "method": "getMovement",
@@ -945,7 +945,7 @@
 }
 ```
 
-**Фильтр по источнику (`filter.include`):**
+**Filter by source (`filter.include`):**
 ```json
 {
     "method": "getMovement",
@@ -957,9 +957,9 @@
     }
 }
 ```
-> Значения: `sd` — только из SalesDoc, `1c` — только из 1С, `all` — все записи.
+> Values: `sd` — from SalesDoc only, `1c` — from 1C only, `all` — all records.
 
-**Фильтр по типу перемещения (`filter.type`):**
+**Filter by transfer type (`filter.type`):**
 ```json
 {
     "method": "getMovement",
@@ -971,9 +971,9 @@
     }
 }
 ```
-> `vansel` — возвращает только перемещения типа «ван-сэл». Если не указан — возвращаются обычные перемещения.
+> `vansel` — returns only van-sel type transfers. If not set — regular transfers are returned.
 
-**Комбинирование всех фильтров:**
+**Combining all filters:**
 ```json
 {
     "method": "getMovement",
@@ -1007,13 +1007,13 @@
                 "from_store": {
                     "CS_id": "F1-d0_1",
                     "SD_id": "d0_1",
-                    "name": "Основной склад",
+                    "name": "Main warehouse",
                     "code_1C": "WH001"
                 },
                 "to_store": {
                     "CS_id": "F1-d0_2",
                     "SD_id": "d0_2",
-                    "name": "Склад агента",
+                    "name": "Agent warehouse",
                     "code_1C": "WH002"
                 },
                 "detail": [
@@ -1035,38 +1035,38 @@
 
 | Field | Type | Description |
 |------|-----|----------|
-| `CS_id` | string | Внешний идентификатор (с префиксом) |
-| `SD_id` | string | Серверный ID |
-| `code_1C` | string | Код в 1С |
-| `date` | string | Дата и время перемещения |
-| **from_store** | object | Склад-отправитель |
-| `from_store.CS_id` | string | Идентификатор склада |
-| `from_store.SD_id` | string | Серверный ID склада |
-| `from_store.name` | string | Название склада |
-| `from_store.code_1C` | string | Код склада в 1С |
-| **to_store** | object | Склад-получатель |
-| `to_store.CS_id` | string | Идентификатор склада |
-| `to_store.SD_id` | string | Серверный ID склада |
-| `to_store.name` | string | Название склада |
-| `to_store.code_1C` | string | Код склада в 1С |
-| **detail** | array | Массив товаров |
-| `detail[].CS_id` | string | Идентификатор товара |
-| `detail[].SD_id` | string | Серверный ID товара |
-| `detail[].code_1C` | string | Код товара в 1С |
-| `detail[].quantity` | float | Количество |
+| `CS_id` | string | External identifier (with prefix) |
+| `SD_id` | string | Server ID |
+| `code_1C` | string | 1C code |
+| `date` | string | Transfer date and time |
+| **from_store** | object | Source warehouse |
+| `from_store.CS_id` | string | Warehouse identifier |
+| `from_store.SD_id` | string | Warehouse server ID |
+| `from_store.name` | string | Warehouse name |
+| `from_store.code_1C` | string | Warehouse 1C code |
+| **to_store** | object | Destination warehouse |
+| `to_store.CS_id` | string | Warehouse identifier |
+| `to_store.SD_id` | string | Warehouse server ID |
+| `to_store.name` | string | Warehouse name |
+| `to_store.code_1C` | string | Warehouse 1C code |
+| **detail** | array | Products array |
+| `detail[].CS_id` | string | Product identifier |
+| `detail[].SD_id` | string | Product server ID |
+| `detail[].code_1C` | string | Product 1C code |
+| `detail[].quantity` | float | Quantity |
 
 ---
 
 ### 9.45. `getVsExchange` — Warehouse exchanges
 
-**Description:** Получение списка документов обмена товаров (Ван-сэл обмен).
+**Description:** Returns the list of product exchange documents (Van-sel exchange).
 
 **Filters:**
 
 | Filter | Description |
 |--------|----------|
-| `filter.period.date.from/to` | По дате обмена |
-| `filter.include` | `sd`, `1c`, `all` — по источнику |
+| `filter.period.date.from/to` | By exchange date |
+| `filter.include` | `sd`, `1c`, `all` — by source |
 
 **Request:**
 ```json
@@ -1099,7 +1099,7 @@
                 "code_1C": "VSE000001",
                 "total_count": 20.0,
                 "total_summa": 300000.00,
-                "comment": "Обмен товара",
+                "comment": "Product exchange",
                 "date": "2025-06-15 08:00:00",
                 "date_load": "2025-06-15",
                 "from_store": {
@@ -1143,51 +1143,51 @@
 
 | Field | Type | Description |
 |------|-----|----------|
-| `CS_id` | string | Внешний идентификатор (с префиксом) |
-| `SD_id` | string | Серверный ID |
-| `code_1C` | string | Код в 1С |
-| `total_count` | float | Общее количество товаров |
-| `total_summa` | float | Общая сумма |
-| `comment` | string | Комментарий |
-| `date` | string | Дата и время обмена |
-| `date_load` | string | Дата документа |
-| **from_store** | object | Склад-отправитель |
-| `from_store.CS_id` | string | Идентификатор склада |
-| `from_store.SD_id` | string | Серверный ID склада |
-| `from_store.code_1C` | string | Код склада в 1С |
-| **to_store** | object | Склад-получатель |
-| `to_store.CS_id` | string | Идентификатор склада |
-| `to_store.SD_id` | string | Серверный ID склада |
-| `to_store.code_1C` | string | Код склада в 1С |
-| **agent** | object | Агент |
-| `agent.CS_id` | string | Идентификатор агента |
-| `agent.SD_id` | string | Серверный ID агента |
-| `agent.code_1C` | string | Код агента в 1С |
-| **price_type** | object | Тип цены |
-| `price_type.CS_id` | string | Идентификатор типа цены |
-| `price_type.SD_id` | string | Серверный ID типа цены |
-| `price_type.code_1C` | string | Код типа цены в 1С |
-| **detail** | array | Массив товаров |
-| `detail[].CS_id` | string | Идентификатор товара |
-| `detail[].SD_id` | string | Серверный ID товара |
-| `detail[].code_1C` | string | Код товара в 1С |
-| `detail[].quantity` | float | Количество |
-| `detail[].price` | float | Цена за единицу |
-| `detail[].summa` | float | Сумма по позиции |
+| `CS_id` | string | External identifier (with prefix) |
+| `SD_id` | string | Server ID |
+| `code_1C` | string | 1C code |
+| `total_count` | float | Total product count |
+| `total_summa` | float | Total amount |
+| `comment` | string | Comment |
+| `date` | string | Exchange date and time |
+| `date_load` | string | Document date |
+| **from_store** | object | Source warehouse |
+| `from_store.CS_id` | string | Warehouse identifier |
+| `from_store.SD_id` | string | Warehouse server ID |
+| `from_store.code_1C` | string | Warehouse 1C code |
+| **to_store** | object | Destination warehouse |
+| `to_store.CS_id` | string | Warehouse identifier |
+| `to_store.SD_id` | string | Warehouse server ID |
+| `to_store.code_1C` | string | Warehouse 1C code |
+| **agent** | object | Agent |
+| `agent.CS_id` | string | Agent identifier |
+| `agent.SD_id` | string | Agent server ID |
+| `agent.code_1C` | string | Agent 1C code |
+| **price_type** | object | Price type |
+| `price_type.CS_id` | string | Price type identifier |
+| `price_type.SD_id` | string | Price type server ID |
+| `price_type.code_1C` | string | Price type 1C code |
+| **detail** | array | Products array |
+| `detail[].CS_id` | string | Product identifier |
+| `detail[].SD_id` | string | Product server ID |
+| `detail[].code_1C` | string | Product 1C code |
+| `detail[].quantity` | float | Quantity |
+| `detail[].price` | float | Price per unit |
+| `detail[].summa` | float | Line amount |
 
 ---
 
 ### 9.46. `getMovementBetweenFilial` — Movements between filials
 
-**Description:** Получение перемещений товаров между филиалами.
+**Description:** Returns product transfers between branches.
 
-> ⚠️ Для этого метода **обязателен** `filial_id` в запросе.
+> ⚠️ For this method `filial_id` is **required** in the request.
 
 **Filters:**
 
 | Filter | Description |
 |--------|----------|
-| `filter.period.date.from/to` | По дате перемещения |
+| `filter.period.date.from/to` | By transfer date |
 
 **Request:**
 ```json
@@ -1221,35 +1221,35 @@
                 "date": "2025-06-15 07:00:00",
                 "count": 30,
                 "amount": 450000.00,
-                "comment": "Перемещение в Самарканд",
+                "comment": "Transfer to Samarkand",
                 "from_store": {
                     "CS_id": "F1-d0_1",
                     "SD_id": "d0_1",
-                    "name": "Основной склад",
+                    "name": "Main warehouse",
                     "code_1C": "WH001"
                 },
                 "to_filial": {
                     "CS_id": "2",
                     "SD_id": "2",
-                    "name": "Самарканд",
+                    "name": "Samarkand",
                     "domain": "samarkand.example.com"
                 },
                 "to_store": {
                     "CS_id": "F2-d0_1",
                     "SD_id": "d0_1",
-                    "name": "Склад Самарканд",
+                    "name": "Samarkand warehouse",
                     "code_1C": "WH001-S"
                 },
                 "shipper": {
                     "CS_id": "1",
                     "SD_id": "1",
-                    "name": "ООО Поставщик",
+                    "name": "Supplier LLC",
                     "code_1C": "SHIP001"
                 },
                 "priceType": {
                     "CS_id": "d0_1",
                     "SD_id": "d0_1",
-                    "name": "Розничная",
+                    "name": "Retail",
                     "code_1C": "000000001"
                 },
                 "detail": [
@@ -1272,44 +1272,44 @@
 
 | Field | Type | Description |
 |------|-----|----------|
-| `CS_id` | string | Внешний идентификатор (с префиксом) |
-| `SD_id` | string | Серверный ID |
-| `code_1C` | string | Код в 1С |
-| `date` | string | Дата и время перемещения |
-| `count` | integer | Количество товаров |
-| `amount` | float | Общая сумма |
-| `comment` | string | Комментарий |
-| **from_store** | object | Склад-отправитель |
-| `from_store.CS_id` | string | Идентификатор склада |
-| `from_store.SD_id` | string | Серверный ID склада |
-| `from_store.name` | string | Название склада |
-| `from_store.code_1C` | string | Код склада в 1С |
-| **to_filial** | object | Филиал-получатель |
-| `to_filial.CS_id` | string | Идентификатор филиала |
-| `to_filial.SD_id` | string | Серверный ID филиала |
-| `to_filial.name` | string | Название филиала |
-| `to_filial.domain` | string | Домен филиала |
-| **to_store** | object | Склад-получатель в целевом филиале |
-| `to_store.CS_id` | string | Идентификатор склада |
-| `to_store.SD_id` | string | Серверный ID склада |
-| `to_store.name` | string | Название склада |
-| `to_store.code_1C` | string | Код склада в 1С |
-| **shipper** | object | Поставщик |
-| `shipper.CS_id` | string | Идентификатор поставщика |
-| `shipper.SD_id` | string | Серверный ID поставщика |
-| `shipper.name` | string | Название поставщика |
-| `shipper.code_1C` | string | Код поставщика в 1С |
-| **priceType** | object | Тип цены |
-| `priceType.CS_id` | string | Идентификатор типа цены |
-| `priceType.SD_id` | string | Серверный ID типа цены |
-| `priceType.name` | string | Название типа цены |
-| `priceType.code_1C` | string | Код типа цены в 1С |
-| **detail** | array | Массив товаров |
-| `detail[].CS_id` | string | Идентификатор товара |
-| `detail[].SD_id` | string | Серверный ID товара |
-| `detail[].code_1C` | string | Код товара в 1С |
-| `detail[].quantity` | float | Количество |
-| `detail[].price` | float | Цена за единицу |
+| `CS_id` | string | External identifier (with prefix) |
+| `SD_id` | string | Server ID |
+| `code_1C` | string | 1C code |
+| `date` | string | Transfer date and time |
+| `count` | integer | Product count |
+| `amount` | float | Total amount |
+| `comment` | string | Comment |
+| **from_store** | object | Source warehouse |
+| `from_store.CS_id` | string | Warehouse identifier |
+| `from_store.SD_id` | string | Warehouse server ID |
+| `from_store.name` | string | Warehouse name |
+| `from_store.code_1C` | string | Warehouse 1C code |
+| **to_filial** | object | Destination branch |
+| `to_filial.CS_id` | string | Branch identifier |
+| `to_filial.SD_id` | string | Branch server ID |
+| `to_filial.name` | string | Branch name |
+| `to_filial.domain` | string | Branch domain |
+| **to_store** | object | Destination warehouse in target branch |
+| `to_store.CS_id` | string | Warehouse identifier |
+| `to_store.SD_id` | string | Warehouse server ID |
+| `to_store.name` | string | Warehouse name |
+| `to_store.code_1C` | string | Warehouse 1C code |
+| **shipper** | object | Supplier |
+| `shipper.CS_id` | string | Supplier identifier |
+| `shipper.SD_id` | string | Supplier server ID |
+| `shipper.name` | string | Supplier name |
+| `shipper.code_1C` | string | Supplier 1C code |
+| **priceType** | object | Price type |
+| `priceType.CS_id` | string | Price type identifier |
+| `priceType.SD_id` | string | Price type server ID |
+| `priceType.name` | string | Price type name |
+| `priceType.code_1C` | string | Price type 1C code |
+| **detail** | array | Products array |
+| `detail[].CS_id` | string | Product identifier |
+| `detail[].SD_id` | string | Product server ID |
+| `detail[].code_1C` | string | Product 1C code |
+| `detail[].quantity` | float | Quantity |
+| `detail[].price` | float | Price per unit |
 
 ---
 

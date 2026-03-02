@@ -1433,8 +1433,8 @@ In the `filter` block you can specify conditions by `CS_id`, `SD_id`, `code_1C` 
 
 | Field | Type | Description |
 |------|-----|----------|
-| `CS_id` | string | Идентификатор |
-| `SD_id` | string | Серверный ID |
+| `CS_id` | string | Identifier |
+| `SD_id` | string | Server ID |
 | `name` | string | Direction name |
 | `desc` | string | Description |
 | `active` | string | Active: `Y` — active, `N` — inactive |
@@ -1472,8 +1472,8 @@ In the `filter` block you can specify conditions by `CS_id`, `SD_id`, `code_1C` 
 
 | Field | Type | Description |
 |------|-----|----------|
-| `CS_id` | string | Идентификатор |
-| `SD_id` | string | Серверный ID |
+| `CS_id` | string | Identifier |
+| `SD_id` | string | Server ID |
 | `code_1C` | string | 1C code |
 | `name` | string | Sales channel name |
 

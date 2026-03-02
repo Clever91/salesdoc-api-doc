@@ -165,11 +165,11 @@
                 "date": "2025-06-15",
                 "created_at": "2025-06-15 09:00:00",
                 "type": "expense",
-                "comment": "Канцелярские товары",
+                "comment": "Stationery",
                 "cashbox": {
                     "CS_id": "F1-1",
                     "SD_id": "1",
-                    "name": "Основная касса",
+                    "name": "Main cashbox",
                     "code_1C": null
                 },
                 "paymentType": {
@@ -180,13 +180,13 @@
                 "category_parent": {
                     "CS_id": "F1-1",
                     "SD_id": "1",
-                    "name": "Административные расходы",
+                    "name": "Administrative expenses",
                     "code_1C": "ADM001"
                 },
                 "category_child": {
                     "CS_id": "F1-1",
                     "SD_id": "1",
-                    "name": "Канцелярия",
+                    "name": "Office supplies",
                     "code_1C": "KAN001"
                 }
             }
@@ -200,39 +200,39 @@
 
 | Field | Type | Description |
 |------|-----|----------|
-| `CS_id` | string | Внешний идентификатор (с префиксом филиала) |
-| `SD_id` | string | Серверный ID |
-| `code_1C` | string | Код в 1С |
-| `summa` | float | Сумма операции |
-| `date` | string | Дата операции |
-| `created_at` | string | Дата и время создания записи |
-| `type` | string | Тип операции: `expense` — расход, `income` — приход |
-| `comment` | string | Комментарий |
-| **cashbox** | object | Касса |
-| `cashbox.CS_id` | string | Идентификатор кассы |
-| `cashbox.SD_id` | string | Серверный ID кассы |
-| `cashbox.name` | string | Название кассы |
-| `cashbox.code_1C` | string\|null | Код кассы в 1С |
-| **paymentType** | object | Тип оплаты |
-| `paymentType.CS_id` | string | Идентификатор типа оплаты |
-| `paymentType.SD_id` | string | Серверный ID типа оплаты |
-| `paymentType.code_1C` | string | Код типа оплаты в 1С |
-| **category_parent** | object | Родительская категория расхода |
-| `category_parent.CS_id` | string | Идентификатор |
-| `category_parent.SD_id` | string | Серверный ID |
-| `category_parent.name` | string | Название |
-| `category_parent.code_1C` | string | Код в 1С |
-| **category_child** | object | Дочерняя категория расхода |
-| `category_child.CS_id` | string | Идентификатор |
-| `category_child.SD_id` | string | Серверный ID |
-| `category_child.name` | string | Название |
-| `category_child.code_1C` | string | Код в 1С |
+| `CS_id` | string | External identifier (with branch prefix) |
+| `SD_id` | string | Server ID |
+| `code_1C` | string | 1C code |
+| `summa` | float | Operation amount |
+| `date` | string | Operation date |
+| `created_at` | string | Record creation date and time |
+| `type` | string | Operation type: `expense` — expense, `income` — income |
+| `comment` | string | Comment |
+| **cashbox** | object | Cashbox |
+| `cashbox.CS_id` | string | Cashbox identifier |
+| `cashbox.SD_id` | string | Cashbox server ID |
+| `cashbox.name` | string | Cashbox name |
+| `cashbox.code_1C` | string\|null | Cashbox 1C code |
+| **paymentType** | object | Payment type |
+| `paymentType.CS_id` | string | Payment type identifier |
+| `paymentType.SD_id` | string | Payment type server ID |
+| `paymentType.code_1C` | string | Payment type 1C code |
+| **category_parent** | object | Parent expense category |
+| `category_parent.CS_id` | string | Identifier |
+| `category_parent.SD_id` | string | Server ID |
+| `category_parent.name` | string | Name |
+| `category_parent.code_1C` | string | 1C code |
+| **category_child** | object | Child expense category |
+| `category_child.CS_id` | string | Identifier |
+| `category_child.SD_id` | string | Server ID |
+| `category_child.name` | string | Name |
+| `category_child.code_1C` | string | 1C code |
 
 ---
 
 ### 9.31. `getCashbox` — Cashbox
 
-**Description:** Получение списка касс.
+**Description:** Returns the list of cashboxes.
 
 **Request:**
 ```json
@@ -252,7 +252,7 @@
                 "CS_id": "F1-1",
                 "SD_id": "1",
                 "code_1C": null,
-                "name": "Основная касса",
+                "name": "Main cashbox",
                 "active": true,
                 "created_at": "2024-01-01 00:00:00"
             }
@@ -266,12 +266,12 @@
 
 | Field | Type | Description |
 |------|-----|----------|
-| `CS_id` | string | Внешний идентификатор (с префиксом филиала) |
-| `SD_id` | string | Серверный ID |
-| `code_1C` | string\|null | Код кассы в 1С |
-| `name` | string | Название кассы |
-| `active` | boolean | Активность кассы |
-| `created_at` | string | Дата и время создания |
+| `CS_id` | string | External identifier (with branch prefix) |
+| `SD_id` | string | Server ID |
+| `code_1C` | string\|null | Cashbox 1C code |
+| `name` | string | Cashbox name |
+| `active` | boolean | Cashbox active |
+| `created_at` | string | Creation date and time |
 
 ---
 

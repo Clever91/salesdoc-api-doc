@@ -161,11 +161,11 @@
 
 | Field | Type | Description |
 |------|-----|----------|
-| `CS_id` | string | Внешний идентификатор (с префиксом филиала) |
-| `SD_id` | string | Серверный ID |
+| `CS_id` | string | External identifier (with branch prefix) |
+| `SD_id` | string | Server ID |
 | `code_1C` | string | Return warehouse code in 1C |
 | `name` | string | Return warehouse name |
-| `active` | string | Активность: `Y` — активен, `N` — неактивен |
+| `active` | string | Active: `Y` — active, `N` — inactive |
 
 ---
 

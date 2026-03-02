@@ -77,7 +77,7 @@
 }
 ```
 
-**4. Фильтр по дате документа (`filter.period.dateLoad`):**
+**4. Filter by document date (`filter.period.dateLoad`):**
 ```json
 {
     "method": "getOrder",
@@ -95,7 +95,7 @@
 }
 ```
 
-**5. Фильтр по дате создания (`filter.period.dateCreate`):**
+**5. Filter by creation date (`filter.period.dateCreate`):**
 ```json
 {
     "method": "getOrder",
@@ -112,9 +112,9 @@
     }
 }
 ```
-> Используется точное время (формат `YYYY-MM-DD HH:MM:SS`).
+> Uses exact time (format `YYYY-MM-DD HH:MM:SS`).
 
-**6. Фильтр по дате создания записи (`filter.period.orderCreated`):**
+**6. Filter by record creation date (`filter.period.orderCreated`):**
 ```json
 {
     "method": "getOrder",
@@ -132,7 +132,7 @@
 }
 ```
 
-**7. Фильтр по дате обновления (`filter.period.dateUpdate`):**
+**7. Filter by update date (`filter.period.dateUpdate`):**
 ```json
 {
     "method": "getOrder",
@@ -149,9 +149,9 @@
     }
 }
 ```
-> Дата берётся из истории изменений заказа.
+> Date is taken from order change history.
 
-**8. Фильтр по статусам (`filter.status`):**
+**8. Filter by statuses (`filter.status`):**
 ```json
 {
     "method": "getOrder",
@@ -163,10 +163,10 @@
     }
 }
 ```
-> Передаётся массив статусов. По умолчанию `[1]` (только новые).  
-> Статусы: `1` — новый, `2` — отправлен, `3` — доставлен, `4` — закрыт, `5` — отменён (см. таблицу «Статусы заказов» ниже).
+> Pass an array of statuses. Default `[1]` (new only).  
+> Statuses: `1` — new, `2` — sent, `3` — delivered, `4` — closed, `5` — cancelled (see "Order statuses" table below).
 
-**9. Фильтр по складу (`filter.store`):**
+**9. Filter by warehouse (`filter.store`):**
 ```json
 {
     "method": "getOrder",
@@ -179,9 +179,9 @@
 }
 ```
 
-> Альтернативы для `filter.store`: можно указать **CS_id** (например `"F1-d0_1"`) или **SD_id** (например `"d0_1"`) вместо code_1C.
+> Alternatives for `filter.store`: you can use **CS_id** (e.g. `"F1-d0_1"`) or **SD_id** (e.g. `"d0_1"`) instead of code_1C.
 
-**10. Фильтр по торговому направлению (`filter.trade`):**
+**10. Filter by trade direction (`filter.trade`):**
 ```json
 {
     "method": "getOrder",
@@ -194,9 +194,9 @@
 }
 ```
 
-> Альтернативы для `filter.trade`: можно указать **CS_id** (например `"F1-1"`) или **code_1C** (например `"TD001"`) вместо SD_id.
+> Alternatives for `filter.trade`: you can use **CS_id** (e.g. `"F1-1"`) or **code_1C** (e.g. `"TD001"`) instead of SD_id.
 
-**11. Фильтр по экспедиторам (`filter.expeditors`):**
+**11. Filter by expeditors (`filter.expeditors`):**
 ```json
 {
     "method": "getOrder",
@@ -211,9 +211,9 @@
     }
 }
 ```
-> Массив экспедиторов, каждый может быть указан через `CS_id`, `SD_id` или `code_1C`.
+> Array of expeditors; each can be specified by `CS_id`, `SD_id` or `code_1C`.
 
-**12. Фильтр по категориям клиентов (`filter.clientCategories`):**
+**12. Filter by client categories (`filter.clientCategories`):**
 ```json
 {
     "method": "getOrder",
@@ -228,9 +228,9 @@
     }
 }
 ```
-> Массив категорий клиентов.
+> Array of client categories.
 
-**13. Сортировка по категориям (`filter.sort.category`):**
+**13. Sort by categories (`filter.sort.category`):**
 ```json
 {
     "method": "getOrder",
@@ -244,9 +244,9 @@
     }
 }
 ```
-> Значения: `asc` — по возрастанию, `desc` — по убыванию.
+> Values: `asc` — ascending, `desc` — descending.
 
-**14. Включить данные об акциях (`params.promotions`):**
+**14. Include promotion data (`params.promotions`):**
 ```json
 {
     "method": "getOrder",
@@ -264,9 +264,9 @@
     }
 }
 ```
-> При `promotions: true` в ответ включаются данные об акциях.
+> When `promotions: true`, promotion data is included in the response.
 
-**15. Фильтр по конкретному заказу (`filter.CS_id` / `filter.SD_id` / `filter.code_1C`):**
+**15. Filter by specific order (`filter.CS_id` / `filter.SD_id` / `filter.code_1C`):**
 ```json
 {
     "method": "getOrder",
@@ -279,9 +279,9 @@
 }
 ```
 
-> Альтернативы для фильтра по заказу: можно указать **CS_id** (например `"F1-d0_300"`) или **code_1C** (например `"ORD000001"`) вместо SD_id.
+> Alternatives for order filter: you can use **CS_id** (e.g. `"F1-d0_300"`) or **code_1C** (e.g. `"ORD000001"`) instead of SD_id.
 
-**16. Фильтр по клиенту (`client`):**
+**16. Filter by client (`client`):**
 ```json
 {
     "method": "getOrder",
@@ -291,9 +291,9 @@
     }
 }
 ```
-> Можно указать `CS_id`, `SD_id` или `code_1C` клиента.
+> You can specify client's `CS_id`, `SD_id` or `code_1C`.
 
-**17. Комбинирование нескольких фильтров:**
+**17. Combining multiple filters:**
 ```json
 {
     "method": "getOrder",
@@ -322,17 +322,17 @@
     }
 }
 ```
-> Все фильтры можно комбинировать в одном запросе.
+> All filters can be combined in a single request.
 
-**Статусы заказов:**
+**Order statuses:**
 
-| Статус | Описание |
-|--------|----------|
-| 1 | Новый |
-| 2 | Отправлен |
-| 3 | Доставлен |
-| 4 | Закрыт |
-| 5 | Отменён |
+| Status | Description |
+|--------|-------------|
+| 1 | New |
+| 2 | Sent |
+| 3 | Delivered |
+| 4 | Closed |
+| 5 | Cancelled |
 
 **Request:**
 ```json
@@ -373,7 +373,7 @@
                 "totalSummaAfterDiscount": 150000.00,
                 "totalReturnsSumma": 0,
                 "totalReturnsCount": 0,
-                "comment": "Срочный заказ",
+                "comment": "Urgent order",
                 "consignment": false,
                 "consigDate": null,
                 "debtDateExp": "2025-07-15",
@@ -383,8 +383,8 @@
                     "SD_id": "d0_100",
                     "code_1C": "000000100",
                     "nspCode": null,
-                    "clientName": "Магазин Звезда",
-                    "clientLegalName": "ООО Звезда"
+                    "clientName": "Star Shop",
+                    "clientLegalName": "Star LLC"
                 },
                 "agent": {
                     "CS_id": "F1-d0_3",
@@ -428,7 +428,7 @@
                             "CS_id": "d0_15",
                             "SD_id": "d0_15",
                             "code_1C": "000000015",
-                            "name": "Кока-Кола 1.5л"
+                            "name": "Coca-Cola 1.5L"
                         },
                         "quantity": 10.0,
                         "price": 15000.00,
@@ -447,94 +447,94 @@
 }
 ```
 
-**Описание полей ответа:**
+**Response field descriptions:**
 
 | Field | Type | Description |
 |------|-----|----------|
-| `CS_id` | string | Внешний идентификатор заказа (с префиксом филиала) |
-| `SD_id` | string | Внутренний идентификатор заказа в SalesDoc |
-| `code_1C` | string | Код заказа в системе 1С |
-| `status` | integer | Статус заказа (1 — новый, 2 — отправлен, 3 — доставлен, 4 — закрыт, 5 — отменён) |
-| `dateCreate` | string | Дата и время создания заказа (`YYYY-MM-DD HH:MM:SS`) |
-| `dateDocument` | string | Дата документа заказа (`YYYY-MM-DD HH:MM:SS`) |
-| `totalSumma` | float | Общая сумма заказа до скидки |
-| `discountSumma` | float | Сумма скидки |
-| `totalSummaAfterDiscount` | float | Итоговая сумма заказа после скидки |
-| `totalReturnsSumma` | float | Сумма возвратов по заказу |
-| `totalReturnsCount` | integer | Количество возвратов по заказу |
-| `comment` | string | Комментарий к заказу |
-| `consignment` | boolean | Признак консигнации |
-| `consigDate` | string\|null | Дата консигнации (если применимо) |
-| `debtDateExp` | string\|null | Ожидаемая дата погашения задолженности |
-| `orderCreated` | string | Дата и время фактического создания записи |
-| `invoiceNumber` | string\|null | Номер накладной |
-| **client** | object | Объект клиента |
-| `client.CS_id` | string | Внешний идентификатор клиента |
-| `client.SD_id` | string | Внутренний идентификатор клиента |
-| `client.code_1C` | string | Код клиента в 1С |
-| `client.nspCode` | string\|null | NSP-код клиента |
-| `client.clientName` | string | Название клиента |
-| `client.clientLegalName` | string | Юридическое название клиента |
-| **agent** | object | Объект агента |
-| `agent.CS_id` | string | Внешний идентификатор агента |
-| `agent.SD_id` | string | Внутренний идентификатор агента |
-| `agent.code_1C` | string | Код агента в 1С |
-| **expeditor** | object | Объект экспедитора |
-| `expeditor.CS_id` | string | Внешний идентификатор экспедитора |
-| `expeditor.SD_id` | string | Внутренний идентификатор экспедитора |
-| `expeditor.code_1C` | string | Код экспедитора в 1С |
-| **priceType** | object | Объект типа цены |
-| `priceType.CS_id` | string | Внешний идентификатор типа цены |
-| `priceType.SD_id` | string | Внутренний идентификатор типа цены |
-| `priceType.code_1C` | string | Код типа цены в 1С |
-| **paymentType** | object | Объект типа оплаты |
-| `paymentType.CS_id` | string | Внешний идентификатор типа оплаты |
-| `paymentType.SD_id` | string | Внутренний идентификатор типа оплаты |
-| `paymentType.code_1C` | string | Код типа оплаты в 1С |
-| **note** | object | Объект примечания |
-| `note.CS_id` | string\|null | Внешний идентификатор примечания |
-| `note.SD_id` | string\|null | Внутренний идентификатор примечания |
-| `note.code_1C` | string\|null | Код примечания в 1С |
-| `note.title` | string\|null | Текст примечания |
-| **store** | object | Объект склада |
-| `store.CS_id` | string | Внешний идентификатор склада |
-| `store.SD_id` | string | Внутренний идентификатор склада |
-| `store.code_1C` | string | Код склада в 1С |
-| **trade** | object | Объект торгового направления |
-| `trade.CS_id` | string | Внешний идентификатор торгового направления |
-| `trade.SD_id` | string | Внутренний идентификатор торгового направления |
-| `trade.code_1C` | string\|null | Код торгового направления в 1С |
-| **orderProducts** | array | Массив товаров в заказе |
-| `orderProducts[].product.CS_id` | string | Внешний идентификатор товара |
-| `orderProducts[].product.SD_id` | string | Внутренний идентификатор товара |
-| `orderProducts[].product.code_1C` | string | Код товара в 1С |
-| `orderProducts[].product.name` | string | Название товара |
-| `orderProducts[].quantity` | float | Количество товара |
-| `orderProducts[].price` | float | Цена за единицу |
-| `orderProducts[].discount` | float | Процент скидки |
-| `orderProducts[].summa` | float | Итоговая сумма по позиции (после скидки) |
-| `orderProducts[].returned` | float | Количество возвращённого товара |
-| `orderProducts[].block` | float | Количество в блоках |
-| **bonus** | array | Массив бонусных товаров (структура аналогична `orderProducts`) |
+| `CS_id` | string | Order external identifier (with branch prefix) |
+| `SD_id` | string | Order internal identifier in SalesDoc |
+| `code_1C` | string | Order code in 1C system |
+| `status` | integer | Order status (1 — new, 2 — sent, 3 — delivered, 4 — closed, 5 — cancelled) |
+| `dateCreate` | string | Order creation date and time (`YYYY-MM-DD HH:MM:SS`) |
+| `dateDocument` | string | Order document date (`YYYY-MM-DD HH:MM:SS`) |
+| `totalSumma` | float | Order total before discount |
+| `discountSumma` | float | Discount amount |
+| `totalSummaAfterDiscount` | float | Order total after discount |
+| `totalReturnsSumma` | float | Total returns for the order |
+| `totalReturnsCount` | integer | Number of returns for the order |
+| `comment` | string | Order comment |
+| `consignment` | boolean | Consignment flag |
+| `consigDate` | string\|null | Consignment date (if applicable) |
+| `debtDateExp` | string\|null | Expected debt repayment date |
+| `orderCreated` | string | Actual record creation date and time |
+| `invoiceNumber` | string\|null | Invoice number |
+| **client** | object | Client object |
+| `client.CS_id` | string | Client external identifier |
+| `client.SD_id` | string | Client internal identifier |
+| `client.code_1C` | string | Client 1C code |
+| `client.nspCode` | string\|null | Client NSP code |
+| `client.clientName` | string | Client name |
+| `client.clientLegalName` | string | Client legal name |
+| **agent** | object | Agent object |
+| `agent.CS_id` | string | Agent external identifier |
+| `agent.SD_id` | string | Agent internal identifier |
+| `agent.code_1C` | string | Agent 1C code |
+| **expeditor** | object | Expeditor object |
+| `expeditor.CS_id` | string | Expeditor external identifier |
+| `expeditor.SD_id` | string | Expeditor internal identifier |
+| `expeditor.code_1C` | string | Expeditor 1C code |
+| **priceType** | object | Price type object |
+| `priceType.CS_id` | string | Price type external identifier |
+| `priceType.SD_id` | string | Price type internal identifier |
+| `priceType.code_1C` | string | Price type 1C code |
+| **paymentType** | object | Payment type object |
+| `paymentType.CS_id` | string | Payment type external identifier |
+| `paymentType.SD_id` | string | Payment type internal identifier |
+| `paymentType.code_1C` | string | Payment type 1C code |
+| **note** | object | Note object |
+| `note.CS_id` | string\|null | Note external identifier |
+| `note.SD_id` | string\|null | Note internal identifier |
+| `note.code_1C` | string\|null | Note 1C code |
+| `note.title` | string\|null | Note text |
+| **store** | object | Warehouse object |
+| `store.CS_id` | string | Warehouse external identifier |
+| `store.SD_id` | string | Warehouse internal identifier |
+| `store.code_1C` | string | Warehouse 1C code |
+| **trade** | object | Trade direction object |
+| `trade.CS_id` | string | Trade direction external identifier |
+| `trade.SD_id` | string | Trade direction internal identifier |
+| `trade.code_1C` | string\|null | Trade direction 1C code |
+| **orderProducts** | array | Order products array |
+| `orderProducts[].product.CS_id` | string | Product external identifier |
+| `orderProducts[].product.SD_id` | string | Product internal identifier |
+| `orderProducts[].product.code_1C` | string | Product 1C code |
+| `orderProducts[].product.name` | string | Product name |
+| `orderProducts[].quantity` | float | Product quantity |
+| `orderProducts[].price` | float | Price per unit |
+| `orderProducts[].discount` | float | Discount percent |
+| `orderProducts[].summa` | float | Line total (after discount) |
+| `orderProducts[].returned` | float | Returned quantity |
+| `orderProducts[].block` | float | Quantity in blocks |
+| **bonus** | array | Bonus products array (structure same as `orderProducts`) |
 
 ---
 
 ### 9.27. `getOrderDefect` — Returns
 
-**Description:** Получение списка возвратных заказов (тип 2).
+**Description:** Returns the list of return orders (type 2).
 
 **Filters:**
 
 | Filter | Description |
 |--------|----------|
-| `filter.period.date.from/to` | По дате возврата |
-| `filter.period.dateLoad.from/to` | По дате документа |
-| `filter.period.dateUpdate.from/to` | По дате обновления (из истории) |
-| `filter.status` | Массив статусов (по умолчанию `[1]`) |
+| `filter.period.date.from/to` | By return date |
+| `filter.period.dateLoad.from/to` | By document date |
+| `filter.period.dateUpdate.from/to` | By update date (from history) |
+| `filter.status` | Array of statuses (default `[1]`) |
 
-**Примеры использования фильтров:**
+**Filter examples:**
 
-**Фильтр по дате возврата и статусам:**
+**Filter by return date and statuses:**
 ```json
 {
     "method": "getOrderDefect",
@@ -554,7 +554,7 @@
 }
 ```
 
-**Фильтр по дате документа (`filter.period.dateLoad`):**
+**Filter by document date (`filter.period.dateLoad`):**
 ```json
 {
     "method": "getOrderDefect",
@@ -572,7 +572,7 @@
 }
 ```
 
-**Фильтр по дате обновления (`filter.period.dateUpdate`):**
+**Filter by update date (`filter.period.dateUpdate`):**
 ```json
 {
     "method": "getOrderDefect",
@@ -589,9 +589,9 @@
     }
 }
 ```
-> Дата берётся из истории изменений документа.
+> Date is taken from document change history.
 
-**Комбинирование нескольких фильтров:**
+**Combining multiple filters:**
 ```json
 {
     "method": "getOrderDefect",
@@ -628,7 +628,7 @@
                 "totalSumma": 75000.00,
                 "discount": 0.00,
                 "summa": 75000.00,
-                "comment": "Брак",
+                "comment": "Defect",
                 "client": {
                     "CS_id": "F1-d0_100",
                     "SD_id": "d0_100",
@@ -654,7 +654,7 @@
                     "SD_id": "d0_10",
                     "code_1C": "WHD001"
                 },
-                "reason": "Истёк срок годности",
+                "reason": "Expired",
                 "defectProducts": [
                     {
                         "product": {
@@ -679,52 +679,52 @@
 
 | Field | Type | Description |
 |------|-----|----------|
-| `CS_id` | string | Внешний идентификатор (с префиксом филиала) |
-| `SD_id` | string | Серверный ID |
-| `code_1C` | string | Код в 1С |
-| `type` | integer | Тип документа (2 = возврат) |
-| `status` | integer | Статус документа (1–5) |
-| `date` | string | Дата и время возврата |
-| `dateLoad` | string | Дата документа |
-| `totalSumma` | float | Общая сумма до скидки |
-| `discount` | float | Сумма скидки |
-| `summa` | float | Итоговая сумма |
-| `comment` | string | Комментарий |
-| `reason` | string | Причина возврата |
-| **client** | object | Клиент |
-| `client.CS_id` | string | Идентификатор клиента |
-| `client.SD_id` | string | Серверный ID клиента |
-| `client.code_1C` | string | Код клиента в 1С |
-| **agent** | object | Агент |
-| `agent.CS_id` | string | Идентификатор агента |
-| `agent.SD_id` | string | Серверный ID агента |
-| `agent.code_1C` | string | Код агента в 1С |
-| **expeditor** | object | Экспедитор |
-| `expeditor.CS_id` | string | Идентификатор экспедитора |
-| `expeditor.SD_id` | string | Серверный ID экспедитора |
-| `expeditor.code_1C` | string | Код экспедитора в 1С |
-| **priceType** | object | Тип цены |
-| `priceType.CS_id` | string | Идентификатор типа цены |
-| `priceType.SD_id` | string | Серверный ID типа цены |
-| `priceType.code_1C` | string | Код типа цены в 1С |
-| **store** | object | Склад возврата |
-| `store.CS_id` | string | Идентификатор склада |
-| `store.SD_id` | string | Серверный ID склада |
-| `store.code_1C` | string | Код склада в 1С |
-| **defectProducts** | array | Массив возвращённых товаров |
-| `defectProducts[].product` | object | Товар (`CS_id`, `SD_id`, `code_1C`) |
-| `defectProducts[].quantity` | float | Количество |
-| `defectProducts[].price` | float | Цена за единицу |
-| `defectProducts[].summa` | float | Сумма по позиции |
-| `defectProducts[].exp_date` | string | Срок годности |
+| `CS_id` | string | External identifier (with branch prefix) |
+| `SD_id` | string | Server ID |
+| `code_1C` | string | 1C code |
+| `type` | integer | Document type (2 = return) |
+| `status` | integer | Document status (1–5) |
+| `date` | string | Return date and time |
+| `dateLoad` | string | Document date |
+| `totalSumma` | float | Total amount before discount |
+| `discount` | float | Discount amount |
+| `summa` | float | Final amount |
+| `comment` | string | Comment |
+| `reason` | string | Return reason |
+| **client** | object | Client |
+| `client.CS_id` | string | Client identifier |
+| `client.SD_id` | string | Client server ID |
+| `client.code_1C` | string | Client 1C code |
+| **agent** | object | Agent |
+| `agent.CS_id` | string | Agent identifier |
+| `agent.SD_id` | string | Agent server ID |
+| `agent.code_1C` | string | Agent 1C code |
+| **expeditor** | object | Expeditor |
+| `expeditor.CS_id` | string | Expeditor identifier |
+| `expeditor.SD_id` | string | Expeditor server ID |
+| `expeditor.code_1C` | string | Expeditor 1C code |
+| **priceType** | object | Price type |
+| `priceType.CS_id` | string | Price type identifier |
+| `priceType.SD_id` | string | Price type server ID |
+| `priceType.code_1C` | string | Price type 1C code |
+| **store** | object | Return warehouse |
+| `store.CS_id` | string | Warehouse identifier |
+| `store.SD_id` | string | Warehouse server ID |
+| `store.code_1C` | string | Warehouse 1C code |
+| **defectProducts** | array | Returned products array |
+| `defectProducts[].product` | object | Product (`CS_id`, `SD_id`, `code_1C`) |
+| `defectProducts[].quantity` | float | Quantity |
+| `defectProducts[].price` | float | Price per unit |
+| `defectProducts[].summa` | float | Line amount |
+| `defectProducts[].exp_date` | string | Expiry date |
 
 ---
 
 ### 9.28. `getOrderReplace` — Exchanges
 
-**Description:** Получение списка заказов на обмен (тип 3). Структура аналогична `getOrderDefect`.
+**Description:** Returns the list of exchange orders (type 3). Structure is the same as `getOrderDefect`.
 
-**Filters:** Аналогичны `getOrderDefect` (period, status).
+**Filters:** Same as `getOrderDefect` (period, status).
 
 **Request:**
 ```json
@@ -748,7 +748,7 @@
 
 **Response fields:**
 
-> Структура ответа аналогична `getOrderDefect` (см. выше), за исключением того, что `type` = `3` (обмен).
+> Response structure is the same as `getOrderDefect` (see above), except `type` = `3` (exchange).
 
 ---
 
