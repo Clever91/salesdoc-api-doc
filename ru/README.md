@@ -19,7 +19,7 @@
 | Прочитать заказы | [getOrder](04-get-orders.md#926-getorder--заказы), [getOrderDefect](04-get-orders.md#927-getorderdefect--возвраты), [getOrderReplace](04-get-orders.md#928-getorderreplace--обмены) |
 | Создать/обновить заказ | [setOrder](08-set-warehouse-orders.md#121-setorder--создатьобновить-заказ), [setOrderDefect](08-set-warehouse-orders.md#125-setorderdefect--создать-возврат), [setCode](08-set-warehouse-orders.md#124-setcode--установить-код-1с-для-документов), [syncOrder](08-set-warehouse-orders.md#126-syncorder--синхронизация-заказов) |
 | Справочники (клиенты, товары, цены, единицы и т.д.) | [02-get-references](02-get-references.md) (GET 9.1–9.20), [07-set-references](07-set-references.md) (SET 10.1–10.21) |
-| Остатки и склады | [getStock](03-get-visits-warehouse.md#924-getstock--остатки), [getStockForDate](03-get-visits-warehouse.md#925-getstockfordate--остатки-на-дату), [setStock](08-set-warehouse-orders.md#112-setstock--установить-складские-остатки-инвентаризация), [setPurchase](08-set-warehouse-orders.md#113-setpurchase--приход-товаров), [setMovement](08-set-warehouse-orders.md#114-setmovement--перемещение-товаров), [setExcretion](08-set-warehouse-orders.md#118-setexcretion--списание-товара) |
+| Остатки и склады | [getStock](03-get-visits-warehouse.md#924-getstock--остатки), [getStockForDate](03-get-visits-warehouse.md#925-getstockfordate--остатки-на-дату), [setStock](08-set-warehouse-orders.md#112-setstock--установить-складские-остатки-инвентаризация), [setPurchase](08-set-warehouse-orders.md#113-setpurchase--приход-товаров), [setMovement](08-set-warehouse-orders.md#114-setmovement--перемещение-товаров), [setMovementBetweenFilial](08-set-warehouse-orders.md#117-setmovementbetweenfilial--перемещения-между-филиалами-draft), [setMovementFilialPending](08-set-warehouse-orders.md#118-setmovementfilialpending--отправить-межфилиальное-перемещение-в-pending), [setExcretion](08-set-warehouse-orders.md#1110-setexcretion--списание-товара) |
 | Оплаты и баланс | [getPayment](02-get-references.md#915-getpayment--оплаты), [getBalance](05-get-finance.md#929-getbalance--баланс-клиентов), [setPayment](09-finance-photo-extra.md#131-setpayment--создать-оплату), [setBalance](09-finance-photo-extra.md#132-setbalance--установить-начальный-баланс), [setCurrentBalance](09-finance-photo-extra.md#133-setcurrentbalance--установить-текущий-баланс), [setConsumption](09-finance-photo-extra.md#134-setconsumption--создать-расход) |
 | Фото товара | [setPhoto](09-finance-photo-extra.md#141-setphoto--загрузить-фото-товара), [getPhoto](09-finance-photo-extra.md#142-getphoto--получить-фото-товара) |
 | Филиалы, заявки на клиентов | [getFilials](09-finance-photo-extra.md#151-getfilials--получить-список-филиалов), [getClientPending](09-finance-photo-extra.md#153-getclientpending--заявки-на-клиентов), [deleteClientPending](09-finance-photo-extra.md#154-deleteclientpending--удалить-заявку-на-клиента) |
@@ -118,7 +118,7 @@
 
 ---
 
-**Дополнительные GET-методы (9.32–9.46):**
+**Дополнительные GET-методы (9.32–9.47):**
 
 
 | #    | Метод | Описание                         |
@@ -137,6 +137,7 @@
 | 9.44 | [`getMovement`](06-get-extra.md#944-getmovement--перемещения) | Перемещения                      |
 | 9.45 | [`getVsExchange`](06-get-extra.md#945-getvsexchange--обмены-на-склад) | Обмены на склад                  |
 | 9.46 | [`getMovementBetweenFilial`](06-get-extra.md#946-getmovementbetweenfilial--перемещения-между-филиалами) | Перемещения между филиалами      |
+| 9.47 | [`getTag`](06-get-extra.md#947-gettag--теги) | Теги                             |
 
 📄 **Файл:** [06-get-extra.md](06-get-extra.md)
 
@@ -184,9 +185,11 @@
 | 11.4 | [`setMovement`](08-set-warehouse-orders.md#114-setmovement--перемещение-товаров) | Перемещение товаров                 |
 | 11.5 | [`setVsExchange`](08-set-warehouse-orders.md#115-setvsexchange--обмен-товаров-vansel) | Обмен товаров                       |
 | 11.6 | [`setMovingToFilial`](08-set-warehouse-orders.md#116-setmovingtofilial--перемещение-в-филиал) | Перемещение в филиал                |
-| 11.7 | [`setSupplierReturn`](08-set-warehouse-orders.md#117-setsupplierreturn--возврат-поставщику) | Возврат поставщику                  |
-| 11.8 | [`setExcretion`](08-set-warehouse-orders.md#118-setexcretion--списание-товара) | Списание товара                     |
-| 11.9 | [`setCorrection`](08-set-warehouse-orders.md#119-setcorrection--корректировка-остатков) | Корректировка остатков              |
+| 11.7 | [`setMovementBetweenFilial`](08-set-warehouse-orders.md#117-setmovementbetweenfilial--перемещения-между-филиалами-draft) | Перемещения между филиалами (draft) |
+| 11.8 | [`setMovementFilialPending`](08-set-warehouse-orders.md#118-setmovementfilialpending--отправить-межфилиальное-перемещение-в-pending) | Отправить межфилиальное перемещение в pending |
+| 11.9 | [`setSupplierReturn`](08-set-warehouse-orders.md#119-setsupplierreturn--возврат-поставщику) | Возврат поставщику                  |
+| 11.10 | [`setExcretion`](08-set-warehouse-orders.md#1110-setexcretion--списание-товара) | Списание товара                    |
+| 11.11 | [`setCorrection`](08-set-warehouse-orders.md#1111-setcorrection--корректировка-остатков) | Корректировка остатков             |
 | 12.1 | [`setOrder`](08-set-warehouse-orders.md#121-setorder--создатьобновить-заказ) | Создать/обновить заказ              |
 | 12.2 | [`setDeletedOrder`](08-set-warehouse-orders.md#122-setdeletedorder--отменить-заказ) | Отменить заказ                      |
 | 12.3 | [`setStatus`](08-set-warehouse-orders.md#123-setstatus--изменить-статус-заказа) | Изменить статус заказа              |

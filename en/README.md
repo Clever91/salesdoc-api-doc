@@ -19,7 +19,7 @@
 | Read orders | [getOrder](04-get-orders.md#926-getorder--orders), [getOrderDefect](04-get-orders.md#927-getorderdefect--returns), [getOrderReplace](04-get-orders.md#928-getorderreplace--exchanges) |
 | Create/update order | [setOrder](08-set-warehouse-orders.md#121-setorder--createupdate-order), [setOrderDefect](08-set-warehouse-orders.md#125-setorderdefect--create-return), [setCode](08-set-warehouse-orders.md#124-setcode--set-1c-code-for-documents), [syncOrder](08-set-warehouse-orders.md#126-syncorder--order-sync) |
 | References (clients, products, prices, units, etc.) | [02-get-references](02-get-references.md) (GET 9.1–9.20), [07-set-references](07-set-references.md) (SET 10.1–10.21) |
-| Stock and warehouses | [getStock](03-get-visits-warehouse.md#924-getstock--stock), [getStockForDate](03-get-visits-warehouse.md#925-getstockfordate--stock-by-date), [setStock](08-set-warehouse-orders.md#112-setstock--set-warehouse-stock-inventory), [setPurchase](08-set-warehouse-orders.md#113-setpurchase--goods-receipt), [setMovement](08-set-warehouse-orders.md#114-setmovement--transfer), [setExcretion](08-set-warehouse-orders.md#118-setexcretion--write-off) |
+| Stock and warehouses | [getStock](03-get-visits-warehouse.md#924-getstock--stock), [getStockForDate](03-get-visits-warehouse.md#925-getstockfordate--stock-by-date), [setStock](08-set-warehouse-orders.md#112-setstock--set-warehouse-stock-inventory), [setPurchase](08-set-warehouse-orders.md#113-setpurchase--goods-receipt), [setMovement](08-set-warehouse-orders.md#114-setmovement--transfer), [setMovementBetweenFilial](08-set-warehouse-orders.md#117-setmovementbetweenfilial--movements-between-filials-draft), [setMovementFilialPending](08-set-warehouse-orders.md#118-setmovementfilialpending--send-inter-filial-movement-to-pending), [setExcretion](08-set-warehouse-orders.md#1110-setexcretion--write-off) |
 | Payments and balance | [getPayment](02-get-references.md#915-getpayment--payments), [getBalance](05-get-finance.md#929-getbalance--client-balances), [setPayment](09-finance-photo-extra.md#131-setpayment--create-payment), [setBalance](09-finance-photo-extra.md#132-setbalance--set-opening-balance), [setCurrentBalance](09-finance-photo-extra.md#133-setcurrentbalance--set-current-balance), [setConsumption](09-finance-photo-extra.md#134-setconsumption--create-expense) |
 | Product photo | [setPhoto](09-finance-photo-extra.md#141-setphoto--upload-product-photo), [getPhoto](09-finance-photo-extra.md#142-getphoto--get-product-photo) |
 | Filials, client requests | [getFilials](09-finance-photo-extra.md#151-getfilials--list-filials), [getClientPending](09-finance-photo-extra.md#153-getclientpending--client-requests), [deleteClientPending](09-finance-photo-extra.md#154-deleteclientpending--delete-client-request) |
@@ -114,7 +114,7 @@
 
 ---
 
-**Extra GET methods (9.32–9.46):**
+**Extra GET methods (9.32–9.47):**
 
 | #    | Method | Description                |
 | ---- | ------ | -------------------------- |
@@ -132,6 +132,7 @@
 | 9.44 | [`getMovement`](06-get-extra.md#944-getmovement--movements) | Movements           |
 | 9.45 | [`getVsExchange`](06-get-extra.md#945-getvsexchange--warehouse-exchanges) | Warehouse exchanges |
 | 9.46 | [`getMovementBetweenFilial`](06-get-extra.md#946-getmovementbetweenfilial--movements-between-filials) | Movements between filials |
+| 9.47 | [`getTag`](06-get-extra.md#947-gettag--tags) | Tags                |
 
 **File:** [06-get-extra.md](06-get-extra.md)
 
@@ -177,9 +178,11 @@
 | 11.4 | [`setMovement`](08-set-warehouse-orders.md#114-setmovement--transfer) | Transfer                        |
 | 11.5 | [`setVsExchange`](08-set-warehouse-orders.md#115-setvsexchange--exchange-vansel) | Exchange (Vansel)               |
 | 11.6 | [`setMovingToFilial`](08-set-warehouse-orders.md#116-setmovingtofilial--move-to-filial) | Move to filial                  |
-| 11.7 | [`setSupplierReturn`](08-set-warehouse-orders.md#117-setsupplierreturn--supplier-return) | Supplier return                 |
-| 11.8 | [`setExcretion`](08-set-warehouse-orders.md#118-setexcretion--write-off) | Write-off                       |
-| 11.9 | [`setCorrection`](08-set-warehouse-orders.md#119-setcorrection--stock-correction) | Stock correction                |
+| 11.7 | [`setMovementBetweenFilial`](08-set-warehouse-orders.md#117-setmovementbetweenfilial--movements-between-filials-draft) | Movements between filials (draft) |
+| 11.8 | [`setMovementFilialPending`](08-set-warehouse-orders.md#118-setmovementfilialpending--send-inter-filial-movement-to-pending) | Send inter-filial movement to pending |
+| 11.9 | [`setSupplierReturn`](08-set-warehouse-orders.md#119-setsupplierreturn--supplier-return) | Supplier return                 |
+| 11.10 | [`setExcretion`](08-set-warehouse-orders.md#1110-setexcretion--write-off) | Write-off                      |
+| 11.11 | [`setCorrection`](08-set-warehouse-orders.md#1111-setcorrection--stock-correction) | Stock correction               |
 | 12.1 | [`setOrder`](08-set-warehouse-orders.md#121-setorder--createupdate-order) | Create/update order             |
 | 12.2 | [`setDeletedOrder`](08-set-warehouse-orders.md#122-setdeletedorder--cancel-order) | Cancel order                    |
 | 12.3 | [`setStatus`](08-set-warehouse-orders.md#123-setstatus--change-order-status) | Change order status             |

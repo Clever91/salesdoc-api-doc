@@ -229,7 +229,7 @@
 
 ### 11.6. `setMovingToFilial` — Move to filial
 
-**Description:** Transfer products from the current branch warehouse to another branch warehouse. The request must include `storeFrom` and `movingTo` (destination branch and warehouse) with **CS_id** (branch prefix). Creates a supplier return in the current branch and a receipt in the target branch.
+**Description:** Legacy inter-filial transfer method. Moves products from the current branch warehouse to another branch and immediately creates outgoing/incoming documents (without the `draft -> pending` approval step).
 
 **Request:**
 ```json
@@ -273,7 +273,86 @@
 
 ---
 
-### 11.7. `setSupplierReturn` — Supplier return
+### 11.7. `setMovementBetweenFilial` — Movements between filials (draft)
+
+**Description:** Creates or updates an inter-filial movement in `draft` status.
+
+> ⚠️ Requires `filial.filial_id` in the request.  
+> ⚠️ Movement to the same filial is not allowed.  
+> ⚠️ Editing is blocked if movement is already in `pending`.
+
+**Request:**
+```json
+{
+    "method": "setMovementBetweenFilial",
+    "auth": { "userId": "d0_1", "token": "..." },
+    "filial": { "filial_id": "FIL001" },
+    "data": {
+        "movement": [
+            {
+                "code_1C": "MBF000001",
+                "date": "2025-06-15 12:00:00",
+                "comment": "Transfer to filial FIL002",
+                "commForRcvr": true,
+                "priceType": { "code_1C": "000000001" },
+                "storeFrom": { "code_1C": "WH001" },
+                "movingTo": { "filialId": "FIL002" },
+                "products": [
+                    { "code_1C": "000000015", "quantity": 30, "price": 15000.00 }
+                ]
+            }
+        ]
+    }
+}
+```
+
+**Element fields:**
+
+| Field | Type | Required | Description |
+|------|-----|:---:|----------|
+| `CS_id` / `SD_id` / `code_1C` | string | ❌ | Document identifier (for updating existing movement) |
+| `date` | string | ✅ | Document date (`Y-m-d H:i:s`) |
+| `comment` | string | ❌ | Comment |
+| `commForRcvr` | bool | ❌ | Receiver-comment flag |
+| `priceType` | object | ❌ | Price type. CS_id / SD_id / code_1C (defaults to TYPE=1 if omitted) |
+| `storeFrom` | object | ✅ | Source warehouse. CS_id / SD_id / code_1C |
+| `movingTo.filialId` | string | ✅ | Destination filial XML_ID |
+| `products` | array | ✅ | Products: identifier, `quantity` (> 0), `price` (>= 0) |
+
+---
+
+### 11.8. `setMovementFilialPending` — Send inter-filial movement to pending
+
+**Description:** Moves an inter-filial movement from `draft`/`rejected` to `pending`.
+
+> ⚠️ Works only for inter-filial movement documents.  
+> ⚠️ Requires `filial.filial_id`.
+
+**Request:**
+```json
+{
+    "method": "setMovementFilialPending",
+    "auth": { "userId": "d0_1", "token": "..." },
+    "filial": { "filial_id": "FIL001" },
+    "data": {
+        "movement": [
+            { "SD_id": 95 }
+        ]
+    }
+}
+```
+
+**Element fields:**
+
+| Field | Type | Required | Description |
+|------|-----|:---:|----------|
+| `CS_id` / `SD_id` / `code_1C` | string | ✅* | Movement document identifier |
+
+> *At least one identifier is required.
+
+---
+
+### 11.9. `setSupplierReturn` — Supplier return
 
 **Description:** Create or update a product return-to-supplier document. Product availability on warehouse is checked.
 
@@ -312,7 +391,7 @@
 
 ---
 
-### 11.8. `setExcretion` — Write-off
+### 11.10. `setExcretion` — Write-off
 
 **Description:** Create or update a warehouse write-off document. Decreases warehouse stock. Product availability is checked.
 
@@ -351,7 +430,7 @@
 
 ---
 
-### 11.9. `setCorrection` — Stock correction
+### 11.11. `setCorrection` — Stock correction
 
 **Description:** Manual warehouse stock correction. **Only creation** of new documents is supported; editing existing ones (by SD_id or existing code_1C) is not allowed. Data is passed as an array directly in `data`. Warehouse must be linked to the created warehouse. `quantity` in a line can be positive (increase) or negative (decrease); final stock must not become negative.
 

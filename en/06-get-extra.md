@@ -1,4 +1,4 @@
-# GET methods — Extra (9.32–9.46)
+# GET methods — Extra (9.32–9.47)
 
 [← Back to contents](README.md)
 
@@ -1310,6 +1310,49 @@
 | `detail[].code_1C` | string | Product 1C code |
 | `detail[].quantity` | float | Quantity |
 | `detail[].price` | float | Price per unit |
+
+---
+
+### 9.47. `getTag` — Tags
+
+**Description:** Returns tag list from the `Tag` reference table.
+
+**Request:**
+```json
+{
+    "method": "getTag",
+    "auth": { "userId": "d0_1", "token": "..." }
+}
+```
+
+**Response:**
+```json
+{
+    "status": true,
+    "result": {
+        "data": [
+            {
+                "id": 1,
+                "name": "Wholesale",
+                "active": "Y"
+            },
+            {
+                "id": 2,
+                "name": "Retail",
+                "active": "N"
+            }
+        ]
+    }
+}
+```
+
+**Response fields:**
+
+| Field | Type | Description |
+|------|-----|----------|
+| `id` | integer | Tag identifier |
+| `name` | string | Tag name |
+| `active` | string | Activity flag: `Y` — active, `N` — inactive |
 
 ---
 
