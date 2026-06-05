@@ -488,6 +488,7 @@ All GET methods support pagination (`limit`, `page`), period and sort.
                 "code_1C": "000000001",
                 "name": "Retail price (UZS)",
                 "active": "Y",
+                "type": "sale",
                 "valyutaType": {
                     "CS_id": "d0_1",
                     "SD_id": "d0_1",
@@ -514,6 +515,7 @@ All GET methods support pagination (`limit`, `page`), period and sort.
 | `code_1C` | string | 1C code |
 | `name` | string | Price type name |
 | `active` | string | Active: `Y` — active, `N` — inactive |
+| `type` | string | Price type category: `sale` (TYPE=2), `purchase` (TYPE=1) |
 | **valyutaType** | object | Currency type |
 | `valyutaType.CS_id` | string | Currency identifier |
 | `valyutaType.SD_id` | string | Currency server ID |

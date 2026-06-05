@@ -488,6 +488,7 @@
                 "code_1C": "000000001",
                 "name": "Розничная цена (Сум)",
                 "active": "Y",
+                "type": "sale",
                 "valyutaType": {
                     "CS_id": "d0_1",
                     "SD_id": "d0_1",
@@ -514,6 +515,7 @@
 | `code_1C` | string | Код из 1С |
 | `name` | string | Название типа цены |
 | `active` | string | Активность: `Y` — активен, `N` — неактивен |
+| `type` | string | Категория типа цены: `sale` — продажа (TYPE=2), `purchase` — закуп (TYPE=1) |
 | **valyutaType** | object | Тип валюты |
 | `valyutaType.CS_id` | string | Идентификатор валюты |
 | `valyutaType.SD_id` | string | Серверный ID валюты |
