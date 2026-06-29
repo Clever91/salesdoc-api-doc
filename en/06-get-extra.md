@@ -324,15 +324,42 @@
 
 ### 9.38. `getPhotoReport` — Photo reports
 
-**Description:** Returns agent photo reports **for the current day**.
+**Description:** Returns agent photo reports. By **default** (no date filter) it
+returns reports **for today only**. To get reports for a specific period, pass
+`params.filter.period.date` with **both** `from` and `to` — the result then
+covers the inclusive date range `[from, to]`. For a single day, set `from == to`.
 
-> ⚠️ This method returns only photo reports for **today's date**.
+**Date filter parameters:**
 
-**Request:**
+| Parameter | Type | Format | Description |
+|------|-----|--------|----------|
+| `filter.period.date.from` | string | `YYYY-MM-DD` | Range start (inclusive). Required together with `to` to enable range mode. |
+| `filter.period.date.to` | string | `YYYY-MM-DD` | Range end (inclusive). Required together with `from`. |
+
+> If `from` or `to` is not a valid `YYYY-MM-DD` date, the request is rejected
+> (see **Validation error** below). If the `date` filter is omitted, only today's
+> reports are returned (backward-compatible behavior).
+
+**Request (default — today only):**
 ```json
 {
     "method": "getPhotoReport",
     "auth": { "userId": "d0_1", "token": "..." }
+}
+```
+
+**Request (date range):**
+```json
+{
+    "method": "getPhotoReport",
+    "auth": { "userId": "d0_1", "token": "..." },
+    "params": {
+        "filter": {
+            "period": {
+                "date": { "from": "2026-06-01", "to": "2026-06-26" }
+            }
+        }
+    }
 }
 ```
 
@@ -370,6 +397,19 @@
 | `role` | string | Role (user type) |
 | `url` | string | Photo URL |
 | `date` | string | Photo report date and time |
+
+**Validation error** (invalid `from`/`to`):
+```json
+{
+    "status": false,
+    "result": null,
+    "error": {
+        "code": 400,
+        "message": "Invalid date format. Expected \"Y-m-d\" (e.g. 2026-06-26) for filter.period.date.from/to",
+        "data": []
+    }
+}
+```
 
 ---
 
