@@ -19,8 +19,8 @@
 | Документ | Что это |
 |----------|---------|
 | **[SalesDoc API V2](README.md)** | *(этот документ)* Полная интеграция на чтение и запись (~80 методов GET/SET). |
-| **[Country Sales API V2](https://github.com/Clever91/countrysale-api-docs)** | Узкий API на чтение по страновой инсталляции: вход, филиалы, агенты, клиенты, визиты. |
-| **[API hub](https://github.com/azizkh/salesdoc-api-docs)** | Стартовая страница, объясняющая оба API и когда какой применять. |
+| **[Country Sales API V2](https://github.com/Clever91/countrysale-api-docs/blob/main/ru/README.md)** | Узкий API на чтение по страновой инсталляции: вход, филиалы, агенты, клиенты, визиты. |
+| **[API hub](https://github.com/Clever91/salesdoc-docs)** | Стартовая страница, объясняющая оба API и когда какой применять. |
 
 ---
 

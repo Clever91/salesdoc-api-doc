@@ -19,8 +19,8 @@ model, and `CS_id` / `SD_id` / `code_1C` identifiers with its sibling.
 | Document | What it is |
 |----------|------------|
 | **[SalesDoc API V2](README.md)** | *(this document)* The full read/write integration surface (~80 GET/SET methods). |
-| **[Country Sales API V2](https://github.com/Clever91/countrysale-api-docs)** | A focused read API over a country instance: login, filials, agents, clients, visits. |
-| **[API hub](https://github.com/azizkh/salesdoc-api-docs)** | A landing page that explains both APIs and when to use which. |
+| **[Country Sales API V2](https://github.com/Clever91/countrysale-api-docs/blob/main/en/README.md)** | A focused read API over a country instance: login, filials, agents, clients, visits. |
+| **[API hub](https://github.com/Clever91/salesdoc-docs)** | A landing page that explains both APIs and when to use which. |
 
 ---
 
