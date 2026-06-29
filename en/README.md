@@ -11,6 +11,19 @@
 
 ---
 
+## Related APIs
+
+This API is part of the **SalesDoc** integration API family and shares its envelope, token
+model, and `CS_id` / `SD_id` / `code_1C` identifiers with its sibling.
+
+| Document | What it is |
+|----------|------------|
+| **[SalesDoc API V2](README.md)** | *(this document)* The full read/write integration surface (~80 GET/SET methods). |
+| **[Country Sales API V2](https://github.com/azizkh/cs3/blob/master/api-docs/en/README.md)** | A focused read API over a country instance: login, filials, agents, clients, visits. |
+| **[API hub](https://github.com/azizkh/salesdoc-api-docs)** | A landing page that explains both APIs and when to use which. |
+
+---
+
 ## Quick find (for integrators)
 
 | Task | Method(s) |
