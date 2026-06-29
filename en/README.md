@@ -11,20 +11,6 @@
 
 ---
 
-## Related APIs
-
-SalesDoc API V2 is part of the **SalesDoc** integration API family. It shares the same
-request/response envelope, token model, and `CS_id` / `SD_id` / `code_1C` identifier
-convention as its sibling. If you are unsure which API to use, start at the hub.
-
-| Document | What it is |
-|----------|------------|
-| **[SalesDoc API V2](README.md)** | *(this document)* The full read/write integration surface (~80 GET/SET methods: references, orders, warehouse, finance, photos). |
-| **[Country Sales API V2](https://github.com/Clever91/countrysale-api-docs/blob/main/en/README.md)** | A focused read-only API over a country instance: login, filials, agents, clients, visits. |
-| **[API hub](https://github.com/Clever91/salesdoc-docs)** | A landing page that explains both APIs and when to use which. |
-
----
-
 ## Quick find (for integrators)
 
 | Task | Method(s) |
