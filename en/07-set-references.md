@@ -633,12 +633,39 @@ If no record is found by the given identifiers, a new record is created. For nes
 | `clientCategory` | object | ✅ | Client category (required) |
 | `clientType` | object | ❌ | Client type |
 | `clientChannel` | object | ❌ | Sales channel |
+| `contragent` | object | ❌ | Contragent the client (salepoint) is linked to. **Contragent server only.** `CS_id` / `SD_id` / `code_1C` |
 | `territory` | object | ❌ | Territory (city) |
 | `priceTypeList` | array | ❌ | List of price types for client |
 | `bankDetails` | object | ❌ | Bank details |
 | `agent` | array/object | ❌ | Agent(s) with visit days |
 | `agent.visitDays` | array | ❌ | Visit days [1=Mon, ..., 7=Sun] |
 | `deleteVisits` | string | ❌ | `"true"` — delete old visits before update |
+
+#### On a contragent server
+
+On a **contragent server** a client element may additionally contain a `contragent` object — it links the client (salepoint) to its contragent. The contragent is specified by one of the identifiers: `CS_id`, `SD_id` or `code_1C`.
+
+```json
+{
+    "code_1C": "000000100",
+    "shortName": "Store Zvezda",
+    "clientCategory": { "code_1C": "000000001" },
+    "contragent": { "code_1C": "CA000001" }
+}
+```
+
+**Errors (HTTP 400):**
+
+The API returns these error messages literally (in Russian):
+
+| Error | Reason |
+|--------|---------|
+| `Режим контрагентов не включен` | The `contragent` field was sent on an ordinary server. |
+| `Контрагент не найден` | No contragent found for the given identifier. |
+
+On an ordinary server the `contragent` field is unavailable, and no new fields appear in the request or response.
+
+[More about contragents](10-contragent.md)
 
 ---
 

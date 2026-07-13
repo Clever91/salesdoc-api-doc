@@ -34,6 +34,9 @@ model, and `CS_id` / `SD_id` / `code_1C` identifiers with its sibling.
 | References (clients, products, prices, units, etc.) | [02-get-references](02-get-references.md) (GET 9.1–9.20), [07-set-references](07-set-references.md) (SET 10.1–10.21) |
 | Stock and warehouses | [getStock](03-get-visits-warehouse.md#924-getstock--stock), [getStockForDate](03-get-visits-warehouse.md#925-getstockfordate--stock-by-date), [setStock](08-set-warehouse-orders.md#112-setstock--set-warehouse-stock-inventory), [setPurchase](08-set-warehouse-orders.md#113-setpurchase--goods-receipt), [setMovement](08-set-warehouse-orders.md#114-setmovement--transfer), [setMovementBetweenFilial](08-set-warehouse-orders.md#117-setmovementbetweenfilial--movements-between-filials-draft), [setMovementFilialPending](08-set-warehouse-orders.md#118-setmovementfilialpending--send-inter-filial-movement-to-pending), [setExcretion](08-set-warehouse-orders.md#1110-setexcretion--write-off) |
 | Payments and balance | [getPayment](02-get-references.md#915-getpayment--payments), [getBalance](05-get-finance.md#929-getbalance--client-balances), [setPayment](09-finance-photo-extra.md#131-setpayment--create-payment), [setBalance](09-finance-photo-extra.md#132-setbalance--set-opening-balance), [setCurrentBalance](09-finance-photo-extra.md#133-setcurrentbalance--set-current-balance), [setConsumption](09-finance-photo-extra.md#134-setconsumption--create-expense) |
+| Contragents (legal entities) and their salepoints | [What a contragent is](10-contragent.md), [setContragent](10-contragent.md#171-setcontragent--createupdate-contragents), [getContragent](10-contragent.md#172-getcontragent--contragents-list), [setClient](07-set-references.md#1017-setclient--createupdate-clients) (the `contragent` field) |
+| Inter-filial movement statuses | [getMovementFilialStatus](06-get-extra.md#948-getmovementfilialstatus--inter-filial-movement-statuses) |
+| Latest agent GPS coordinates | [getAgentLastTime](06-get-extra.md#949-getagentlasttime--agent-last-coordinates) |
 | Product photo | [setPhoto](09-finance-photo-extra.md#141-setphoto--upload-product-photo), [getPhoto](09-finance-photo-extra.md#142-getphoto--get-product-photo) |
 | Filials, client requests | [getFilials](09-finance-photo-extra.md#151-getfilials--list-filials), [getClientPending](09-finance-photo-extra.md#153-getclientpending--client-requests), [deleteClientPending](09-finance-photo-extra.md#154-deleteclientpending--delete-client-request) |
 | Store operations log | [getStoreLog](09-finance-photo-extra.md#152-getstorelog--store-operations-log) (available 20:00–07:00) |
@@ -127,7 +130,7 @@ model, and `CS_id` / `SD_id` / `code_1C` identifiers with its sibling.
 
 ---
 
-**Extra GET methods (9.32–9.47):**
+**Extra GET methods (9.32–9.49):**
 
 | #    | Method | Description                |
 | ---- | ------ | -------------------------- |
@@ -146,6 +149,8 @@ model, and `CS_id` / `SD_id` / `code_1C` identifiers with its sibling.
 | 9.45 | [`getVsExchange`](06-get-extra.md#945-getvsexchange--warehouse-exchanges) | Warehouse exchanges |
 | 9.46 | [`getMovementBetweenFilial`](06-get-extra.md#946-getmovementbetweenfilial--movements-between-filials) | Movements between filials |
 | 9.47 | [`getTag`](06-get-extra.md#947-gettag--tags) | Tags                |
+| 9.48 | [`getMovementFilialStatus`](06-get-extra.md#948-getmovementfilialstatus--inter-filial-movement-statuses) | Inter-filial movement statuses |
+| 9.49 | [`getAgentLastTime`](06-get-extra.md#949-getagentlasttime--agent-last-coordinates) | Agent last coordinates |
 
 **File:** [06-get-extra.md](06-get-extra.md)
 
@@ -223,5 +228,18 @@ model, and `CS_id` / `SD_id` / `code_1C` identifiers with its sibling.
 | 15.4 | [`deleteClientPending`](09-finance-photo-extra.md#154-deleteclientpending--delete-client-request) | Delete client request |
 
 **File:** [09-finance-photo-extra.md](09-finance-photo-extra.md)
+
+---
+
+### Contragents (17)
+
+> These methods are available only on a **contragent server**. The server type is detected by the system automatically — the integrator cannot change it. See: [Contragents](10-contragent.md).
+
+| #    | Method | Description                       |
+| ---- | ------ | --------------------------------- |
+| 17.1 | [`setContragent`](10-contragent.md#171-setcontragent--createupdate-contragents) | Create/update contragents         |
+| 17.2 | [`getContragent`](10-contragent.md#172-getcontragent--contragents-list) | Contragents list                  |
+
+**File:** [10-contragent.md](10-contragent.md)
 
 ---

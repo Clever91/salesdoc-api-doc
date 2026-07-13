@@ -34,6 +34,9 @@
 | Справочники (клиенты, товары, цены, единицы и т.д.) | [02-get-references](02-get-references.md) (GET 9.1–9.20), [07-set-references](07-set-references.md) (SET 10.1–10.21) |
 | Остатки и склады | [getStock](03-get-visits-warehouse.md#924-getstock--остатки), [getStockForDate](03-get-visits-warehouse.md#925-getstockfordate--остатки-на-дату), [setStock](08-set-warehouse-orders.md#112-setstock--установить-складские-остатки-инвентаризация), [setPurchase](08-set-warehouse-orders.md#113-setpurchase--приход-товаров), [setMovement](08-set-warehouse-orders.md#114-setmovement--перемещение-товаров), [setMovementBetweenFilial](08-set-warehouse-orders.md#117-setmovementbetweenfilial--перемещения-между-филиалами-draft), [setMovementFilialPending](08-set-warehouse-orders.md#118-setmovementfilialpending--отправить-межфилиальное-перемещение-в-pending), [setExcretion](08-set-warehouse-orders.md#1110-setexcretion--списание-товара) |
 | Оплаты и баланс | [getPayment](02-get-references.md#915-getpayment--оплаты), [getBalance](05-get-finance.md#929-getbalance--баланс-клиентов), [setPayment](09-finance-photo-extra.md#131-setpayment--создать-оплату), [setBalance](09-finance-photo-extra.md#132-setbalance--установить-начальный-баланс), [setCurrentBalance](09-finance-photo-extra.md#133-setcurrentbalance--установить-текущий-баланс), [setConsumption](09-finance-photo-extra.md#134-setconsumption--создать-расход) |
+| Контрагенты (юрлица) и их торговые точки | [Что такое контрагент](10-contragent.md), [setContragent](10-contragent.md#171-setcontragent--созданиеобновление-контрагентов), [getContragent](10-contragent.md#172-getcontragent--список-контрагентов), [setClient](07-set-references.md#1017-setclient--создатьобновить-клиентов) (поле `contragent`) |
+| Статусы межфилиальных перемещений | [getMovementFilialStatus](06-get-extra.md#948-getmovementfilialstatus--статусы-межфилиальных-перемещений) |
+| Последние GPS-координаты агентов | [getAgentLastTime](06-get-extra.md#949-getagentlasttime--последние-координаты-агентов) |
 | Фото товара | [setPhoto](09-finance-photo-extra.md#141-setphoto--загрузить-фото-товара), [getPhoto](09-finance-photo-extra.md#142-getphoto--получить-фото-товара) |
 | Филиалы, заявки на клиентов | [getFilials](09-finance-photo-extra.md#151-getfilials--получить-список-филиалов), [getClientPending](09-finance-photo-extra.md#153-getclientpending--заявки-на-клиентов), [deleteClientPending](09-finance-photo-extra.md#154-deleteclientpending--удалить-заявку-на-клиента) |
 | Журнал складских операций | [getStoreLog](09-finance-photo-extra.md#152-getstorelog--журнал-складских-операций) (доступ 20:00–07:00) |
@@ -131,7 +134,7 @@
 
 ---
 
-**Дополнительные GET-методы (9.32–9.47):**
+**Дополнительные GET-методы (9.32–9.49):**
 
 
 | #    | Метод | Описание                         |
@@ -151,6 +154,8 @@
 | 9.45 | [`getVsExchange`](06-get-extra.md#945-getvsexchange--обмены-на-склад) | Обмены на склад                  |
 | 9.46 | [`getMovementBetweenFilial`](06-get-extra.md#946-getmovementbetweenfilial--перемещения-между-филиалами) | Перемещения между филиалами      |
 | 9.47 | [`getTag`](06-get-extra.md#947-gettag--теги) | Теги                             |
+| 9.48 | [`getMovementFilialStatus`](06-get-extra.md#948-getmovementfilialstatus--статусы-межфилиальных-перемещений) | Статусы межфилиальных перемещений |
+| 9.49 | [`getAgentLastTime`](06-get-extra.md#949-getagentlasttime--последние-координаты-агентов) | Последние координаты агентов     |
 
 📄 **Файл:** [06-get-extra.md](06-get-extra.md)
 
@@ -231,5 +236,18 @@
 | 15.4 | [`deleteClientPending`](09-finance-photo-extra.md#154-deleteclientpending--удалить-заявку-на-клиента) | Удалить заявку на клиента   |
 
 📄 **Файл:** [09-finance-photo-extra.md](09-finance-photo-extra.md)
+
+---
+
+### Контрагенты (17)
+
+> Методы доступны только на **сервере контрагентов**. Тип сервера определяется системой автоматически — интегратор не может его изменить. Подробнее: [Контрагенты](10-contragent.md).
+
+| #    | Метод | Описание                          |
+| ---- | ----- | --------------------------------- |
+| 17.1 | [`setContragent`](10-contragent.md#171-setcontragent--созданиеобновление-контрагентов) | Создать/обновить контрагентов     |
+| 17.2 | [`getContragent`](10-contragent.md#172-getcontragent--список-контрагентов) | Список контрагентов               |
+
+📄 **Файл:** [10-contragent.md](10-contragent.md)
 
 ---

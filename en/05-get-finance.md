@@ -58,6 +58,12 @@
 
 > **Note:** Negative balance means client debt.
 
+#### On a contragent server
+
+On a **contragent server** balances are returned by contragent: the money of all salepoints is aggregated onto their contragent. Contragents without salepoints are also included in the list. The response structure does not change — the same `CS_id`, `SD_id`, `code_1C`, `name`, `balance` and `by-currency` fields, but they identify the contragent. On an ordinary server the behavior does not change.
+
+[More about contragents](10-contragent.md)
+
 ---
 
 ### 9.30. `getConsumption` — Expense / Income

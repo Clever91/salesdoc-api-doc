@@ -49,6 +49,16 @@
 | `trade` | object | ❌ | Trade direction |
 | `order` | object | ❌ | Order to link (close debt) |
 
+#### On a contragent server
+
+On a **contragent server** a payment sent for a client (salepoint) is automatically attributed to that client's contragent. The link to the salepoint itself is preserved and returned in the `salepoint` field of the `getPayment` method.
+
+If the payment specifies an `order` object, the order must belong to the same contragent as the payment. Otherwise the payment is rejected with the error `Client mistmatch` (returned by the API literally, including this spelling).
+
+No new fields appear in the `setPayment` request. On an ordinary server the behavior does not change.
+
+[More about contragents](10-contragent.md)
+
 ---
 
 ### 13.2. `setBalance` — Set opening balance
@@ -89,6 +99,12 @@
 | `paymentType` | object | ✅ | Payment type (currency). CS_id / SD_id / code_1C |
 
 **Response:** Standard SET response: `completed`, `error`, `data.balance` — array of objects with `CS_id`, `SD_id`, `code_1C` for each successfully processed record.
+
+#### On a contragent server
+
+On a **contragent server** an opening balance sent for a client (salepoint) is attributed to that client's contragent. The link to the salepoint is preserved. No new fields appear in the `setBalance` request; on an ordinary server the behavior does not change.
+
+[More about contragents](10-contragent.md)
 
 ---
 

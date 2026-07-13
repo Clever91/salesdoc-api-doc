@@ -1,4 +1,4 @@
-# GET methods — Extra (9.32–9.47)
+# GET methods — Extra (9.32–9.49)
 
 [← Back to contents](README.md)
 
@@ -1393,6 +1393,151 @@ covers the inclusive date range `[from, to]`. For a single day, set `from == to`
 | `id` | integer | Tag identifier |
 | `name` | string | Tag name |
 | `active` | string | Activity flag: `Y` — active, `N` — inactive |
+
+---
+
+### 9.48. `getMovementFilialStatus` — Inter-filial movement statuses
+
+**Description:** Returns the list of inter-filial movements with their current status. Unlike `getMovementBetweenFilial` (which returns the movement contents), this method returns the status of the movement between the sender filial and the receiver filial.
+
+> ⚠️ `filial_id` is **required** in the request for this method. If it is not provided, a `400` error is returned with the message `Для этого метода требуется filial_id` (the API returns this message literally, in Russian).
+
+**Filters:**
+
+| Filter | Description |
+|--------|----------|
+| `filter.period.date.from/to` | By movement date (format `Y-m-d`) |
+
+**Limits:** `limit` and `page` are supported (paginated output).
+
+**Request:**
+```json
+{
+    "method": "getMovementFilialStatus",
+    "auth": { "userId": "d0_1", "token": "..." },
+    "filial": { "filial_id": "FIL001" },
+    "params": {
+        "limit": 50,
+        "filter": {
+            "period": {
+                "date": {
+                    "from": "2025-06-01",
+                    "to": "2025-06-30"
+                }
+            }
+        }
+    }
+}
+```
+
+**Response:**
+```json
+{
+    "status": true,
+    "result": {
+        "movement": [
+            {
+                "CS_id": "F1-d0_95",
+                "SD_id": "d0_95",
+                "code_1C": "MBF000001",
+                "from_filial": {
+                    "id": 1,
+                    "name": "Tashkent",
+                    "filial_id": "FIL001"
+                },
+                "to_filial": {
+                    "id": 2,
+                    "name": "Samarkand",
+                    "filial_id": "FIL002"
+                },
+                "status": "approved",
+                "comment": "Transfer to Samarkand"
+            }
+        ]
+    },
+    "pagination": { "limit": 50, "total": 12, "page": 1 }
+}
+```
+
+**Response fields:**
+
+| Field | Type | Description |
+|------|-----|----------|
+| `CS_id` | string | Movement external identifier (with prefix) |
+| `SD_id` | string | Movement server ID |
+| `code_1C` | string | Movement 1C code |
+| **from_filial** | object | Sender filial |
+| `from_filial.id` | integer | Filial ID |
+| `from_filial.name` | string | Filial name |
+| `from_filial.filial_id` | string | Filial external code (XML_ID) |
+| **to_filial** | object | Receiver filial |
+| `to_filial.id` | integer | Filial ID |
+| `to_filial.name` | string | Filial name |
+| `to_filial.filial_id` | string | Filial external code (XML_ID) |
+| `status` | string | Movement status (see table below) |
+| `comment` | string | Comment |
+
+**Movement statuses (`status`):**
+
+| Value | Description |
+|----------|----------|
+| `draft` | Draft |
+| `pending` | Sent, awaiting confirmation |
+| `approved` | Confirmed (a purchase is created on the receiver side) |
+| `rejected` | Rejected |
+| `cancel` | Cancelled |
+
+**Errors:**
+
+The API returns these error messages literally (in Russian):
+
+| Error | Code | Reason |
+|--------|-----|---------|
+| `Для этого метода требуется filial_id` | 400 | `filial.filial_id` not specified in the request |
+| `Дата начала должна быть меньше даты конца` | 400 | `from` is greater than `to` |
+| `` Дата должна быть в формате `Y-m-d` `` | 400 | Invalid date format in the period filter |
+
+---
+
+### 9.49. `getAgentLastTime` — Agent last coordinates
+
+**Description:** Returns the time of the last GPS record for each agent. For each agent the response contains the time of their latest GPS log entry (`LAST_TIME`) and one of the agent's coordinates from the log (only records with positive `LAT` and `LON` are taken into account; the coordinate may not correspond to the very latest entry).
+
+**Request:**
+```json
+{
+    "method": "getAgentLastTime",
+    "auth": { "userId": "d0_1", "token": "..." }
+}
+```
+
+**Response:**
+```json
+{
+    "status": true,
+    "result": {
+        "data": [
+            {
+                "AGENT_ID": "d0_3",
+                "LAT": "41.2995",
+                "LON": "69.2401",
+                "LAST_TIME": "2025-06-15 14:30:00"
+            }
+        ]
+    }
+}
+```
+
+**Response fields:**
+
+| Field | Type | Description |
+|------|-----|----------|
+| `AGENT_ID` | string | Agent identifier |
+| `LAT` | string | Latitude of the agent's coordinate |
+| `LON` | string | Longitude of the agent's coordinate |
+| `LAST_TIME` | string | Date and time of the agent's latest GPS record |
+
+> **Note:** The method returns data "as is" from the database, so numeric fields (`LAT`, `LON`) may arrive as strings — cast them to the needed type on the integrator side. Field names are returned in upper case unchanged.
 
 ---
 

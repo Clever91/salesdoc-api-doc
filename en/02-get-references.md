@@ -1286,6 +1286,42 @@ In the `filter` block you can specify conditions by `CS_id`, `SD_id`, `code_1C` 
 | `orders[].SD_id` | string | Order server ID |
 | `orders[].amount` | float | Order payment amount |
 
+#### On a contragent server
+
+On a **contragent server** the `client` object in each payment identifies the **contragent** (including contragents without salepoints), not an individual salepoint.
+
+Additionally, each payment gets a `salepoint` object identifying the outlet the payment was made at (`CS_id` / `SD_id` / `code_1C`). If the payment is not linked to a specific salepoint (for example, sent directly to the contragent), the `salepoint` object fields are returned as `null`.
+
+```json
+{
+    "CS_id": "F1-d0_500",
+    "SD_id": "d0_500",
+    "code_1C": "PAY000001",
+    "amount": 5000000.00,
+    "client": {
+        "CS_id": "F1-d0_100",
+        "SD_id": "d0_100",
+        "code_1C": "CA000001"
+    },
+    "salepoint": {
+        "CS_id": "F1-d0_205",
+        "SD_id": "d0_205",
+        "code_1C": "000000100"
+    }
+}
+```
+
+| Field | Type | Description |
+|------|-----|----------|
+| **salepoint** | object | Salepoint the payment was made at (contragent server only) |
+| `salepoint.CS_id` | string\|null | Salepoint identifier |
+| `salepoint.SD_id` | string\|null | Salepoint server ID |
+| `salepoint.code_1C` | string\|null | Salepoint 1C code |
+
+On an ordinary server the `salepoint` object is absent from the response, the `client` object identifies the client (salepoint), and the method behavior does not change.
+
+[More about contragents](10-contragent.md)
+
 ---
 
 ### 9.16. `getTerritory` — Territories
