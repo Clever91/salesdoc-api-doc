@@ -1288,9 +1288,7 @@ In the `filter` block you can specify conditions by `CS_id`, `SD_id`, `code_1C` 
 
 #### On a contragent server
 
-On a **contragent server** the `client` object in each payment identifies the **contragent** (including contragents without salepoints), not an individual salepoint.
-
-Additionally, each payment gets a `clientPoint` object identifying the outlet the payment was made at (`CS_id` / `SD_id` / `code_1C`). If the payment is not linked to a specific salepoint (for example, sent directly to the contragent), the `clientPoint` object fields are returned as `null`.
+On a **contragent server** each payment returns **both** objects: `contragent` identifies the **contragent** (the payer, including contragents without salepoints), and `client` identifies the salepoint the payment was made at. If the payment is not linked to a specific salepoint (for example, sent directly to the contragent), the `client` object fields are returned as `null`.
 
 ```json
 {
@@ -1299,26 +1297,27 @@ Additionally, each payment gets a `clientPoint` object identifying the outlet th
     "code_1C": "PAY000001",
     "amount": 5000000.00,
     "client": {
-        "CS_id": "F1-d0_100",
-        "SD_id": "d0_100",
-        "code_1C": "CA000001"
-    },
-    "clientPoint": {
         "CS_id": "F1-d0_205",
         "SD_id": "d0_205",
         "code_1C": "000000100"
+    },
+    "contragent": {
+        "CS_id": "F1-d0_100",
+        "SD_id": "d0_100",
+        "code_1C": "CA000001"
     }
 }
 ```
 
 | Field | Type | Description |
 |------|-----|----------|
-| **clientPoint** | object | Salepoint the payment was made at (contragent server only) |
-| `clientPoint.CS_id` | string\|null | Salepoint identifier |
-| `clientPoint.SD_id` | string\|null | Salepoint server ID |
-| `clientPoint.code_1C` | string\|null | Salepoint 1C code |
+| **contragent** | object | Contragent (payer) the payment is attributed to (contragent server only) |
+| `contragent.CS_id` | string\|null | Contragent identifier |
+| `contragent.SD_id` | string\|null | Contragent server ID |
+| `contragent.code_1C` | string\|null | Contragent 1C code |
+| **client** | object | Salepoint the payment was made at; fields are `null` if the payment was sent directly to the contragent |
 
-On an ordinary server the `clientPoint` object is absent from the response, the `client` object identifies the client (salepoint), and the method behavior does not change.
+On an ordinary server the `contragent` object is absent from the response, the `client` object identifies the client (salepoint), and the method behavior does not change.
 
 [More about contragents](10-contragent.md)
 
