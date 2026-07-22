@@ -15,7 +15,7 @@ Each SalesDoc installation runs in one of two modes. **The server type is detect
 | **Ordinary server** | Classic single-level model: each **client** (salepoint / outlet) carries its own payments, balance and debt. |
 | **Contragent server** | Two-level model: a **contragent** (payer) and its **salepoints** (clients). |
 
-To find out which server you are working with, rely on the method behavior described below: if the `setContragent` / `getContragent` methods are available and a `salepoint` object appears in payment and balance responses, this is a **contragent server**.
+To find out which server you are working with, rely on the method behavior described below: if the `setContragent` / `getContragent` methods are available and a `clientPoint` object appears in payment and balance responses, this is a **contragent server**.
 
 ### Ordinary server
 
@@ -30,7 +30,7 @@ Everything works as described in the rest of the documentation. No extra fields 
 Here an additional level is introduced — the **contragent**.
 
 - A **contragent** is a legal entity / payer, "the company on the invoice".
-- **Clients** are the **salepoints** (`salepoint`) of the contragent, where sales actually happen.
+- **Clients** are the **salepoints** (`client`) of the contragent, where sales actually happen.
 - **Sales** run through the salepoints, while **money, balance and debt** are tracked on the contragent.
 
 **Illustration:**
@@ -45,14 +45,14 @@ Orders are placed on "Store #1" and "Store #2", while the whole financial pictur
 
 **What changes in method behavior on a contragent server:**
 
-- **Payments and opening balances** sent for a client (salepoint) are automatically attributed to that client's contragent. In responses, the `client` object then identifies the **contragent**, while a separate `salepoint` object identifies the outlet the operation belonged to.
+- **Payments and opening balances** sent for a client (salepoint) are automatically attributed to that client's contragent. In responses, the `client` object then identifies the **contragent**, while a separate `clientPoint` object identifies the outlet the operation belonged to.
 - **`getBalance`** aggregates the balance **by contragent** (not by individual salepoints).
 - **Orders** are automatically linked to the contragent of the corresponding salepoint.
 - A contragent may have **no salepoints at all** (a standalone legal entity). Such contragents are still present in `getBalance` and `getPayment`.
 
 > **Important:** the specific field changes are described in the relevant sections:
 > - linking a client to a contragent — [`setClient`](07-set-references.md#1017-setclient--createupdate-clients) (the `contragent` field);
-> - payment attribution and the `salepoint` object — [`setPayment`](09-finance-photo-extra.md#131-setpayment--create-payment), [`getPayment`](02-get-references.md#915-getpayment--payments);
+> - payment attribution and the `clientPoint` object — [`setPayment`](09-finance-photo-extra.md#131-setpayment--create-payment), [`getPayment`](02-get-references.md#915-getpayment--payments);
 > - opening balance — [`setBalance`](09-finance-photo-extra.md#132-setbalance--set-opening-balance);
 > - balance aggregation by contragent — [`getBalance`](05-get-finance.md#929-getbalance--client-balances);
 > - linking an order to a contragent — [`setOrder`](08-set-warehouse-orders.md#121-setorder--createupdate-order).
@@ -188,7 +188,7 @@ Data is sent in a batch in `data.contragent` (the same batch-size limit as in th
 
 ### 17.2. `getContragent` — Contragents list
 
-**Description:** Returns the list of contragents together with their salepoints (`salepoints`). The method is available **only on a contragent server**; on an ordinary server it returns the error `Contragent mode is not enabled` (HTTP 400).
+**Description:** Returns the list of contragents together with their salepoints (`client`). The method is available **only on a contragent server**; on an ordinary server it returns the error `Contragent mode is not enabled` (HTTP 400).
 
 **Request:**
 ```json
@@ -263,7 +263,7 @@ Data is sent in a batch in `data.contragent` (the same batch-size limit as in th
                     "SD_id": "d0_13",
                     "code_1C": "000000001"
                 },
-                "salepoints": [
+                "client": [
                     {
                         "CS_id": "F1-d0_100",
                         "SD_id": "d0_100",
@@ -309,13 +309,13 @@ Data is sent in a batch in `data.contragent` (the same batch-size limit as in th
 | `bankDetails.mfo` | string | MFO / bank code |
 | **category** | object | Contragent category (`CS_id`, `SD_id`, `code_1C`) |
 | **city** | object | Territory / city (`CS_id`, `SD_id`, `code_1C`) |
-| **salepoints** | array | Contragent salepoints |
-| `salepoints[].CS_id` | string | Salepoint external identifier |
-| `salepoints[].SD_id` | string | Salepoint server ID |
-| `salepoints[].code_1C` | string | Salepoint 1C code |
-| `salepoints[].name` | string | Salepoint name |
+| **client** | array | Contragent salepoints |
+| `client[].CS_id` | string | Salepoint external identifier |
+| `client[].SD_id` | string | Salepoint server ID |
+| `client[].code_1C` | string | Salepoint 1C code |
+| `client[].name` | string | Salepoint name |
 
-> For a contragent without salepoints the `salepoints` array is returned empty (`[]`) — such a contragent is still present in the list.
+> For a contragent without salepoints the `client` array is returned empty (`[]`) — such a contragent is still present in the list.
 
 ---
 

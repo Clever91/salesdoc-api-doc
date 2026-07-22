@@ -51,7 +51,7 @@
 
 #### On a contragent server
 
-On a **contragent server** a payment sent for a client (salepoint) is automatically attributed to that client's contragent. The link to the salepoint itself is preserved and returned in the `salepoint` field of the `getPayment` method.
+On a **contragent server** the `client` field identifies the **contragent** (the payer) — the identifier is looked up among contragents first. A salepoint client identifier is also accepted: such a payment is automatically attributed to that client's contragent, and the link to the salepoint itself is preserved and returned in the `clientPoint` field of the `getPayment` method.
 
 If the payment specifies an `order` object, the order must belong to the same contragent as the payment. Otherwise the payment is rejected with the error `Client mistmatch` (returned by the API literally, including this spelling).
 
