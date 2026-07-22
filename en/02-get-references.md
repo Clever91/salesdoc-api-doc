@@ -1286,6 +1286,43 @@ In the `filter` block you can specify conditions by `CS_id`, `SD_id`, `code_1C` 
 | `orders[].SD_id` | string | Order server ID |
 | `orders[].amount` | float | Order payment amount |
 
+#### On a contragent server
+
+> **Note — two entities on a contragent server:** the **client** is a salepoint (outlet) where sales actually happen; the **contragent** is the legal entity / payer that owns one or more salepoints and on which all money, balance and debt are tracked. [More about contragents](10-contragent.md)
+
+On a **contragent server** each payment returns **both** objects: `contragent` identifies the **contragent** (the payer, including contragents without salepoints), and `client` identifies the salepoint the payment was made at. If the payment is not linked to a specific salepoint (for example, sent directly to the contragent), the `client` object fields are returned as `null`.
+
+```json
+{
+    "CS_id": "F1-d0_500",
+    "SD_id": "d0_500",
+    "code_1C": "PAY000001",
+    "amount": 5000000.00,
+    "client": {
+        "CS_id": "F1-d0_205",
+        "SD_id": "d0_205",
+        "code_1C": "000000100"
+    },
+    "contragent": {
+        "CS_id": "F1-d0_100",
+        "SD_id": "d0_100",
+        "code_1C": "CA000001"
+    }
+}
+```
+
+| Field | Type | Description |
+|------|-----|----------|
+| **contragent** | object | Contragent (payer) the payment is attributed to (contragent server only) |
+| `contragent.CS_id` | string\|null | Contragent identifier |
+| `contragent.SD_id` | string\|null | Contragent server ID |
+| `contragent.code_1C` | string\|null | Contragent 1C code |
+| **client** | object | Salepoint the payment was made at; fields are `null` if the payment was sent directly to the contragent |
+
+On an ordinary server the `contragent` object is absent from the response, the `client` object identifies the client (salepoint), and the method behavior does not change.
+
+[More about contragents](10-contragent.md)
+
 ---
 
 ### 9.16. `getTerritory` — Territories
