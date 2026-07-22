@@ -554,6 +554,8 @@
 
 #### On a contragent server
 
+> **Note — two entities on a contragent server:** the **client** is a salepoint (outlet) where sales actually happen; the **contragent** is the legal entity / payer that owns one or more salepoints and on which all money, balance and debt are tracked. [More about contragents](10-contragent.md)
+
 On a **contragent server** the order is automatically linked to the contragent of the client (salepoint) specified in the `client` field. No new fields appear in the request; on an ordinary server the behavior does not change. [More about contragents](10-contragent.md)
 
 ---
@@ -609,6 +611,8 @@ On a **contragent server** the order is automatically linked to the contragent o
 | `dateShipment` | string | ❌ | Shipment date (format: Y-m-d) |
 
 #### On a contragent server
+
+> **Note — two entities on a contragent server:** the **client** is a salepoint (outlet) where sales actually happen; the **contragent** is the legal entity / payer that owns one or more salepoints and on which all money, balance and debt are tracked. [More about contragents](10-contragent.md)
 
 On a **contragent server**, if the order does not yet have a contragent link, on a status change it is automatically linked to the contragent of the order's client (salepoint). No new fields appear in the request; on an ordinary server the behavior does not change. [More about contragents](10-contragent.md)
 
@@ -708,6 +712,8 @@ On a **contragent server**, if the order does not yet have a contragent link, on
 | `price` | float | ❌ | Price (if not set — from price list) |
 
 #### On a contragent server
+
+> **Note — two entities on a contragent server:** the **client** is a salepoint (outlet) where sales actually happen; the **contragent** is the legal entity / payer that owns one or more salepoints and on which all money, balance and debt are tracked. [More about contragents](10-contragent.md)
 
 On a **contragent server** the return is automatically linked to the contragent of the client (salepoint) specified in the `client` field. No new fields appear in the request; on an ordinary server the behavior does not change. [More about contragents](10-contragent.md)
 

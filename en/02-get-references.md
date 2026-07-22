@@ -1288,6 +1288,8 @@ In the `filter` block you can specify conditions by `CS_id`, `SD_id`, `code_1C` 
 
 #### On a contragent server
 
+> **Note — two entities on a contragent server:** the **client** is a salepoint (outlet) where sales actually happen; the **contragent** is the legal entity / payer that owns one or more salepoints and on which all money, balance and debt are tracked. [More about contragents](10-contragent.md)
+
 On a **contragent server** each payment returns **both** objects: `contragent` identifies the **contragent** (the payer, including contragents without salepoints), and `client` identifies the salepoint the payment was made at. If the payment is not linked to a specific salepoint (for example, sent directly to the contragent), the `client` object fields are returned as `null`.
 
 ```json

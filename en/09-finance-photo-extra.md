@@ -51,6 +51,8 @@
 
 #### On a contragent server
 
+> **Note — two entities on a contragent server:** the **client** is a salepoint (outlet) where sales actually happen; the **contragent** is the legal entity / payer that owns one or more salepoints and on which all money, balance and debt are tracked. [More about contragents](10-contragent.md)
+
 On a **contragent server** the `client` field identifies the **contragent** (the payer) — the identifier is looked up among contragents first. A salepoint client identifier is also accepted: such a payment is automatically attributed to that client's contragent, and the link to the salepoint itself is preserved and returned in the `client` field of the `getPayment` method (the contragent is returned in `contragent`).
 
 If the payment specifies an `order` object, the order must belong to the same contragent as the payment. Otherwise the payment is rejected with the error `Client mistmatch` (returned by the API literally, including this spelling).
@@ -101,6 +103,8 @@ No new fields appear in the `setPayment` request. On an ordinary server the beha
 **Response:** Standard SET response: `completed`, `error`, `data.balance` — array of objects with `CS_id`, `SD_id`, `code_1C` for each successfully processed record.
 
 #### On a contragent server
+
+> **Note — two entities on a contragent server:** the **client** is a salepoint (outlet) where sales actually happen; the **contragent** is the legal entity / payer that owns one or more salepoints and on which all money, balance and debt are tracked. [More about contragents](10-contragent.md)
 
 On a **contragent server** an opening balance sent for a client (salepoint) is attributed to that client's contragent. The link to the salepoint is preserved. No new fields appear in the `setBalance` request; on an ordinary server the behavior does not change.
 

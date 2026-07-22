@@ -643,6 +643,8 @@ If no record is found by the given identifiers, a new record is created. For nes
 
 #### On a contragent server
 
+> **Note — two entities on a contragent server:** the **client** is a salepoint (outlet) where sales actually happen; the **contragent** is the legal entity / payer that owns one or more salepoints and on which all money, balance and debt are tracked. [More about contragents](10-contragent.md)
+
 On a **contragent server** a client element may additionally contain a `contragent` object — it links the client (salepoint) to its contragent. The contragent is specified by one of the identifiers: `CS_id`, `SD_id` or `code_1C`.
 
 ```json

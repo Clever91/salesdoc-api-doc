@@ -79,6 +79,8 @@ The `setContragent` and `getContragent` methods and the `contragent` field of `s
 
 **Description:** Create or update contragents (legal entities / payers). The method is available **only on a contragent server**; on an ordinary server it returns the error `Contragent mode is not enabled` (HTTP 400).
 
+> **Note — two entities on a contragent server:** the **client** is a salepoint (outlet) where sales actually happen; the **contragent** is the legal entity / payer that owns one or more salepoints and on which all money, balance and debt are tracked.
+
 Data is sent in a batch in `data.contragent` (the same batch-size limit as in the other SET methods applies). Each element is created or updated independently; the response contains `completed` / `error` counters.
 
 **Request:**
@@ -189,6 +191,8 @@ Data is sent in a batch in `data.contragent` (the same batch-size limit as in th
 ### 17.2. `getContragent` — Contragents list
 
 **Description:** Returns the list of contragents together with their salepoints (`clients`). The method is available **only on a contragent server**; on an ordinary server it returns the error `Contragent mode is not enabled` (HTTP 400).
+
+> **Note — two entities on a contragent server:** the **client** is a salepoint (outlet) where sales actually happen; the **contragent** is the legal entity / payer that owns one or more salepoints and on which all money, balance and debt are tracked.
 
 **Request:**
 ```json
