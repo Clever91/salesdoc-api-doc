@@ -752,5 +752,77 @@
 
 ---
 
+### 12.7. `setSubstatus` — Change order additional status
+
+**Description:** Sets, changes or detaches the additional status of one or more orders. An additional status refines the main order status; the dictionary of additional statuses and their allowed transitions is returned by [`getSubstatus`](06-get-extra.md#950-getsubstatus--additional-statuses-dictionary). An order can have at most one additional status.
+
+> ⚠️ **The main order status is never changed by this method.** The new additional status must belong to the order's current main status, and the transition from the current additional status must be allowed by its `transitions` list.
+
+**Request:**
+```json
+{
+    "method": "setSubstatus",
+    "auth": { "userId": "d0_1", "token": "..." },
+    "filial": { "filial_id": "0001" },
+    "data": {
+        "order": [
+            {
+                "SD_id": "d0_15",
+                "additionalStatus": 12
+            }
+        ]
+    }
+}
+```
+
+**Fields:**
+
+| Field | Type | Required | Description |
+|------|-----|:---:|----------|
+| `CS_id` / `SD_id` / `code_1C` | string | ✅ (one of) | Order identifier (same resolution order as in `setStatus`) |
+| `additionalStatus` | int | ✅ | ID of the new additional status (see [`getSubstatus`](06-get-extra.md#950-getsubstatus--additional-statuses-dictionary)). The value `0` detaches the additional status — always allowed |
+
+> Maximum **250** records per request; exceeding the limit returns the standard limit error (code 407).
+
+**Success response:**
+```json
+{
+    "status": true,
+    "result": {
+        "completed": 1,
+        "error": 0,
+        "data": {
+            "order": [
+                {
+                    "CS_id": "F1-d0_15",
+                    "SD_id": "d0_15",
+                    "code_1C": "ORD000001",
+                    "status": 1,
+                    "additionalStatus": {
+                        "id": 12,
+                        "name": "Ready for shipment"
+                    }
+                }
+            ]
+        }
+    }
+}
+```
+
+> In the response row, `status` is the order's current (unchanged) main status, and `additionalStatus` is the assigned additional status (`null` if the additional status was detached with `0`).
+
+**Errors** (accumulated per record; standard SET response format with `completed` / `error` counters and a `data` block):
+
+| Message | Reason |
+|---------|--------|
+| Order not found | No order matches the given `CS_id` / `SD_id` / `code_1C` |
+| Additional status not found | A non-existent additional status ID was passed |
+| `Доп. статус не доступен для статуса этой заявки` (additional status is not available for this order's status) | The additional status belongs to a different main status than the order's current one. The main order status is not modified |
+| `Переход между доп. статусами запрещён` (transition between additional statuses is not allowed) | The transition from the current additional status to the given one is not allowed by its `transitions` list |
+
+> **Note:** if the main order status changes (e.g. via `setStatus`) and the current additional status does not belong to the new main status, the additional status is detached automatically; such a change is recorded in [`getSubstatusLog`](06-get-extra.md#951-getsubstatuslog--additional-status-change-history) with source `auto`.
+
+---
+
 [← Back to contents](README.md) | [Next: Finance, Photo, Extra →](09-finance-photo-extra.md)
 
