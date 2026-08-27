@@ -756,7 +756,9 @@
 
 **Description:** Sets, changes or detaches the additional status of one or more orders. An additional status refines the main order status; the dictionary of additional statuses and their allowed transitions is returned by [`getSubstatus`](06-get-extra.md#950-getsubstatus--additional-statuses-dictionary). An order can have at most one additional status.
 
-> ⚠️ **The main order status is never changed by this method.** The new additional status must belong to the order's current main status, and the transition from the current additional status must be allowed by its `transitions` list.
+> ⚠️ **The main order status is never changed by this method.** The new additional status must belong to the order's current main status, and the transition from the current additional status must be allowed by its `transitions` list. If the order has no additional status yet, any additional status of the order's current main status may be set.
+
+> Re-sending the currently set value is idempotent: the record counts as `completed`, the order is not re-saved and no history row is created. Retries are safe.
 
 **Request:**
 ```json

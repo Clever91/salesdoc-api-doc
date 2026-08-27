@@ -1440,6 +1440,12 @@ covers the inclusive date range `[from, to]`. For a single day, set `from == to`
 | `status` | integer | Main order status the additional status belongs to (1 — new, 2 — sent, 3 — delivered, 4 — closed, 5 — cancelled) |
 | `transitions` | array | Array of additional status IDs this status may change to. The value `0` means "detach the additional status" (leave the order without an additional status) |
 
+> **How to determine which values are available for a specific order:**
+> 1. Take the order's main status (`status`) and its current `additionalStatus` field from [`getOrder`](04-get-orders.md#926-getorder--orders).
+> 2. If `additionalStatus` is `null` (no additional status set yet) — any additional status whose `status` matches the order's main status may be set.
+> 3. If an additional status is already set — only the values from its `transitions` list are available. The value `0` ("detach") is always available.
+> 4. Re-sending the currently set value is not considered a transition: [`setSubstatus`](08-set-warehouse-orders.md#127-setsubstatus--change-order-additional-status) returns success without changing the order.
+
 > **Note:** an order's additional status is set or detached with [`setSubstatus`](08-set-warehouse-orders.md#127-setsubstatus--change-order-additional-status); the change history is available via [`getSubstatusLog`](#951-getsubstatuslog--additional-status-change-history); in the [`getOrder`](04-get-orders.md#926-getorder--orders) response the additional status is returned in the `additionalStatus` field.
 
 ---
