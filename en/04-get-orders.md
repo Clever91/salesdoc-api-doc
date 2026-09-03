@@ -150,7 +150,7 @@
     }
 }
 ```
-> Date is taken from order change history.
+> Date is taken from order change history. A change of the order's additional status (including its automatic detach) also counts as an order update and is covered by this filter.
 
 **8. Filter by statuses (`filter.status`):**
 ```json

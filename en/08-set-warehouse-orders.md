@@ -754,9 +754,9 @@
 
 ### 12.7. `setSubstatus` — Change order additional status
 
-**Description:** Sets, changes or detaches the additional status of one or more orders. An additional status refines the main order status; the dictionary of additional statuses and their allowed transitions is returned by [`getSubstatus`](06-get-extra.md#950-getsubstatus--additional-statuses-dictionary). An order can have at most one additional status.
+**Description:** Sets, changes or detaches the additional status of one or more orders. An additional status refines the main order status; the dictionary of additional statuses is returned by [`getSubstatus`](06-get-extra.md#950-getsubstatus--additional-statuses-dictionary). An order can have at most one additional status.
 
-> ⚠️ **The main order status is never changed by this method.** The new additional status must belong to the order's current main status, and the transition from the current additional status must be allowed by its `transitions` list. If the order has no additional status yet, any additional status of the order's current main status may be set.
+> ⚠️ **The main order status is never changed by this method.** The only rule: the new additional status must belong to the order's current main status (the `parent_status` field in the dictionary). The order's current additional status (or its absence) does not matter — any additional status of the order's current main status may be set.
 
 > Re-sending the currently set value is idempotent: the record counts as `completed`, the order is not re-saved and no history row is created. Retries are safe.
 
@@ -820,9 +820,9 @@
 | Order not found | No order matches the given `CS_id` / `SD_id` / `code_1C` |
 | Additional status not found | A non-existent additional status ID was passed |
 | `Доп. статус не доступен для статуса этой заявки` (additional status is not available for this order's status) | The additional status belongs to a different main status than the order's current one. The main order status is not modified |
-| `Переход между доп. статусами запрещён` (transition between additional statuses is not allowed) | The transition from the current additional status to the given one is not allowed by its `transitions` list |
+| `Не удалось сохранить доп. статус` (failed to save the additional status) | The order could not be saved; the additional status is unchanged — the record can be re-sent |
 
-> **Note:** if the main order status changes (e.g. via `setStatus`) and the current additional status does not belong to the new main status, the additional status is detached automatically; such a change is recorded in [`getSubstatusLog`](06-get-extra.md#951-getsubstatuslog--additional-status-change-history) with source `auto`.
+> **Note:** if the main order status changes (e.g. via `setStatus`) and the current additional status does not belong to the new main status, the additional status is detached automatically; such a change is also recorded in [`getSubstatusLog`](06-get-extra.md#951-getsubstatuslog--additional-status-change-history) — as a row with `newAdditionalStatus: null`.
 
 ---
 
