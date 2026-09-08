@@ -31,6 +31,7 @@
 | Войти в систему | [login](01-general.md#2-аутентификация) |
 | Прочитать заказы | [getOrder](04-get-orders.md#926-getorder--заказы), [getOrderDefect](04-get-orders.md#927-getorderdefect--возвраты), [getOrderReplace](04-get-orders.md#928-getorderreplace--обмены) |
 | Создать/обновить заказ | [setOrder](08-set-warehouse-orders.md#121-setorder--создатьобновить-заказ), [setOrderDefect](08-set-warehouse-orders.md#125-setorderdefect--создать-возврат), [setCode](08-set-warehouse-orders.md#124-setcode--установить-код-1с-для-документов), [syncOrder](08-set-warehouse-orders.md#126-syncorder--синхронизация-заказов) |
+| Дополнительные статусы заказов | [getSubstatus](06-get-extra.md#950-getsubstatus--справочник-дополнительных-статусов), [setSubstatus](08-set-warehouse-orders.md#127-setsubstatus--изменить-дополнительный-статус-заказа), [getSubstatusLog](06-get-extra.md#951-getsubstatuslog--история-изменений-дополнительных-статусов) |
 | Справочники (клиенты, товары, цены, единицы и т.д.) | [02-get-references](02-get-references.md) (GET 9.1–9.20), [07-set-references](07-set-references.md) (SET 10.1–10.21) |
 | Остатки и склады | [getStock](03-get-visits-warehouse.md#924-getstock--остатки), [getStockForDate](03-get-visits-warehouse.md#925-getstockfordate--остатки-на-дату), [setStock](08-set-warehouse-orders.md#112-setstock--установить-складские-остатки-инвентаризация), [setPurchase](08-set-warehouse-orders.md#113-setpurchase--приход-товаров), [setMovement](08-set-warehouse-orders.md#114-setmovement--перемещение-товаров), [setMovementBetweenFilial](08-set-warehouse-orders.md#117-setmovementbetweenfilial--перемещения-между-филиалами-draft), [setMovementFilialPending](08-set-warehouse-orders.md#118-setmovementfilialpending--отправить-межфилиальное-перемещение-в-pending), [setExcretion](08-set-warehouse-orders.md#1110-setexcretion--списание-товара) |
 | Оплаты и баланс | [getPayment](02-get-references.md#915-getpayment--оплаты), [getBalance](05-get-finance.md#929-getbalance--баланс-клиентов), [setPayment](09-finance-photo-extra.md#131-setpayment--создать-оплату), [setBalance](09-finance-photo-extra.md#132-setbalance--установить-начальный-баланс), [setCurrentBalance](09-finance-photo-extra.md#133-setcurrentbalance--установить-текущий-баланс), [setConsumption](09-finance-photo-extra.md#134-setconsumption--создать-расход) |
@@ -131,7 +132,7 @@
 
 ---
 
-**Дополнительные GET-методы (9.32–9.47):**
+**Дополнительные GET-методы (9.32–9.51):**
 
 
 | #    | Метод | Описание                         |
@@ -151,6 +152,8 @@
 | 9.45 | [`getVsExchange`](06-get-extra.md#945-getvsexchange--обмены-на-склад) | Обмены на склад                  |
 | 9.46 | [`getMovementBetweenFilial`](06-get-extra.md#946-getmovementbetweenfilial--перемещения-между-филиалами) | Перемещения между филиалами      |
 | 9.47 | [`getTag`](06-get-extra.md#947-gettag--теги) | Теги                             |
+| 9.50 | [`getSubstatus`](06-get-extra.md#950-getsubstatus--справочник-дополнительных-статусов) | Справочник дополнительных статусов |
+| 9.51 | [`getSubstatusLog`](06-get-extra.md#951-getsubstatuslog--история-изменений-дополнительных-статусов) | История изменений дополнительных статусов |
 
 📄 **Файл:** [06-get-extra.md](06-get-extra.md)
 
@@ -209,6 +212,7 @@
 | 12.4 | [`setCode`](08-set-warehouse-orders.md#124-setcode--установить-код-1с-для-документов) | Установить код 1С для документов    |
 | 12.5 | [`setOrderDefect`](08-set-warehouse-orders.md#125-setorderdefect--создать-возврат) | Создать возврат                     |
 | 12.6 | [`syncOrder`](08-set-warehouse-orders.md#126-syncorder--синхронизация-заказов) | Синхронизация заказов               |
+| 12.7 | [`setSubstatus`](08-set-warehouse-orders.md#127-setsubstatus--изменить-дополнительный-статус-заказа) | Изменить дополнительный статус заказа |
 
 📄 **Файл:** [08-set-warehouse-orders.md](08-set-warehouse-orders.md)
 

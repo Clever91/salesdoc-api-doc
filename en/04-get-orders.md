@@ -20,6 +20,7 @@
 | `filter.period.orderCreated.from/to` | By record creation date |
 | `filter.period.dateUpdate.from/to` | By update date (from history) |
 | `filter.status` | Array of statuses (default `[1]`) |
+| `filter.additionalStatus` | Array of additional status IDs; `0` — orders without an additional status |
 | `filter.store` | By warehouse (`CS_id` / `SD_id` / `code_1C`) |
 | `filter.trade` | By trade direction (`CS_id` / `SD_id`) |
 | `filter.expeditors` | Array of expeditors |
@@ -149,7 +150,7 @@
     }
 }
 ```
-> Date is taken from order change history.
+> Date is taken from order change history. A change of the order's additional status (including its automatic detach) also counts as an order update and is covered by this filter.
 
 **8. Filter by statuses (`filter.status`):**
 ```json
@@ -293,7 +294,21 @@
 ```
 > You can specify client's `CS_id`, `SD_id` or `code_1C`.
 
-**17. Combining multiple filters:**
+**17. Filter by additional statuses (`filter.additionalStatus`):**
+```json
+{
+    "method": "getOrder",
+    "auth": { "userId": "d0_1", "token": "..." },
+    "params": {
+        "filter": {
+            "additionalStatus": [0, 21]
+        }
+    }
+}
+```
+> Array of additional status IDs (see the [`getSubstatus`](06-get-extra.md#950-getsubstatus--additional-statuses-dictionary) dictionary). The value `0` selects orders **without** an additional status; values can be combined: `[0, 21]` — orders without an additional status **or** with additional status 21. If the filter is absent, the selection is not restricted by additional status (fully backward compatible).
+
+**18. Combining multiple filters:**
 ```json
 {
     "method": "getOrder",
@@ -366,6 +381,10 @@
                 "SD_id": "d0_300",
                 "code_1C": "ORD000001",
                 "status": 1,
+                "additionalStatus": {
+                    "id": 11,
+                    "name": "In processing"
+                },
                 "dateCreate": "2025-06-15 10:00:00",
                 "dateDocument": "2025-06-15 10:00:00",
                 "totalSumma": 157500.00,
@@ -455,6 +474,9 @@
 | `SD_id` | string | Order internal identifier in SalesDoc |
 | `code_1C` | string | Order code in 1C system |
 | `status` | integer | Order status (1 — new, 2 — sent, 3 — delivered, 4 — closed, 5 — cancelled) |
+| **additionalStatus** | object\|null | Order additional status; `null` if no additional status is set |
+| `additionalStatus.id` | integer | Additional status identifier (see the [`getSubstatus`](06-get-extra.md#950-getsubstatus--additional-statuses-dictionary) dictionary) |
+| `additionalStatus.name` | string\|null | Additional status name; `null` if the status was deleted from the dictionary |
 | `dateCreate` | string | Order creation date and time (`YYYY-MM-DD HH:MM:SS`) |
 | `dateDocument` | string | Order document date (`YYYY-MM-DD HH:MM:SS`) |
 | `totalSumma` | float | Order total before discount |
@@ -516,6 +538,8 @@
 | `orderProducts[].returned` | float | Returned quantity |
 | `orderProducts[].block` | float | Quantity in blocks |
 | **bonus** | array | Bonus products array (structure same as `orderProducts`) |
+
+> **Note:** the `additionalStatus` field is present in every order row: it is an `{id, name}` object when an additional status is set, or `null` when the order has no additional status. If the assigned status was deleted from the dictionary, `id` is returned and `name` is `null`.
 
 ---
 

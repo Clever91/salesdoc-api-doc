@@ -1,4 +1,4 @@
-# GET methods — Extra (9.32–9.47)
+# GET methods — Extra (9.32–9.51)
 
 [← Back to contents](README.md)
 
@@ -1393,6 +1393,136 @@ covers the inclusive date range `[from, to]`. For a single day, set `from == to`
 | `id` | integer | Tag identifier |
 | `name` | string | Tag name |
 | `active` | string | Activity flag: `Y` — active, `N` — inactive |
+
+---
+
+### 9.50. `getSubstatus` — Additional statuses dictionary
+
+**Description:** Returns the dictionary of order additional statuses. An additional status refines the main order status: each additional status belongs to exactly one main status (1–5). An order can have at most one additional status; changing the additional status never changes the main order status. No pagination — the whole dictionary is returned.
+
+**Request:**
+```json
+{
+    "method": "getSubstatus",
+    "auth": { "userId": "d0_1", "token": "..." }
+}
+```
+
+**Response:**
+```json
+{
+    "status": true,
+    "result": {
+        "substatus": [
+            {
+                "id": 11,
+                "name": "In processing",
+                "parent_status": 1
+            },
+            {
+                "id": 12,
+                "name": "Ready for shipment",
+                "parent_status": 1
+            }
+        ]
+    }
+}
+```
+
+**Response fields:**
+
+| Field | Type | Description |
+|------|-----|----------|
+| `id` | integer | Additional status identifier |
+| `name` | string | Additional status name |
+| `parent_status` | integer | Main order status the additional status belongs to (1 — new, 2 — sent, 3 — delivered, 4 — closed, 5 — cancelled) |
+
+> **How to determine which values are available for a specific order:**
+> 1. Take the order's main status (`status`) and its current `additionalStatus` field from [`getOrder`](04-get-orders.md#926-getorder--orders).
+> 2. Any additional status whose `parent_status` matches the order's main status may be set — regardless of which additional status the order currently has (or whether it has one at all).
+> 3. The value `0` ("detach the additional status", leave the order without one) is always available.
+> 4. Re-sending the currently set value is an idempotent operation: [`setSubstatus`](08-set-warehouse-orders.md#127-setsubstatus--change-order-additional-status) returns success without changing the order.
+
+> **Note:** an order's additional status is set or detached with [`setSubstatus`](08-set-warehouse-orders.md#127-setsubstatus--change-order-additional-status); the change history is available via [`getSubstatusLog`](#951-getsubstatuslog--additional-status-change-history); in the [`getOrder`](04-get-orders.md#926-getorder--orders) response the additional status is returned in the `additionalStatus` field.
+
+---
+
+### 9.51. `getSubstatusLog` — Additional status change history
+
+**Description:** Returns the history of order additional status changes. Standard pagination is supported. Both filters are optional and can be combined; without filters the whole history is returned.
+
+**Filters:**
+
+| Filter | Description |
+|--------|-------------|
+| `filter.order` | By specific order (`CS_id` / `SD_id` / `code_1C`) |
+| `filter.period.dateUpdate.from/to` | By change date |
+
+**Request:**
+```json
+{
+    "method": "getSubstatusLog",
+    "auth": { "userId": "d0_1", "token": "..." },
+    "params": {
+        "limit": 100,
+        "page": 1,
+        "filter": {
+            "order": { "SD_id": "d0_15" },
+            "period": {
+                "dateUpdate": {
+                    "from": "2026-08-01",
+                    "to": "2026-08-26"
+                }
+            }
+        }
+    }
+}
+```
+
+**Response:**
+```json
+{
+    "status": true,
+    "result": {
+        "substatusLog": [
+            {
+                "order": {
+                    "CS_id": "F1-d0_15",
+                    "SD_id": "d0_15",
+                    "code_1C": "ORD000001"
+                },
+                "oldAdditionalStatus": {
+                    "id": 11,
+                    "name": "In processing"
+                },
+                "newAdditionalStatus": null,
+                "date": "2026-08-26 10:12:33",
+                "user": {
+                    "SD_id": "user_1",
+                    "login": "integrator",
+                    "name": "1C Integrator"
+                }
+            }
+        ]
+    },
+    "pagination": { "limit": 100, "total": 25, "page": 1 }
+}
+```
+
+**Response fields:**
+
+| Field | Type | Description |
+|------|-----|----------|
+| **order** | object | Order whose additional status changed |
+| `order.CS_id` | string | Order external identifier |
+| `order.SD_id` | string | Order internal identifier in SalesDoc |
+| `order.code_1C` | string | Order 1C code |
+| `oldAdditionalStatus` | object\|null | Additional status before the change (`{id, name}`); `null` if no additional status was set |
+| `newAdditionalStatus` | object\|null | Additional status after the change (`{id, name}`); `null` if the additional status was detached |
+| `date` | string | Change date and time (`YYYY-MM-DD HH:MM:SS`) |
+| `user` | object\|null | User who made the change (`SD_id`, `login`, `name`); `null` if unknown |
+
+> **Note:** if the main order status changes and the current additional status does not belong to the new main status, the additional status is detached automatically. Such a change also appears in the history — as a row with `newAdditionalStatus: null`.
 
 ---
 
