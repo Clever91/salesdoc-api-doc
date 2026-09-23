@@ -229,6 +229,9 @@ All GET methods support pagination (`limit`, `page`), period and sort.
                 "sapCode": null,
                 "ikpu": null,
                 "part_number": null,
+                "description": "Carbonated soft drink",
+                "description_ru": "Газированный напиток, 1.5 л",
+                "description_uz": null,
                 "category": {
                     "CS_id": "d0_3",
                     "SD_id": "d0_3",
@@ -286,6 +289,9 @@ All GET methods support pagination (`limit`, `page`), period and sort.
 | `sapCode` | string\|null | SAP code |
 | `ikpu` | string\|null | IKPU code |
 | `part_number` | string\|null | Part number |
+| `description` | string\|null | Main product description |
+| `description_ru` | string\|null | Description in Russian. `null` means no translation is set |
+| `description_uz` | string\|null | Description in Uzbek. `null` means no translation is set |
 | **category** | object | Product category |
 | `category.CS_id` | string | Category identifier |
 | `category.SD_id` | string | Category server ID |
@@ -310,6 +316,10 @@ All GET methods support pagination (`limit`, `page`), period and sort.
 | `group.CS_id` | string | Group identifier |
 | `group.SD_id` | string | Group server ID |
 | `group.code_1C` | string | Group 1C code |
+
+> **Product descriptions.** The fields `description`, `description_ru` and `description_uz` are independent. If the Russian or Uzbek translation is not set, the server returns `null` and **does not substitute** the value of `description`. Choosing fallback text (for example, showing `description` when `description_uz` is `null`) is the client's responsibility.
+>
+> The fields are additive: existing clients that do not read them keep working unchanged. `getProduct` in `/api/v4` returns the same fields.
 
 ---
 
