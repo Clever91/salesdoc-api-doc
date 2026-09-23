@@ -124,7 +124,7 @@ model, and `CS_id` / `SD_id` / `code_1C` identifiers with its sibling.
 | #    | Method | Description     |
 | ---- | ------ | ---------------- |
 | 9.29 | [`getBalance`](05-get-finance.md#929-getbalance--client-balances) | Client balances |
-| 9.30 | [`getConsumption`](05-get-finance.md#930-getconsumption--expense-income) | Expense / Income |
+| 9.30 | [`getConsumption`](05-get-finance.md#930-getconsumption--expense--income) | Expense / Income |
 | 9.31 | [`getCashbox`](05-get-finance.md#931-getcashbox--cashbox) | Cashbox          |
 
 **File:** [05-get-finance.md](05-get-finance.md)
@@ -166,13 +166,13 @@ model, and `CS_id` / `SD_id` / `code_1C` identifiers with its sibling.
 | #     | Method | Description                    |
 | ----- | ------ | ------------------------------ |
 | 10.1  | [`setValyutaType`](07-set-references.md#101-setvalyutatype--createupdate-currency-types) | Create/update currency types   |
-| 10.2  | [`setUnit`](07-set-references.md#102-setunit--createupdate-units) | Create/update units            |
+| 10.2  | [`setUnit`](07-set-references.md#102-setunit--createupdate-units-of-measure) | Create/update units            |
 | 10.3  | [`setClientCategory`](07-set-references.md#103-setclientcategory--createupdate-client-categories) | Create/update client categories |
 | 10.4  | [`setClientChannel`](07-set-references.md#104-setclientchannel--createupdate-sales-channels) | Create/update sales channels   |
 | 10.5  | [`setClientType`](07-set-references.md#105-setclienttype--createupdate-client-types) | Create/update client types     |
 | 10.6  | [`setProduct`](07-set-references.md#106-setproduct--createupdate-products) | Create/update products         |
 | 10.7  | [`setProductCategory`](07-set-references.md#107-setproductcategory--createupdate-product-categories) | Create/update product categories |
-| 10.8  | [`setProductSubCategory`](07-set-references.md#108-setproductsubcategory--createupdate-subcategories) | Create/update subcategories    |
+| 10.8  | [`setProductSubCategory`](07-set-references.md#108-setproductsubcategory--createupdate-product-subcategories) | Create/update subcategories    |
 | 10.9  | [`setProductGroup`](07-set-references.md#109-setproductgroup--createupdate-product-groups) | Create/update product groups   |
 | 10.10 | [`setPaymentType`](07-set-references.md#1010-setpaymenttype--createupdate-payment-types) | Create/update payment types    |
 | 10.11 | [`setPriceType`](07-set-references.md#1011-setpricetype--createupdate-price-types) | Create/update price types      |
