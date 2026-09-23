@@ -33,6 +33,7 @@ SalesDoc API V2 is a programmatic interface for integrating external systems (1C
 - **SD_id** — server-side identifier in SalesDoc (no prefix)
 - **code_1C** — external identifier in the 1C system (XML_ID)
 - **Filial** — company subdivision with its own database
+- **Server type** — each SalesDoc server runs in one of two modes: **ordinary server** or **contragent server** (a two-level "contragent → salepoints" model). The type is detected by the system automatically; the integrator cannot change it. See: [Contragents](10-contragent.md)
 
 ---
 

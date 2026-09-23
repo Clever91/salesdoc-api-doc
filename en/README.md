@@ -35,6 +35,9 @@ model, and `CS_id` / `SD_id` / `code_1C` identifiers with its sibling.
 | References (clients, products, prices, units, etc.) | [02-get-references](02-get-references.md) (GET 9.1–9.20), [07-set-references](07-set-references.md) (SET 10.1–10.21) |
 | Stock and warehouses | [getStock](03-get-visits-warehouse.md#924-getstock--stock), [getStockForDate](03-get-visits-warehouse.md#925-getstockfordate--stock-by-date), [setStock](08-set-warehouse-orders.md#112-setstock--set-warehouse-stock-inventory), [setPurchase](08-set-warehouse-orders.md#113-setpurchase--goods-receipt), [setMovement](08-set-warehouse-orders.md#114-setmovement--transfer), [setMovementBetweenFilial](08-set-warehouse-orders.md#117-setmovementbetweenfilial--movements-between-filials-draft), [setMovementFilialPending](08-set-warehouse-orders.md#118-setmovementfilialpending--send-inter-filial-movement-to-pending), [setExcretion](08-set-warehouse-orders.md#1110-setexcretion--write-off) |
 | Payments and balance | [getPayment](02-get-references.md#915-getpayment--payments), [getBalance](05-get-finance.md#929-getbalance--client-balances), [setPayment](09-finance-photo-extra.md#131-setpayment--create-payment), [setBalance](09-finance-photo-extra.md#132-setbalance--set-opening-balance), [setCurrentBalance](09-finance-photo-extra.md#133-setcurrentbalance--set-current-balance), [setConsumption](09-finance-photo-extra.md#134-setconsumption--create-expense) |
+| Contragents (legal entities) and their salepoints | [What a contragent is](10-contragent.md), [setContragent](10-contragent.md#171-setcontragent--createupdate-contragents), [getContragent](10-contragent.md#172-getcontragent--contragents-list), [setClient](07-set-references.md#1017-setclient--createupdate-clients) (the `contragent` field) |
+| Inter-filial movement statuses | [getMovementFilialStatus](06-get-extra.md#948-getmovementfilialstatus--inter-filial-movement-statuses) |
+| Latest agent GPS coordinates | [getAgentLastTime](06-get-extra.md#949-getagentlasttime--agent-last-coordinates) |
 | Product photo | [setPhoto](09-finance-photo-extra.md#141-setphoto--upload-product-photo), [getPhoto](09-finance-photo-extra.md#142-getphoto--get-product-photo) |
 | Filials, client requests | [getFilials](09-finance-photo-extra.md#151-getfilials--list-filials), [getClientPending](09-finance-photo-extra.md#153-getclientpending--client-requests), [deleteClientPending](09-finance-photo-extra.md#154-deleteclientpending--delete-client-request) |
 | Store operations log | [getStoreLog](09-finance-photo-extra.md#152-getstorelog--store-operations-log) (available 20:00–07:00) |
@@ -121,7 +124,7 @@ model, and `CS_id` / `SD_id` / `code_1C` identifiers with its sibling.
 | #    | Method | Description     |
 | ---- | ------ | ---------------- |
 | 9.29 | [`getBalance`](05-get-finance.md#929-getbalance--client-balances) | Client balances |
-| 9.30 | [`getConsumption`](05-get-finance.md#930-getconsumption--expense-income) | Expense / Income |
+| 9.30 | [`getConsumption`](05-get-finance.md#930-getconsumption--expense--income) | Expense / Income |
 | 9.31 | [`getCashbox`](05-get-finance.md#931-getcashbox--cashbox) | Cashbox          |
 
 **File:** [05-get-finance.md](05-get-finance.md)
@@ -147,6 +150,8 @@ model, and `CS_id` / `SD_id` / `code_1C` identifiers with its sibling.
 | 9.45 | [`getVsExchange`](06-get-extra.md#945-getvsexchange--warehouse-exchanges) | Warehouse exchanges |
 | 9.46 | [`getMovementBetweenFilial`](06-get-extra.md#946-getmovementbetweenfilial--movements-between-filials) | Movements between filials |
 | 9.47 | [`getTag`](06-get-extra.md#947-gettag--tags) | Tags                |
+| 9.48 | [`getMovementFilialStatus`](06-get-extra.md#948-getmovementfilialstatus--inter-filial-movement-statuses) | Inter-filial movement statuses |
+| 9.49 | [`getAgentLastTime`](06-get-extra.md#949-getagentlasttime--agent-last-coordinates) | Agent last coordinates |
 | 9.50 | [`getSubstatus`](06-get-extra.md#950-getsubstatus--additional-statuses-dictionary) | Additional statuses dictionary |
 | 9.51 | [`getSubstatusLog`](06-get-extra.md#951-getsubstatuslog--additional-status-change-history) | Additional status change history |
 
@@ -161,13 +166,13 @@ model, and `CS_id` / `SD_id` / `code_1C` identifiers with its sibling.
 | #     | Method | Description                    |
 | ----- | ------ | ------------------------------ |
 | 10.1  | [`setValyutaType`](07-set-references.md#101-setvalyutatype--createupdate-currency-types) | Create/update currency types   |
-| 10.2  | [`setUnit`](07-set-references.md#102-setunit--createupdate-units) | Create/update units            |
+| 10.2  | [`setUnit`](07-set-references.md#102-setunit--createupdate-units-of-measure) | Create/update units            |
 | 10.3  | [`setClientCategory`](07-set-references.md#103-setclientcategory--createupdate-client-categories) | Create/update client categories |
 | 10.4  | [`setClientChannel`](07-set-references.md#104-setclientchannel--createupdate-sales-channels) | Create/update sales channels   |
 | 10.5  | [`setClientType`](07-set-references.md#105-setclienttype--createupdate-client-types) | Create/update client types     |
 | 10.6  | [`setProduct`](07-set-references.md#106-setproduct--createupdate-products) | Create/update products         |
 | 10.7  | [`setProductCategory`](07-set-references.md#107-setproductcategory--createupdate-product-categories) | Create/update product categories |
-| 10.8  | [`setProductSubCategory`](07-set-references.md#108-setproductsubcategory--createupdate-subcategories) | Create/update subcategories    |
+| 10.8  | [`setProductSubCategory`](07-set-references.md#108-setproductsubcategory--createupdate-product-subcategories) | Create/update subcategories    |
 | 10.9  | [`setProductGroup`](07-set-references.md#109-setproductgroup--createupdate-product-groups) | Create/update product groups   |
 | 10.10 | [`setPaymentType`](07-set-references.md#1010-setpaymenttype--createupdate-payment-types) | Create/update payment types    |
 | 10.11 | [`setPriceType`](07-set-references.md#1011-setpricetype--createupdate-price-types) | Create/update price types      |
@@ -227,5 +232,18 @@ model, and `CS_id` / `SD_id` / `code_1C` identifiers with its sibling.
 | 15.4 | [`deleteClientPending`](09-finance-photo-extra.md#154-deleteclientpending--delete-client-request) | Delete client request |
 
 **File:** [09-finance-photo-extra.md](09-finance-photo-extra.md)
+
+---
+
+### Contragents (17)
+
+> These methods are available only on a **contragent server**. The server type is detected by the system automatically — the integrator cannot change it. See: [Contragents](10-contragent.md).
+
+| #    | Method | Description                       |
+| ---- | ------ | --------------------------------- |
+| 17.1 | [`setContragent`](10-contragent.md#171-setcontragent--createupdate-contragents) | Create/update contragents         |
+| 17.2 | [`getContragent`](10-contragent.md#172-getcontragent--contragents-list) | Contragents list                  |
+
+**File:** [10-contragent.md](10-contragent.md)
 
 ---
