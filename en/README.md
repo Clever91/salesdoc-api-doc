@@ -31,6 +31,7 @@ model, and `CS_id` / `SD_id` / `code_1C` identifiers with its sibling.
 | Log in | [login](01-general.md#2-authentication) |
 | Read orders | [getOrder](04-get-orders.md#926-getorder--orders), [getOrderDefect](04-get-orders.md#927-getorderdefect--returns), [getOrderReplace](04-get-orders.md#928-getorderreplace--exchanges) |
 | Create/update order | [setOrder](08-set-warehouse-orders.md#121-setorder--createupdate-order), [setOrderDefect](08-set-warehouse-orders.md#125-setorderdefect--create-return), [setCode](08-set-warehouse-orders.md#124-setcode--set-1c-code-for-documents), [syncOrder](08-set-warehouse-orders.md#126-syncorder--order-sync) |
+| Order additional statuses | [getSubstatus](06-get-extra.md#950-getsubstatus--additional-statuses-dictionary), [setSubstatus](08-set-warehouse-orders.md#127-setsubstatus--change-order-additional-status), [getSubstatusLog](06-get-extra.md#951-getsubstatuslog--additional-status-change-history) |
 | References (clients, products, prices, units, etc.) | [02-get-references](02-get-references.md) (GET 9.1–9.20), [07-set-references](07-set-references.md) (SET 10.1–10.21) |
 | Stock and warehouses | [getStock](03-get-visits-warehouse.md#924-getstock--stock), [getStockForDate](03-get-visits-warehouse.md#925-getstockfordate--stock-by-date), [setStock](08-set-warehouse-orders.md#112-setstock--set-warehouse-stock-inventory), [setPurchase](08-set-warehouse-orders.md#113-setpurchase--goods-receipt), [setMovement](08-set-warehouse-orders.md#114-setmovement--transfer), [setMovementBetweenFilial](08-set-warehouse-orders.md#117-setmovementbetweenfilial--movements-between-filials-draft), [setMovementFilialPending](08-set-warehouse-orders.md#118-setmovementfilialpending--send-inter-filial-movement-to-pending), [setExcretion](08-set-warehouse-orders.md#1110-setexcretion--write-off) |
 | Payments and balance | [getPayment](02-get-references.md#915-getpayment--payments), [getBalance](05-get-finance.md#929-getbalance--client-balances), [setPayment](09-finance-photo-extra.md#131-setpayment--create-payment), [setBalance](09-finance-photo-extra.md#132-setbalance--set-opening-balance), [setCurrentBalance](09-finance-photo-extra.md#133-setcurrentbalance--set-current-balance), [setConsumption](09-finance-photo-extra.md#134-setconsumption--create-expense) |
@@ -130,7 +131,7 @@ model, and `CS_id` / `SD_id` / `code_1C` identifiers with its sibling.
 
 ---
 
-**Extra GET methods (9.32–9.49):**
+**Extra GET methods (9.32–9.51):**
 
 | #    | Method | Description                |
 | ---- | ------ | -------------------------- |
@@ -151,6 +152,8 @@ model, and `CS_id` / `SD_id` / `code_1C` identifiers with its sibling.
 | 9.47 | [`getTag`](06-get-extra.md#947-gettag--tags) | Tags                |
 | 9.48 | [`getMovementFilialStatus`](06-get-extra.md#948-getmovementfilialstatus--inter-filial-movement-statuses) | Inter-filial movement statuses |
 | 9.49 | [`getAgentLastTime`](06-get-extra.md#949-getagentlasttime--agent-last-coordinates) | Agent last coordinates |
+| 9.50 | [`getSubstatus`](06-get-extra.md#950-getsubstatus--additional-statuses-dictionary) | Additional statuses dictionary |
+| 9.51 | [`getSubstatusLog`](06-get-extra.md#951-getsubstatuslog--additional-status-change-history) | Additional status change history |
 
 **File:** [06-get-extra.md](06-get-extra.md)
 
@@ -207,6 +210,7 @@ model, and `CS_id` / `SD_id` / `code_1C` identifiers with its sibling.
 | 12.4 | [`setCode`](08-set-warehouse-orders.md#124-setcode--set-1c-code-for-documents) | Set 1C code for documents       |
 | 12.5 | [`setOrderDefect`](08-set-warehouse-orders.md#125-setorderdefect--create-return) | Create return                   |
 | 12.6 | [`syncOrder`](08-set-warehouse-orders.md#126-syncorder--order-sync) | Order sync                      |
+| 12.7 | [`setSubstatus`](08-set-warehouse-orders.md#127-setsubstatus--change-order-additional-status) | Change order additional status |
 
 **File:** [08-set-warehouse-orders.md](08-set-warehouse-orders.md)
 

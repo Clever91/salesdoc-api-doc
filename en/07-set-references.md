@@ -213,6 +213,9 @@ If no record is found by the given identifiers, a new record is created. For nes
                 "barCode": "4780001234567",
                 "weight": 1.5,
                 "part_number": null,
+                "description": "Carbonated soft drink",
+                "description_ru": "Газированный напиток, 1.5 л",
+                "description_uz": "Gazlangan ichimlik, 1.5 l",
                 "category": {
                     "code_1C": "000000003",
                     "name": "Beverages"
@@ -258,6 +261,54 @@ If no record is found by the given identifiers, a new record is created. For nes
 | `subCategory` | object | ❌ | Subcategory |
 | `group` | object | ❌ | Product group |
 | `brand` | object | ❌ | Brand |
+| `description` | string\|null | ❌ | Main product description, up to 1000 characters |
+| `description_ru` | string\|null | ❌ | Description in Russian, up to 1000 characters |
+| `description_uz` | string\|null | ❌ | Description in Uzbek, up to 1000 characters |
+
+#### Product descriptions: update rules
+
+The fields `description`, `description_ru` and `description_uz` are optional and independent: changing one field does not affect the others. The same rules apply to all three fields.
+
+| What the element contains | Result |
+|---------------------------|--------|
+| Key is absent | The stored value is not changed |
+| A string | The value is saved (leading and trailing spaces are trimmed for `description_ru` and `description_uz`) |
+| `null` or `""` | The value is cleared. For `description_ru` and `description_uz`, `getProduct` returns `null` |
+
+- The server **does not copy** `description` into `description_ru` or `description_uz`. A translation that is not sent stays empty.
+- Integrations that do not send these fields keep working as before: existing descriptions are not removed.
+- The product and its descriptions are saved in one transaction: if the descriptions cannot be saved, the product changes are rolled back too.
+- `setProduct` in `/api/v4` accepts the same fields with the same rules.
+
+**Partial update** — change only the Uzbek description and leave everything else as is:
+```json
+{
+    "method": "setProduct",
+    "auth": { "userId": "d0_1", "token": "..." },
+    "data": {
+        "product": [
+            {
+                "SD_id": "d0_15",
+                "name": "Coca-Cola 1.5L",
+                "unit": { "SD_id": "d0_2" },
+                "description_uz": "Gazlangan ichimlik"
+            }
+        ]
+    }
+}
+```
+
+**Validation errors.** If `description_ru` or `description_uz` is longer than 1000 characters or is not a string, the element is not saved and is counted in `error`. Other elements of the batch are processed as usual. Example of a failed element:
+```json
+{
+    "CS_id": null,
+    "SD_id": "d0_15",
+    "code_1C": "000000015",
+    "name": "Coca-Cola 1.5L",
+    "index": 0,
+    "errors": ["description_uz is too long (maximum is 1000 characters)"]
+}
+```
 
 ---
 
