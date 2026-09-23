@@ -229,6 +229,9 @@
                 "sapCode": null,
                 "ikpu": null,
                 "part_number": null,
+                "description": "Газированный напиток",
+                "description_ru": "Газированный напиток, 1.5 л",
+                "description_uz": null,
                 "category": {
                     "CS_id": "d0_3",
                     "SD_id": "d0_3",
@@ -286,6 +289,9 @@
 | `sapCode` | string\|null | SAP-код |
 | `ikpu` | string\|null | Код ИКПУ |
 | `part_number` | string\|null | Артикул |
+| `description` | string\|null | Основное описание товара |
+| `description_ru` | string\|null | Описание на русском языке. `null` — перевод не задан |
+| `description_uz` | string\|null | Описание на узбекском языке. `null` — перевод не задан |
 | **category** | object | Категория товара |
 | `category.CS_id` | string | Идентификатор категории |
 | `category.SD_id` | string | Серверный ID категории |
@@ -310,6 +316,10 @@
 | `group.CS_id` | string | Идентификатор группы |
 | `group.SD_id` | string | Серверный ID группы |
 | `group.code_1C` | string | Код группы в 1С |
+
+> **Описания товара.** Поля `description`, `description_ru` и `description_uz` независимы друг от друга. Если перевод на русский или узбекский не задан, сервер возвращает `null` и **не подставляет** значение из `description`. Выбор резервного текста (например, показать `description`, если `description_uz` равен `null`) — задача клиента.
+>
+> Поля добавлены без изменения существующих: клиенты, которые их не используют, работают как прежде. Метод `getProduct` в `/api/v4` возвращает те же поля.
 
 ---
 
