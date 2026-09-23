@@ -71,6 +71,30 @@
 | `filter.include` | `sd`, `1c`, `all` — по источнику |
 | `filter.type` | `income` — приход, `expense` — расход |
 | `filter.paymentType` | По типу оплаты (`CS_id` / `SD_id` / `code_1C`) |
+| `filter.date.from` | Начало периода, `YYYY-MM-DD` (включительно) |
+| `filter.date.to` | Конец периода, `YYYY-MM-DD` (включительно) |
+| `filter.dateType` | Дата, по которой применяется период: `date` — дата операции (по умолчанию), `created_at` — дата создания записи |
+
+**Параметры фильтра по дате:**
+
+| Параметр | Тип | Формат | Описание |
+|------|-----|--------|----------|
+| `filter.date.from` | string | `YYYY-MM-DD` | Начало периода, включительно (с `00:00:00`). Необязательный. |
+| `filter.date.to` | string | `YYYY-MM-DD` | Конец периода, включительно (до `23:59:59`). Необязательный. |
+| `filter.dateType` | string | `date` \| `created_at` | К какой дате применяется период. По умолчанию — `date`. |
+
+| `dateType` | Дата | Поле в ответе |
+|------------|------|---------------|
+| `date` | Дата операции (дата расхода / прихода) | `date` |
+| `created_at` | Дата создания записи в SalesDoc | `created_at` |
+
+> Любую из границ можно не указывать: только `from` — «с этой даты», только `to` — «по эту дату».
+> Если не указаны ни `from`, ни `to`, фильтр по дате не применяется, а `dateType` игнорируется.
+>
+> Фильтр работает так же, как фильтры **«Дата расхода»** и **«Дата создания»** в разделе
+> **Касса → Расходы** веб-интерфейса SalesDoc: за один и тот же период API возвращает те же записи.
+>
+> `pagination.total` учитывает все применённые фильтры, включая фильтр по дате.
 
 **Примеры использования фильтров:**
 
@@ -133,6 +157,37 @@
 
 > Альтернативы для `filter.paymentType`: можно указать **CS_id** (например `"F1-d0_1"`) или **SD_id** (например `"d0_1"`) вместо code_1C.
 
+**Фильтр по дате операции (`filter.date`):**
+```json
+{
+    "method": "getConsumption",
+    "auth": { "userId": "d0_1", "token": "..." },
+    "params": {
+        "filter": {
+            "date": { "from": "2025-06-01", "to": "2025-06-30" }
+        }
+    }
+}
+```
+> `dateType` не указан, поэтому период применяется к дате операции (`date`).
+
+**Фильтр по дате создания (`filter.dateType: created_at`):**
+```json
+{
+    "method": "getConsumption",
+    "auth": { "userId": "d0_1", "token": "..." },
+    "params": {
+        "filter": {
+            "include": "sd",
+            "dateType": "created_at",
+            "date": { "from": "2025-06-15" }
+        }
+    }
+}
+```
+> Возвращает записи SalesDoc, созданные 15.06.2025 и позже, независимо от даты операции.
+> Этот режим удобен для регулярной догрузки: операция, введённая сегодня задним числом, всё равно будет выгружена.
+
 **Комбинирование всех фильтров:**
 ```json
 {
@@ -145,7 +200,9 @@
             "include": "sd",
             "paymentType": {
                 "code_1C": "000000001"
-            }
+            },
+            "dateType": "date",
+            "date": { "from": "2025-06-01", "to": "2025-06-30" }
         }
     }
 }
@@ -205,7 +262,7 @@
 | `code_1C` | string | Код в 1С |
 | `summa` | float | Сумма операции |
 | `date` | string | Дата операции |
-| `created_at` | string | Дата и время создания записи |
+| `created_at` | string | Дата и время создания записи (используется при `filter.dateType: created_at`) |
 | `type` | string | Тип операции: `expense` — расход, `income` — приход |
 | `comment` | string | Комментарий |
 | **cashbox** | object | Касса |
@@ -227,6 +284,26 @@
 | `category_child.SD_id` | string | Серверный ID |
 | `category_child.name` | string | Название |
 | `category_child.code_1C` | string | Код в 1С |
+
+**Ошибки валидации:**
+
+| `error.message` | Причина |
+|-----------------|---------|
+| `Invalid date format` | `filter.date.from` или `filter.date.to` не является корректной датой |
+| `Invalid date type` | `filter.dateType` имеет значение, отличное от `date` и `created_at` |
+| `Invalid filter type` | `filter.type` имеет значение, отличное от `income` и `expense` |
+
+```json
+{
+    "status": false,
+    "result": [],
+    "error": {
+        "code": 400,
+        "message": "Invalid date type",
+        "data": []
+    }
+}
+```
 
 ---
 

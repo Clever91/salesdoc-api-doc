@@ -71,6 +71,30 @@
 | `filter.include` | `sd`, `1c`, `all` — by source |
 | `filter.type` | `income` — income, `expense` — expense |
 | `filter.paymentType` | By payment type (`CS_id` / `SD_id` / `code_1C`) |
+| `filter.date.from` | Period start, `YYYY-MM-DD` (inclusive) |
+| `filter.date.to` | Period end, `YYYY-MM-DD` (inclusive) |
+| `filter.dateType` | Date used for the period: `date` — operation date (default), `created_at` — record creation date |
+
+**Date filter parameters:**
+
+| Parameter | Type | Format | Description |
+|------|-----|--------|----------|
+| `filter.date.from` | string | `YYYY-MM-DD` | Period start, inclusive (from `00:00:00`). Optional. |
+| `filter.date.to` | string | `YYYY-MM-DD` | Period end, inclusive (until `23:59:59`). Optional. |
+| `filter.dateType` | string | `date` \| `created_at` | Which date the period applies to. Default: `date`. |
+
+| `dateType` | Date used | Response field |
+|------------|-----------|----------------|
+| `date` | Operation date (expense / income date) | `date` |
+| `created_at` | Date the record was created in SalesDoc | `created_at` |
+
+> Either bound may be omitted: send only `from` for "from this date onward", or only `to` for "up to this date".
+> If neither `from` nor `to` is set, the date filter is not applied and `dateType` is ignored.
+>
+> The filter works the same way as the **Expense Date** and **Created Date** filters in the
+> **Cash Desk → Expenses** section of the SalesDoc web interface: for the same period, the API returns the same records.
+>
+> `pagination.total` reflects all applied filters, including the date filter.
 
 **Filter examples:**
 
@@ -133,6 +157,37 @@
 
 > Alternatives for `filter.paymentType`: you can use **CS_id** (e.g. `"F1-d0_1"`) or **SD_id** (e.g. `"d0_1"`) instead of code_1C.
 
+**Filter by operation date (`filter.date`):**
+```json
+{
+    "method": "getConsumption",
+    "auth": { "userId": "d0_1", "token": "..." },
+    "params": {
+        "filter": {
+            "date": { "from": "2025-06-01", "to": "2025-06-30" }
+        }
+    }
+}
+```
+> `dateType` is omitted, so the period applies to the operation date (`date`).
+
+**Filter by creation date (`filter.dateType: created_at`):**
+```json
+{
+    "method": "getConsumption",
+    "auth": { "userId": "d0_1", "token": "..." },
+    "params": {
+        "filter": {
+            "include": "sd",
+            "dateType": "created_at",
+            "date": { "from": "2025-06-15" }
+        }
+    }
+}
+```
+> Returns SalesDoc records created on or after 15.06.2025, regardless of their operation date.
+> Use this mode for incremental exports: an operation entered today with an earlier operation date is still exported.
+
 **Combining all filters:**
 ```json
 {
@@ -145,7 +200,9 @@
             "include": "sd",
             "paymentType": {
                 "code_1C": "000000001"
-            }
+            },
+            "dateType": "date",
+            "date": { "from": "2025-06-01", "to": "2025-06-30" }
         }
     }
 }
@@ -205,7 +262,7 @@
 | `code_1C` | string | 1C code |
 | `summa` | float | Operation amount |
 | `date` | string | Operation date |
-| `created_at` | string | Record creation date and time |
+| `created_at` | string | Record creation date and time (used by `filter.dateType: created_at`) |
 | `type` | string | Operation type: `expense` — expense, `income` — income |
 | `comment` | string | Comment |
 | **cashbox** | object | Cashbox |
@@ -227,6 +284,26 @@
 | `category_child.SD_id` | string | Server ID |
 | `category_child.name` | string | Name |
 | `category_child.code_1C` | string | 1C code |
+
+**Validation errors:**
+
+| `error.message` | Cause |
+|-----------------|-------|
+| `Invalid date format` | `filter.date.from` or `filter.date.to` is not a valid date |
+| `Invalid date type` | `filter.dateType` is not `date` or `created_at` |
+| `Invalid filter type` | `filter.type` is not `income` or `expense` |
+
+```json
+{
+    "status": false,
+    "result": [],
+    "error": {
+        "code": 400,
+        "message": "Invalid date type",
+        "data": []
+    }
+}
+```
 
 ---
 
